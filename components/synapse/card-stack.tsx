@@ -155,8 +155,8 @@ export function CardStack({
 
               {analysisSections.map(({ key, label }) => (
                 <div key={key}>
-                  <p className="mb-0.5 text-xs font-semibold text-primary">{label}</p>
-                  <p className="text-xs leading-relaxed text-foreground/80">
+                  <p className="mb-0.5 text-[13px] font-semibold text-primary">{label}</p>
+                  <p className="text-[13px] leading-relaxed text-foreground/80">
                     {current.analysis[key]}
                   </p>
                 </div>
