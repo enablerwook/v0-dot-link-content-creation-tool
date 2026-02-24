@@ -1,22 +1,13 @@
 "use client"
 
-import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { ContentCardComponent } from "@/components/library/content-card"
-import { CardDetailModal } from "@/components/library/card-detail-modal"
 import { useAppContext } from "@/lib/app-context"
 import type { ContentCard } from "@/lib/types"
 
 export default function LibraryPage() {
   const { libraryCards, setSelectedCardA } = useAppContext()
-  const [selectedCard, setSelectedCard] = useState<ContentCard | null>(null)
-  const [modalOpen, setModalOpen] = useState(false)
   const router = useRouter()
-
-  function handleSelect(card: ContentCard) {
-    setSelectedCard(card)
-    setModalOpen(true)
-  }
 
   function handleSynapseClick(card: ContentCard) {
     setSelectedCardA(card)
@@ -37,17 +28,10 @@ export default function LibraryPage() {
           <ContentCardComponent
             key={card.id}
             card={card}
-            onSelect={handleSelect}
             onSynapseClick={handleSynapseClick}
           />
         ))}
       </div>
-
-      <CardDetailModal
-        card={selectedCard}
-        open={modalOpen}
-        onOpenChange={setModalOpen}
-      />
     </div>
   )
 }
