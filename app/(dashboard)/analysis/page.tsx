@@ -55,7 +55,7 @@ export default function AnalysisPage() {
               </Badge>
             </div>
             <Button
-              variant={isSaved ? "secondary" : "outline"}
+              variant={isSaved ? "secondary" : "default"}
               size="sm"
               onClick={() => setIsSaved(true)}
               disabled={isSaved}
