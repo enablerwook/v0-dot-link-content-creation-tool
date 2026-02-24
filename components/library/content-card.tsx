@@ -138,15 +138,15 @@ export function ContentCardComponent({
 
               {analysisSections.map(({ key, label }) => (
                 <div key={key}>
-                  <p className="mb-0.5 text-[10px] font-semibold text-primary">{label}</p>
-                  <p className="text-[10px] leading-relaxed text-foreground/80">
+                  <p className="mb-0.5 text-xs font-semibold text-primary">{label}</p>
+                  <p className="text-xs leading-relaxed text-foreground/80">
                     {card.analysis[key]}
                   </p>
                 </div>
               ))}
 
               <div>
-                <p className="mb-1 text-[10px] font-semibold text-primary">제작 난이도</p>
+                <p className="mb-1 text-[8px] font-semibold text-primary">제작 난이도</p>
                 <DifficultyMeter difficulty={card.analysis.difficulty} />
               </div>
 
