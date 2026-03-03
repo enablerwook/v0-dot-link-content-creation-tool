@@ -15,14 +15,13 @@ import { DifficultyMeter } from "@/components/analysis/difficulty-meter"
 import type { ContentCard } from "@/lib/types"
 
 const sections = [
-  { key: "contentType", label: "유형" },
-  { key: "hookVisual", label: "후킹" },
-  { key: "scriptAppeal", label: "스크립트" },
-  { key: "captionAnalysis", label: "캡션" },
-  { key: "hookText", label: "글" },
-  { key: "visualDirection", label: "연출" },
-  { key: "engagementDevices", label: "인게이지먼트" },
-  { key: "salesPoints", label: "세일즈" },
+  { key: "contentType", label: "콘텐츠 유형" },
+  { key: "hookVisual", label: "후킹 매력 요소" },
+  { key: "scriptAppeal", label: "스크립트 매력 요소" },
+  { key: "captionAnalysis", label: "캡션 분석" },
+  { key: "visualDirection", label: "연출 요소" },
+  { key: "engagementDevices", label: "인게이지먼트 장치" },
+  { key: "salesPoints", label: "세일즈 포인트" },
 ] as const
 
 export function CardDetailModal({
