@@ -124,23 +124,3 @@
   }
 }
 
-/* Dark-mode custom scrollbar for frame carousel */
-.dark .dark-scrollbar::-webkit-scrollbar {
-  height: 6px;
-}
-.dark .dark-scrollbar::-webkit-scrollbar-track {
-  background: oklch(0.22 0.01 260);
-  border-radius: 9999px;
-}
-.dark .dark-scrollbar::-webkit-scrollbar-thumb {
-  background: oklch(0.35 0.01 260);
-  border-radius: 9999px;
-}
-.dark .dark-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.42 0.01 260);
-}
-/* Firefox */
-.dark .dark-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: oklch(0.35 0.01 260) oklch(0.22 0.01 260);
-}

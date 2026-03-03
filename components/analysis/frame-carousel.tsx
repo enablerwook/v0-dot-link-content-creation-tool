@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import type { FrameData } from "@/lib/types"
 
 export function FrameCarousel({ frames }: { frames: FrameData[] }) {
@@ -49,22 +50,25 @@ export function FrameCarousel({ frames }: { frames: FrameData[] }) {
         </div>
       </div>
       {/* Thumbnail strip */}
-      <div className="dark-scrollbar flex gap-1 overflow-x-auto pb-1">
-        {frames.map((frame, i) => (
-          <button
-            key={frame.id}
-            onClick={() => setCurrent(i)}
-            className={cn(
-              "size-10 shrink-0 rounded bg-gradient-to-br transition-all",
-              frame.gradient,
-              i === current
-                ? "ring-2 ring-primary ring-offset-1 ring-offset-background"
-                : "opacity-50 hover:opacity-80",
-            )}
-            aria-label={`프레임 ${i + 1}`}
-          />
-        ))}
-      </div>
+      <ScrollArea className="w-full">
+        <div className="flex gap-1 pb-3">
+          {frames.map((frame, i) => (
+            <button
+              key={frame.id}
+              onClick={() => setCurrent(i)}
+              className={cn(
+                "size-10 shrink-0 rounded bg-gradient-to-br transition-all",
+                frame.gradient,
+                i === current
+                  ? "ring-2 ring-primary ring-offset-1 ring-offset-background"
+                  : "opacity-50 hover:opacity-80",
+              )}
+              aria-label={`프레임 ${i + 1}`}
+            />
+          ))}
+        </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     </div>
   )
 }
