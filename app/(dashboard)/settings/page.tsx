@@ -245,12 +245,13 @@ export default function SettingsPage() {
   const [isActivated, setIsActivated] = useState(false)
   const [showWelcomeModal, setShowWelcomeModal] = useState(false)
   const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const [modalTestMode, setModalTestMode] = useState(false)
 
   const usagePercent = Math.round(
     (mockUser.monthlyAnalysisUsed / mockUser.monthlyAnalysisTotal) * 100
   )
   const remaining = mockUser.monthlyAnalysisTotal - mockUser.monthlyAnalysisUsed
-  const gaugeProgress = mockAnalysisCount
+  const gaugeProgress = modalTestMode ? requiredAnalysisCount : mockAnalysisCount
   const isGaugeFull = gaugeProgress >= requiredAnalysisCount
 
   function handleCopyCode() {
@@ -341,12 +342,27 @@ export default function SettingsPage() {
               </CardTitle>
               {/* Dev toggle */}
               <div className="flex items-center gap-2">
+                <Button
+                  variant={modalTestMode ? "default" : "outline"}
+                  size="sm"
+                  className="h-6 px-2 text-[10px]"
+                  onClick={() => {
+                    const next = !modalTestMode
+                    setModalTestMode(next)
+                    if (next) setIsActivated(false)
+                  }}
+                >
+                  모달 테스트(DEV)
+                </Button>
                 <Badge variant="outline" className="text-[10px] font-normal text-muted-foreground">
                   DEV
                 </Badge>
                 <Switch
                   checked={isActivated}
-                  onCheckedChange={setIsActivated}
+                  onCheckedChange={(v) => {
+                    setIsActivated(v)
+                    if (v) setModalTestMode(false)
+                  }}
                   aria-label="상태 전환"
                 />
                 <span className="text-xs text-muted-foreground">
@@ -367,10 +383,16 @@ export default function SettingsPage() {
                 {/* Circular gauge */}
                 <CircularGauge current={gaugeProgress} total={requiredAnalysisCount} />
 
-                <p className="max-w-sm text-center text-sm text-muted-foreground">
-                  분석 기능을 <span className="font-semibold text-primary">10회</span> 이상 사용한
-                  &apos;찐팬&apos;에게만 주어지는 특별한 혜택!
-                </p>
+                {isGaugeFull ? (
+                  <p className="max-w-sm text-center text-sm font-semibold text-primary">
+                    축하합니다! 앰버서더 자격을 획득하셨습니다.
+                  </p>
+                ) : (
+                  <p className="max-w-sm text-center text-sm text-muted-foreground">
+                    분석 기능을 <span className="font-semibold text-primary">10회</span> 이상 사용한
+                    &apos;찐팬&apos;에게만 주어지는 특별한 혜택!
+                  </p>
+                )}
 
                 {/* Blurred referral code */}
                 <div className="relative w-full max-w-xs overflow-hidden rounded-lg border bg-secondary/30 p-4">
@@ -380,24 +402,29 @@ export default function SettingsPage() {
                     </span>
                   </div>
                   {/* Lock overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-card/60 backdrop-blur-[2px]">
-                    <div className="flex flex-col items-center gap-1">
-                      <Lock className="size-5 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">잠김</span>
+                  {!isGaugeFull && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-card/60 backdrop-blur-[2px]">
+                      <div className="flex flex-col items-center gap-1">
+                        <Lock className="size-5 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">잠김</span>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* CTA button */}
-                <Button
-                  disabled={!isGaugeFull}
-                  className="w-full max-w-xs"
-                  onClick={() => setShowWelcomeModal(true)}
-                >
-                  {isGaugeFull
-                    ? "추천인 코드 활성화하기"
-                    : `${requiredAnalysisCount - gaugeProgress}회 더 분석하면 열립니다`}
-                </Button>
+                {isGaugeFull ? (
+                  <Button
+                    className="w-full max-w-xs bg-primary text-primary-foreground hover:bg-primary/90"
+                    onClick={() => setShowWelcomeModal(true)}
+                  >
+                    추천인 코드 확인하기
+                  </Button>
+                ) : (
+                  <Button disabled className="w-full max-w-xs">
+                    {`${requiredAnalysisCount - gaugeProgress}회 더 분석하면 열립니다`}
+                  </Button>
+                )}
               </div>
             ) : (
               /* ── Activated State (Ambassador Dashboard) ── */
