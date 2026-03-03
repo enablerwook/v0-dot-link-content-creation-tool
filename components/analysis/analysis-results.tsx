@@ -109,6 +109,26 @@ export function AnalysisResults({
 
         {analysisLabels.map((item) => (
           <TabsContent key={item.key} value={item.key}>
+            {/* Engagement stats cards */}
+            {item.key === "engagementDevices" && (
+              <div className="mb-4 grid grid-cols-3 gap-3">
+                {[
+                  { value: "357,651", label: "조회수" },
+                  { value: "8,087", label: "좋아요" },
+                  { value: "313", label: "댓글" },
+                ].map((stat) => (
+                  <Card key={stat.label} className="border-border/60">
+                    <CardContent className="flex flex-col items-center justify-center px-3 py-4">
+                      <span className="text-lg font-bold tracking-tight text-foreground sm:text-xl">
+                        {stat.value}
+                      </span>
+                      <span className="mt-0.5 text-xs text-muted-foreground">{stat.label}</span>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0">
                 <CardTitle className="text-base">{item.label}</CardTitle>
