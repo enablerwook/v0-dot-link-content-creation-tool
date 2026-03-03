@@ -19,6 +19,7 @@ const sections = [
   { key: "hookVisual", label: "후킹" },
   { key: "scriptAppeal", label: "스크립트" },
   { key: "captionAnalysis", label: "캡션" },
+  { key: "hookText", label: "글" },
   { key: "visualDirection", label: "연출" },
   { key: "engagementDevices", label: "인게이지먼트" },
   { key: "salesPoints", label: "세일즈" },
