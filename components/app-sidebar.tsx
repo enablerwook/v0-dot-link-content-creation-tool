@@ -3,10 +3,12 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
+  CreditCard,
   FlaskConical,
   FolderOpen,
   Home,
   Lightbulb,
+  Settings,
   Zap,
 } from "lucide-react"
 import {
@@ -28,6 +30,8 @@ const navItems = [
   { title: "라이브러리", href: "/library", icon: FolderOpen },
   { title: "시냅스", href: "/synapse", icon: Zap },
   { title: "기능 요청", href: "/feature-request", icon: Lightbulb },
+  { title: "구독", href: "/subscribe", icon: CreditCard },
+  { title: "설정", href: "/settings", icon: Settings },
 ]
 
 export function AppSidebar() {

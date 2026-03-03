@@ -7,12 +7,18 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { FolderPlus, Check } from "lucide-react"
 import { mockContentCards } from "@/lib/mock-data"
-import type { ContentCard, Platform } from "@/lib/types"
+import type { AnalysisResult, ContentCard, Platform } from "@/lib/types"
 
 export default function AnalysisPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState<ContentCard | null>(null)
   const [isSaved, setIsSaved] = useState(false)
+
+  function handleUpdateAnalysis(analysis: AnalysisResult) {
+    if (result) {
+      setResult({ ...result, analysis })
+    }
+  }
 
   function handleAnalyze(_url: string, _platform: Platform) {
     setIsLoading(true)
@@ -55,7 +61,7 @@ export default function AnalysisPage() {
               </Badge>
             </div>
             <Button
-              variant={isSaved ? "secondary" : "outline"}
+              variant={isSaved ? "secondary" : "default"}
               size="sm"
               onClick={() => setIsSaved(true)}
               disabled={isSaved}
@@ -73,7 +79,7 @@ export default function AnalysisPage() {
               )}
             </Button>
           </div>
-          <AnalysisResults card={result} />
+          <AnalysisResults card={result} onUpdate={handleUpdateAnalysis} />
         </div>
       )}
     </div>

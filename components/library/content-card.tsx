@@ -1,9 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, Zap } from "lucide-react"
+import { ChevronLeft, ChevronRight, X, Zap } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { DifficultyMeter } from "@/components/analysis/difficulty-meter"
 import type { ContentCard } from "@/lib/types"
 
 const platformColors: Record<string, string> = {
@@ -12,24 +14,34 @@ const platformColors: Record<string, string> = {
   youtube: "bg-red-500/20 text-red-400",
 }
 
+const analysisSections = [
+  { key: "hookVisual", label: "3초 후킹 영상" },
+  { key: "hookText", label: "3초 후킹 텍스트" },
+  { key: "scriptAppeal", label: "스크립트 매력도" },
+  { key: "captionAnalysis", label: "캡션 분석" },
+  { key: "visualDirection", label: "영상미/연출" },
+  { key: "engagementDevices", label: "인게이지먼트" },
+  { key: "contentType", label: "콘텐츠 유형" },
+  { key: "salesPoints", label: "세일즈/소구점" },
+] as const
+
 export function ContentCardComponent({
   card,
-  onSelect,
   onSynapseClick,
 }: {
   card: ContentCard
-  onSelect: (card: ContentCard) => void
   onSynapseClick: (card: ContentCard) => void
 }) {
   const [frameIndex, setFrameIndex] = useState(0)
+  const [isFlipped, setIsFlipped] = useState(false)
 
   return (
-    <div className="group flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card transition-colors hover:border-border">
+    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card transition-colors hover:border-border">
       {/* Frame carousel area - 9:12 aspect ratio */}
       <div
         className="relative cursor-pointer"
         style={{ aspectRatio: "9/12" }}
-        onClick={() => onSelect(card)}
+        onClick={() => setIsFlipped(true)}
       >
         <div
           className={cn(
@@ -99,13 +111,62 @@ export function ContentCardComponent({
         >
           <Zap className="size-3.5" />
         </button>
+
+        {/* Glass overlay with analysis results */}
+        <div
+          className={cn(
+            "absolute inset-0 flex flex-col transition-all duration-300",
+            "bg-background/80 backdrop-blur-xl",
+            isFlipped
+              ? "pointer-events-auto opacity-100"
+              : "pointer-events-none opacity-0",
+          )}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Close button */}
+          <button
+            onClick={() => setIsFlipped(false)}
+            className="absolute top-2 right-2 z-10 rounded-full bg-foreground/10 p-1 transition-colors hover:bg-foreground/20"
+            aria-label="닫기"
+          >
+            <X className="size-3.5" />
+          </button>
+
+          <ScrollArea className="h-full">
+            <div className="flex flex-col gap-2.5 p-3 pt-8">
+              <h4 className="text-xs font-bold text-foreground">{card.title}</h4>
+
+              {analysisSections.map(({ key, label }) => (
+                <div key={key}>
+                  <p className="mb-0.5 text-xs font-semibold text-primary">{label}</p>
+                  <p className="text-xs leading-relaxed text-foreground/80">
+                    {card.analysis[key]}
+                  </p>
+                </div>
+              ))}
+
+              <div>
+                <p className="mb-1 text-[8px] font-semibold text-primary">제작 난이도</p>
+                <DifficultyMeter difficulty={card.analysis.difficulty} />
+              </div>
+
+              <div className="flex flex-wrap gap-1">
+                {card.tags.map((tag) => (
+                  <Badge key={tag} variant="secondary" className="text-[9px] px-1.5 py-0">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </ScrollArea>
+        </div>
       </div>
 
       {/* Card info */}
       <div className="flex flex-col gap-1 p-3">
         <h3
           className="cursor-pointer truncate text-sm font-medium hover:text-primary"
-          onClick={() => onSelect(card)}
+          onClick={() => setIsFlipped(true)}
         >
           {card.title}
         </h3>

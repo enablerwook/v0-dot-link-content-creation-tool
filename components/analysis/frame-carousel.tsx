@@ -17,8 +17,8 @@ export function FrameCarousel({ frames }: { frames: FrameData[] }) {
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="relative aspect-video overflow-hidden rounded-lg">
+    <div className="mx-auto flex w-[300px] flex-col gap-2">
+      <div className="relative overflow-hidden rounded-lg" style={{ aspectRatio: "9/12" }}>
         <div
           className={cn(
             "absolute inset-0 bg-gradient-to-br",
