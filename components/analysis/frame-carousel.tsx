@@ -49,7 +49,7 @@ export function FrameCarousel({ frames }: { frames: FrameData[] }) {
         </div>
       </div>
       {/* Thumbnail strip */}
-      <div className="flex gap-1 overflow-x-auto pb-1">
+      <div className="dark-scrollbar flex gap-1 overflow-x-auto pb-1">
         {frames.map((frame, i) => (
           <button
             key={frame.id}
