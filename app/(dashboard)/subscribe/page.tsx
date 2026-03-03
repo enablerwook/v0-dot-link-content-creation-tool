@@ -71,7 +71,7 @@ export default function SubscribePage() {
                   ) : (
                     <>
                       <span className="text-3xl font-bold">{p.price}</span>
-                      <span className="text-sm text-muted-foreground">원/{p.period}</span>
+                      <span className="text-sm text-muted-foreground">/{p.period}</span>
                     </>
                   )}
                 </div>
@@ -120,7 +120,7 @@ export default function SubscribePage() {
                 결제 정보
               </CardTitle>
               <CardDescription>
-                {plan.nameKo} 플랜 ({plan.price === "무료" ? "무료" : `${plan.price}원/${plan.period}`})
+                {plan.nameKo} 플랜 ({plan.price === "무료" ? "무료" : `${plan.price}/${plan.period}`})
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-5">
@@ -129,7 +129,7 @@ export default function SubscribePage() {
                 <div className="flex items-center justify-between">
                   <span className="font-medium">{plan.nameKo}</span>
                   <span className="font-bold">
-                    {plan.price === "무료" ? "무료" : `${plan.price}원/${plan.period}`}
+                    {plan.price === "무료" ? "무료" : `${plan.price}/${plan.period}`}
                   </span>
                 </div>
                 <p className="mt-1 text-xs text-muted-foreground">{plan.description}</p>
@@ -192,7 +192,7 @@ export default function SubscribePage() {
                 ) : (
                   <>
                     <CreditCard className="mr-2 size-4" />
-                    {plan.price === "무료" ? "무료 플랜 시작하기" : `${plan.price}원 결제하기`}
+                    {plan.price === "무료" ? "무료 플랜 시작하기" : `${plan.price} 결제하기`}
                   </>
                 )}
               </Button>

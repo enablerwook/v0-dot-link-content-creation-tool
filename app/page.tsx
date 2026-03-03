@@ -192,7 +192,7 @@ export default function HomePage() {
                     ) : (
                       <>
                         <span className="text-3xl font-bold">{plan.price}</span>
-                        <span className="text-sm text-muted-foreground">원/{plan.period}</span>
+                        <span className="text-sm text-muted-foreground">/{plan.period}</span>
                       </>
                     )}
                   </div>

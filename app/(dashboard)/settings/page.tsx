@@ -322,7 +322,7 @@ export default function SettingsPage() {
                   <Badge variant="outline">{mockUser.plan}</Badge>
                 </div>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  29,000원/월
+                  20$/월
                 </p>
               </div>
               <Button variant="outline" size="sm" asChild>
