@@ -94,7 +94,7 @@ export default function ExplorerPage() {
           </div>
 
           {/* Recommendation cards */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {recommendations.map((card) => {
               const isSaved = savedIds.has(card.id) || libraryCards.some((c) => c.id === card.id)
 
@@ -105,7 +105,8 @@ export default function ExplorerPage() {
                 >
                   {/* Thumbnail */}
                   <div
-                    className={`relative h-28 bg-gradient-to-br ${card.thumbnailGradient}`}
+                    className={`relative bg-gradient-to-br ${card.thumbnailGradient}`}
+                    style={{ aspectRatio: "9/12" }}
                   >
                     <div className="absolute left-2 top-2">
                       <Badge
