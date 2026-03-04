@@ -25,25 +25,55 @@ import {
   SidebarMenuItem,
   SidebarFooter,
 } from "@/components/ui/sidebar"
+import { useLocale } from "@/lib/locale-context"
+import type { TranslationStrings } from "@/lib/locale-context"
 
-const navItems = [
-  { title: "홈", href: "/", icon: Home },
-  { title: "분석", href: "/analysis", icon: FlaskConical },
-  { title: "라이브러리", href: "/library", icon: FolderOpen },
-  { title: "시냅스", href: "/synapse", icon: Zap },
-  { title: "익스플로러", href: "/explorer", icon: Compass },
-  { title: "기능 요청", href: "/feature-request", icon: Lightbulb },
-  { title: "구독", href: "/subscribe", icon: CreditCard },
-  { title: "설정", href: "/settings", icon: Settings },
+type NavKey = "home" | "analysis" | "library" | "synapse" | "explorer" | "featureRequest" | "subscribe" | "settings"
+
+const navItems: { key: NavKey; href: string; icon: typeof Home }[] = [
+  { key: "home", href: "/", icon: Home },
+  { key: "analysis", href: "/analysis", icon: FlaskConical },
+  { key: "library", href: "/library", icon: FolderOpen },
+  { key: "synapse", href: "/synapse", icon: Zap },
+  { key: "explorer", href: "/explorer", icon: Compass },
+  { key: "featureRequest", href: "/feature-request", icon: Lightbulb },
+  { key: "subscribe", href: "/subscribe", icon: CreditCard },
+  { key: "settings", href: "/settings", icon: Settings },
 ]
 
 export function AppSidebar() {
   const pathname = usePathname()
   const [mounted, setMounted] = useState(false)
 
+  let t: TranslationStrings | null = null
+  try {
+    const locale = useLocale()
+    t = locale.t
+  } catch {
+    // LocaleProvider not available (e.g. outside dashboard)
+  }
+
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  const getLabel = (key: NavKey): string => {
+    if (!t) {
+      // Fallback Korean labels when outside LocaleProvider
+      const fallback: Record<NavKey, string> = {
+        home: "홈",
+        analysis: "분석",
+        library: "라이브러리",
+        synapse: "시냅스",
+        explorer: "익스플로러",
+        featureRequest: "기능 요청",
+        subscribe: "구독",
+        settings: "설정",
+      }
+      return fallback[key]
+    }
+    return t[key]
+  }
 
   return (
     <Sidebar variant="sidebar" collapsible="icon">
@@ -59,7 +89,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>{mounted ? "메뉴" : "\u00A0"}</SidebarGroupLabel>
+          <SidebarGroupLabel>{mounted ? (t?.menu ?? "메뉴") : "\u00A0"}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navItems.map((item) => (
@@ -67,11 +97,11 @@ export function AppSidebar() {
                   <SidebarMenuButton
                     asChild
                     isActive={pathname === item.href}
-                    tooltip={item.title}
+                    tooltip={getLabel(item.key)}
                   >
                     <Link href={item.href}>
                       <item.icon />
-                      <span suppressHydrationWarning>{item.title}</span>
+                      <span suppressHydrationWarning>{getLabel(item.key)}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
