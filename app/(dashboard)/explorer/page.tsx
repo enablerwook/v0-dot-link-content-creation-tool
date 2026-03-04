@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Compass, RefreshCw, BookmarkPlus, Check } from "lucide-react"
+import { Compass, RefreshCw, BookmarkPlus, Check, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -147,26 +147,43 @@ export default function ExplorerPage() {
                       {card.dateAnalyzed}
                     </p>
 
-                    {/* Save button */}
-                    <Button
-                      variant={isSaved ? "secondary" : "outline"}
-                      size="sm"
-                      className="mt-auto w-full gap-1.5 text-xs"
-                      disabled={isSaved}
-                      onClick={() => handleSave(card)}
-                    >
-                      {isSaved ? (
-                        <>
-                          <Check className="size-3.5" />
-                          라이브러리에 저장됨
-                        </>
-                      ) : (
-                        <>
-                          <BookmarkPlus className="size-3.5" />
-                          라이브러리에 저장하기
-                        </>
-                      )}
-                    </Button>
+                    {/* Action buttons */}
+                    <div className="mt-auto flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-1.5 text-xs"
+                        asChild
+                      >
+                        <a
+                          href={card.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ExternalLink className="size-3.5" />
+                          영상 보러가기
+                        </a>
+                      </Button>
+                      <Button
+                        variant={isSaved ? "secondary" : "outline"}
+                        size="sm"
+                        className="flex-1 gap-1.5 text-xs"
+                        disabled={isSaved}
+                        onClick={() => handleSave(card)}
+                      >
+                        {isSaved ? (
+                          <>
+                            <Check className="size-3.5" />
+                            저장됨
+                          </>
+                        ) : (
+                          <>
+                            <BookmarkPlus className="size-3.5" />
+                            라이브러리에 저장
+                          </>
+                        )}
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               )
