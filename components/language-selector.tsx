@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
@@ -77,6 +78,7 @@ export function LanguageSelector() {
         >
           {/* Header with X */}
           <DialogHeader className="flex flex-row items-center gap-2 border-b px-6 py-4">
+            <DialogDescription className="sr-only">Select your preferred language and region</DialogDescription>
             <Button
               variant="ghost"
               size="icon"
