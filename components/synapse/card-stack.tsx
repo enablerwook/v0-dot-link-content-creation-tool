@@ -15,14 +15,13 @@ const platformColors: Record<string, string> = {
 }
 
 const analysisSections = [
-  { key: "hookVisual", label: "3초 후킹 영상" },
-  { key: "hookText", label: "3초 후킹 텍스트" },
-  { key: "scriptAppeal", label: "스크립트 매력도" },
-  { key: "captionAnalysis", label: "캡션 분석" },
-  { key: "visualDirection", label: "영상미/연출" },
-  { key: "engagementDevices", label: "인게이지먼트" },
   { key: "contentType", label: "콘텐츠 유형" },
-  { key: "salesPoints", label: "세일즈/소구점" },
+  { key: "hookVisual", label: "후킹 매력 요소" },
+  { key: "scriptAppeal", label: "스크립트 매력 요소" },
+  { key: "captionAnalysis", label: "캡션 분석" },
+  { key: "visualDirection", label: "연출 요소" },
+  { key: "engagementDevices", label: "인게이지먼트 장치" },
+  { key: "salesPoints", label: "세일즈 포인트" },
 ] as const
 
 export function CardStack({

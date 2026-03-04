@@ -13,11 +13,11 @@ import { DifficultyMeter } from "./difficulty-meter"
 import type { AnalysisResult, ContentCard, DifficultyRating } from "@/lib/types"
 
 const analysisLabels = [
-  { key: "contentType", label: "콘텐츠 유형 분류", short: "유형" },
-  { key: "hookVisual", label: "3초 후킹 요소", short: "후킹" },
-  { key: "scriptAppeal", label: "전체 스크립트 매력도", short: "스크립트" },
+  { key: "contentType", label: "콘텐츠 유형", short: "유형" },
+  { key: "hookVisual", label: "후킹 매력 요소", short: "후킹" },
+  { key: "scriptAppeal", label: "스크립트 매력 요소", short: "스크립트" },
   { key: "captionAnalysis", label: "캡션 분석", short: "캡션" },
-  { key: "visualDirection", label: "영상미/연출", short: "연출" },
+  { key: "visualDirection", label: "연출 요소", short: "연출" },
   { key: "engagementDevices", label: "인게이지먼트 장치", short: "인게이지먼트" },
   { key: "salesPoints", label: "세일즈 포인트", short: "세일즈" },
 ] as const

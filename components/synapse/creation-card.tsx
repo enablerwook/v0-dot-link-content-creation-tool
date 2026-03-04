@@ -8,13 +8,12 @@ import { Download } from "lucide-react"
 
 const fields = [
   { key: "script", label: "전체 스크립트(대본)" },
-  { key: "contentType", label: "콘텐츠 유형 분류" },
-  { key: "hookVisual", label: "3초 후킹 영상 요소" },
-  { key: "hookText", label: "3초 후킹 텍스트 요소" },
-  { key: "caption", label: "캡션 내용" },
-  { key: "storyboard", label: "스토리보드/연출" },
-  { key: "engagement", label: "인게이지먼트 유도 요소" },
-  { key: "salesPoints", label: "세일즈/소구점" },
+  { key: "contentType", label: "콘텐츠 유형" },
+  { key: "hookVisual", label: "후킹 매력 요소" },
+  { key: "caption", label: "캡션 분석" },
+  { key: "storyboard", label: "연출 요소" },
+  { key: "engagement", label: "인게이지먼트 장치" },
+  { key: "salesPoints", label: "세일즈 포인트" },
   { key: "difficulty", label: "제작 난이도 메모" },
 ] as const
 
