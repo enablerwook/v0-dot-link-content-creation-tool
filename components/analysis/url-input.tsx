@@ -5,6 +5,7 @@ import { Clipboard, Loader2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { useLocale } from "@/lib/locale-context"
 import type { Platform } from "@/lib/types"
 
 const platforms: { value: Platform; label: string }[] = [
@@ -20,6 +21,7 @@ export function UrlInput({
   onAnalyze: (url: string, platform: Platform) => void
   isLoading: boolean
 }) {
+  const { t } = useLocale()
   const [url, setUrl] = useState("")
   const [selectedPlatform, setSelectedPlatform] = useState<Platform>("instagram")
 
@@ -49,7 +51,7 @@ export function UrlInput({
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Input
-            placeholder="숏폼 콘텐츠 URL을 붙여넣기 하세요..."
+            placeholder={t.analysisPlaceholder}
             value={url}
             onChange={(e) => handleUrlChange(e.target.value)}
             className="h-11 pr-10"
@@ -72,15 +74,15 @@ export function UrlInput({
           {isLoading ? (
             <>
               <Loader2 className="mr-2 size-4 animate-spin" />
-              분석 중...
+              {t.analysisLoading}
             </>
           ) : (
-            "분석 시작"
+            t.analysisButton
           )}
         </Button>
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-xs text-muted-foreground">플랫폼:</span>
+        <span className="text-xs text-muted-foreground">{t.analysisPlatform}</span>
         {platforms.map((p) => (
           <Badge
             key={p.value}

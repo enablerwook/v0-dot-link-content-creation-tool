@@ -1,0 +1,31 @@
+"use client"
+
+import Link from "next/link"
+import { Zap } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { LanguageSelector } from "@/components/language-selector"
+
+export function LandingNav() {
+  return (
+    <nav className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <Zap className="size-4" />
+          </div>
+          <span className="text-lg font-bold tracking-tight">DotLink</span>
+        </Link>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/analysis">시작하기</Link>
+          </Button>
+          <span className="text-xs text-muted-foreground">Language</span>
+          <LanguageSelector />
+          <Button size="sm" asChild>
+            <Link href="/analysis">무료 체험</Link>
+          </Button>
+        </div>
+      </div>
+    </nav>
+  )
+}

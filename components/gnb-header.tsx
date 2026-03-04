@@ -15,7 +15,8 @@ export function GnbHeader() {
       <span className="text-sm font-medium text-muted-foreground">
         {t.gnbTitle}
       </span>
-      <div className="ml-auto">
+      <div className="ml-auto flex items-center gap-1.5">
+        <span className="text-xs text-muted-foreground">Language</span>
         <LanguageSelector />
       </div>
     </header>
