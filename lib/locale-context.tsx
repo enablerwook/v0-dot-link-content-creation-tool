@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react"
 
 export type LocaleCode = "ko" | "en" | "ja" | "es" | "fr" | "de" | "zh-CN" | "zh-TW" | "pt" | "it" | "vi" | "th" | "ru" | "ar" | "hi" | "tr" | "nl" | "pl" | "sv" | "id"
 
@@ -708,7 +708,7 @@ const jaBase: Partial<TranslationStrings> = {
   planFeatureAnalysis30: "月30回コンテンツ分析", planFeatureDNAAI: "高度DNA分析+AIインサイト", planFeatureLibrary1y: "無制限1年ライブラリ保存",
   planFeatureSynapseAI: "シナプスAI再構成台本", planFeatureTrendWeekly: "トレンドレポート（週刊）", planFeatureExport: "エクスポート機能",
   planFeatureAnalysis200: "月200回コンテンツ分析", planFeatureDNAMultiAI: "最高級DNA分析+マルチAI", planFeatureLibrary2y: "無制限2年ライブラリ保存",
-  planFeatureSynapseUnlimited: "シナプスAI台本（無制限）", planFeatureTrendRealtime: "リアルタイムトレンドダッシュボード",
+  planFeatureSynapseUnlimited: "シナプスAI台本（無制限）", planFeatureTrendRealtime: "リアル��イムトレンドダッシュボード",
   planFeatureTeam5: "チームコラボ（最大5名）", planFeatureAPI: "APIアクセス", planFeaturePrioritySupport: "優先サポート",
   settingsTitle: "設定", settingsDesc: "アカウント情報と購読状態を確認しましょう。",
   settingsProfile: "プロフィール", settingsName: "名前", settingsEmail: "メール", settingsSave: "保存",
@@ -1205,7 +1205,7 @@ const thBase: Partial<TranslationStrings> = {
   langModalTranslationDesc: "แปลสคริปต์เนื้อหาเป็นภาษาของคุณโดยอัตโนมัติ",
   langModalRecommended: "ภาษาและภูมิภาคที่แนะนำ", langModalChoose: "เลือกภาษาและภูมิภาค",
   libraryTitle: "ไลบรารี", libraryDesc: "บันทึกและจัดการเนื้อหาที่วิเคราะห์แล้ว คลิกการ์ดเพื่อดูรายละเอียด",
-  explorerTitle: "สำรวจ", explorerDesc: "ค้นพบการวิเคราะห์เนื้อหาที่คุณยังไม่เคยเห็น",
+  explorerTitle: "สำรวจ", explorerDesc: "ค้นพบการวิเคราะห์เน��้อหาที่คุณยังไม่เคยเห็น",
   synapseTitle: "ไซแนปส์", synapseDesc: "เปรียบเทียบและวิเคราะห์เนื้อหาสองรายการเพื่อออกแบบเนื้อหาใหม่",
   featureRequestTitle: "คำขอฟีเจอร์", featureRequestDesc: "แนะนำฟีเจอร์ที่คุณอยากให้มีใน DotLink",
   subscribeTitle: "สมัครสมาชิก", subscribeDesc: "เลือกแผนที่เหมาะกับคุณและเริ่มวิเคราะห์เนื้อหา",
@@ -1365,12 +1365,46 @@ export function useLocale() {
   return ctx
 }
 
+const LOCALE_STORAGE_KEY = "dotlink-locale"
+const AUTO_TRANSLATE_STORAGE_KEY = "dotlink-auto-translate"
+
+function getStoredLocale(): LocaleCode {
+  if (typeof window === "undefined") return "ko"
+  try {
+    const stored = window.localStorage.getItem(LOCALE_STORAGE_KEY)
+    if (stored && stored in translations) return stored as LocaleCode
+  } catch {}
+  return "ko"
+}
+
+function getStoredAutoTranslate(): boolean {
+  if (typeof window === "undefined") return true
+  try {
+    const stored = window.localStorage.getItem(AUTO_TRANSLATE_STORAGE_KEY)
+    if (stored !== null) return stored === "true"
+  } catch {}
+  return true
+}
+
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<LocaleCode>("ko")
-  const [autoTranslate, setAutoTranslate] = useState(true)
+  const [locale, setLocaleState] = useState<LocaleCode>(getStoredLocale)
+  const [autoTranslate, setAutoTranslateState] = useState(getStoredAutoTranslate)
+
+  // Hydration safety: sync from localStorage after mount in case SSR default differs
+  useEffect(() => {
+    const stored = getStoredLocale()
+    setLocaleState(stored)
+    setAutoTranslateState(getStoredAutoTranslate())
+  }, [])
 
   const setLocale = useCallback((code: LocaleCode) => {
     setLocaleState(code)
+    try { window.localStorage.setItem(LOCALE_STORAGE_KEY, code) } catch {}
+  }, [])
+
+  const setAutoTranslate = useCallback((v: boolean) => {
+    setAutoTranslateState(v)
+    try { window.localStorage.setItem(AUTO_TRANSLATE_STORAGE_KEY, String(v)) } catch {}
   }, [])
 
   const t = translations[locale]
