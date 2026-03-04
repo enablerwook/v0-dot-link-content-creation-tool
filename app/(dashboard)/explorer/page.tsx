@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { DifficultyMeter } from "@/components/analysis/difficulty-meter"
 import { useAppContext } from "@/lib/app-context"
+import { useLocale } from "@/lib/locale-context"
 import { explorerContentCards } from "@/lib/mock-data"
 import type { ContentCard } from "@/lib/types"
 
@@ -32,16 +33,6 @@ const platformLabels: Record<string, string> = {
   youtube: "YouTube",
 }
 
-const analysisSections = [
-  { key: "contentType", label: "콘텐츠 유형" },
-  { key: "hookVisual", label: "후킹 매력 요소" },
-  { key: "scriptAppeal", label: "스크립트 매력 요소" },
-  { key: "captionAnalysis", label: "캡션 분석" },
-  { key: "visualDirection", label: "연출 요소" },
-  { key: "engagementDevices", label: "인게이지먼트 장치" },
-  { key: "salesPoints", label: "세일즈 포인트" },
-] as const
-
 function shuffleAndPick(cards: ContentCard[], count: number): ContentCard[] {
   const shuffled = [...cards].sort(() => Math.random() - 0.5)
   return shuffled.slice(0, count)
@@ -56,8 +47,19 @@ function ExplorerCard({
   isSaved: boolean
   onSave: (card: ContentCard) => void
 }) {
+  const { t } = useLocale()
   const [frameIndex, setFrameIndex] = useState(0)
   const [isFlipped, setIsFlipped] = useState(false)
+
+  const analysisSections = [
+    { key: "contentType", label: t.explorerContentType },
+    { key: "hookVisual", label: t.explorerHook },
+    { key: "scriptAppeal", label: t.explorerScriptAppeal },
+    { key: "captionAnalysis", label: t.explorerCaptionAnalysis },
+    { key: "visualDirection", label: t.explorerDirection },
+    { key: "engagementDevices", label: t.explorerEngagement },
+    { key: "salesPoints", label: t.explorerSalesPoints },
+  ] as const
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card transition-colors hover:border-border">
@@ -86,7 +88,7 @@ function ExplorerCard({
             setFrameIndex((i) => (i === 0 ? card.frames.length - 1 : i - 1))
           }}
           className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-background/60 p-1 opacity-0 transition-opacity group-hover:opacity-100"
-          aria-label="이전 프레임"
+          aria-label="Previous frame"
         >
           <ChevronLeft className="size-3.5" />
         </button>
@@ -96,7 +98,7 @@ function ExplorerCard({
             setFrameIndex((i) => (i === card.frames.length - 1 ? 0 : i + 1))
           }}
           className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-background/60 p-1 opacity-0 transition-opacity group-hover:opacity-100"
-          aria-label="다음 프레임"
+          aria-label="Next frame"
         >
           <ChevronRight className="size-3.5" />
         </button>
@@ -139,7 +141,7 @@ function ExplorerCard({
           <button
             onClick={() => setIsFlipped(false)}
             className="absolute top-2 right-2 z-10 rounded-full bg-foreground/10 p-1 transition-colors hover:bg-foreground/20"
-            aria-label="닫기"
+            aria-label="Close"
           >
             <X className="size-3.5" />
           </button>
@@ -158,7 +160,7 @@ function ExplorerCard({
               ))}
 
               <div>
-                <p className="mb-1 text-xs font-semibold text-primary">제작 난이도</p>
+                <p className="mb-1 text-xs font-semibold text-primary">{t.explorerDifficulty}</p>
                 <DifficultyMeter difficulty={card.analysis.difficulty} />
               </div>
 
@@ -187,7 +189,7 @@ function ExplorerCard({
           <Button variant="outline" size="sm" className="gap-1.5 text-xs" asChild>
             <a href={card.url} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="size-3.5" />
-              영상 보러가기
+              {t.explorerViewVideo}
             </a>
           </Button>
           <Button
@@ -200,12 +202,12 @@ function ExplorerCard({
             {isSaved ? (
               <>
                 <Check className="size-3.5" />
-                저장됨
+                {t.analysisSaved}
               </>
             ) : (
               <>
                 <BookmarkPlus className="size-3.5" />
-                라이브러리에 저장
+                {t.analysisSaveToLibrary}
               </>
             )}
           </Button>
@@ -216,6 +218,7 @@ function ExplorerCard({
 }
 
 export default function ExplorerPage() {
+  const { t } = useLocale()
   const { libraryCards, addCardToLibrary } = useAppContext()
   const [recommendations, setRecommendations] = useState<ContentCard[]>([])
   const [savedIds, setSavedIds] = useState<Set<string>>(new Set())
@@ -247,9 +250,9 @@ export default function ExplorerPage() {
   return (
     <div className="px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">익스플로러</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t.explorerTitle}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          내가 몰랐던 다양한 콘텐츠 분석을 추천받아보세요
+          {t.explorerDesc}
         </p>
       </div>
 
@@ -260,26 +263,26 @@ export default function ExplorerPage() {
           </div>
           <div className="text-center">
             <p className="text-lg font-semibold text-foreground">
-              새로운 콘텐츠를 발견해 보세요
+              {t.explorerEmptyTitle}
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
-              내가 분석하지 않았던 다양한 콘텐츠와 분석 결과를 추천받을 수 있습니다
+              {t.explorerEmptyDesc}
             </p>
           </div>
           <Button onClick={handleExplore} size="lg" className="gap-2">
             <Compass className="size-4" />
-            탐색하기
+            {t.explorerExploreBtn}
           </Button>
         </div>
       ) : (
         <div className="flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">
-              추천된 콘텐츠 분석{" "}
+              {t.explorerRecommended}{" "}
               <span className="font-semibold text-foreground">
                 {recommendations.length}
               </span>
-              개
+              {t.explorerCount}
             </p>
             <Button
               variant="outline"
@@ -288,7 +291,7 @@ export default function ExplorerPage() {
               className="gap-2"
             >
               <RefreshCw className="size-3.5" />
-              다시 탐색하기
+              {t.explorerRefresh}
             </Button>
           </div>
 

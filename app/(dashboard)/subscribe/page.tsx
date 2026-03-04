@@ -8,17 +8,51 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-import { pricingPlans } from "@/lib/mock-data"
+import { useLocale } from "@/lib/locale-context"
 
 type Step = "plans" | "payment"
 
 export default function SubscribePage() {
+  const { t } = useLocale()
   const [step, setStep] = useState<Step>("plans")
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
   const [referralCode, setReferralCode] = useState("")
   const [isProcessing, setIsProcessing] = useState(false)
 
-  const plan = pricingPlans.find((p) => p.name === selectedPlan)
+  const plans = [
+    {
+      name: "Starter",
+      nameLocal: t.planStarterName,
+      price: t.subscribeFree,
+      period: "",
+      description: t.planStarterDesc,
+      features: [t.planFeatureAnalysis3, t.planFeatureDNA9, t.planFeatureLibrary10, t.planFeatureSynapse],
+      cta: t.planStarterCta,
+      highlighted: false,
+    },
+    {
+      name: "Creator",
+      nameLocal: t.planCreatorName,
+      price: "20$",
+      period: t.subscribeMonth,
+      description: t.planCreatorDesc,
+      features: [t.planFeatureAnalysis30, t.planFeatureDNAAI, t.planFeatureLibrary1y, t.planFeatureSynapseAI, t.planFeatureTrendWeekly, t.planFeatureExport],
+      cta: t.planCreatorCta,
+      highlighted: true,
+    },
+    {
+      name: "Pro",
+      nameLocal: t.planProName,
+      price: "60$",
+      period: t.subscribeMonth,
+      description: t.planProDesc,
+      features: [t.planFeatureAnalysis200, t.planFeatureDNAMultiAI, t.planFeatureLibrary2y, t.planFeatureSynapseUnlimited, t.planFeatureTrendRealtime, t.planFeatureTeam5, t.planFeatureAPI, t.planFeaturePrioritySupport],
+      cta: t.planProCta,
+      highlighted: false,
+    },
+  ]
+
+  const plan = plans.find((p) => p.name === selectedPlan)
 
   function handleSelectPlan(planName: string) {
     setSelectedPlan(planName)
@@ -29,7 +63,7 @@ export default function SubscribePage() {
     setIsProcessing(true)
     setTimeout(() => {
       setIsProcessing(false)
-      alert("결제가 완료되었습니다! (데모)")
+      alert("Payment completed! (Demo)")
       setStep("plans")
       setSelectedPlan(null)
     }, 1500)
@@ -38,15 +72,15 @@ export default function SubscribePage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">구독</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t.subscribeTitle}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          나에게 맞는 플랜을 선택하고 콘텐츠 분석을 시작하세요.
+          {t.subscribeDesc}
         </p>
       </div>
 
       {step === "plans" && (
         <div className="grid gap-6 md:grid-cols-3">
-          {pricingPlans.map((p) => (
+          {plans.map((p) => (
             <Card
               key={p.name}
               className={
@@ -57,17 +91,17 @@ export default function SubscribePage() {
             >
               {p.highlighted && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <Badge>추천</Badge>
+                  <Badge>{t.subscribeRecommended}</Badge>
                 </div>
               )}
               <CardHeader>
                 <CardTitle className="text-base">
-                  {p.nameKo}{" "}
+                  {p.nameLocal}{" "}
                   <span className="text-xs font-normal text-muted-foreground">({p.name})</span>
                 </CardTitle>
                 <div className="flex items-baseline gap-1">
-                  {p.price === "무료" ? (
-                    <span className="text-3xl font-bold">무료</span>
+                  {!p.period ? (
+                    <span className="text-3xl font-bold">{p.price}</span>
                   ) : (
                     <>
                       <span className="text-3xl font-bold">{p.price}</span>
@@ -93,7 +127,7 @@ export default function SubscribePage() {
                   variant={p.highlighted ? "default" : "outline"}
                   onClick={() => handleSelectPlan(p.name)}
                 >
-                  {p.price === "무료" ? "무료로 시작하기" : "구독하기"}
+                  {!p.period ? t.subscribeFreeBtn : t.subscribeBtn}
                 </Button>
               </CardFooter>
             </Card>
@@ -110,26 +144,26 @@ export default function SubscribePage() {
             onClick={() => setStep("plans")}
           >
             <ArrowLeft className="mr-1 size-4" />
-            플랜 선택으로 돌아가기
+            {t.subscribeBackToPlans}
           </Button>
 
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <CreditCard className="size-5" />
-                결제 정보
+                {t.subscribePaymentInfo}
               </CardTitle>
               <CardDescription>
-                {plan.nameKo} 플랜 ({plan.price === "무료" ? "무료" : `${plan.price}/${plan.period}`})
+                {plan.nameLocal} ({!plan.period ? plan.price : `${plan.price}/${plan.period}`})
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-5">
               {/* Selected plan summary */}
               <div className="rounded-lg border bg-secondary/30 p-4">
                 <div className="flex items-center justify-between">
-                  <span className="font-medium">{plan.nameKo}</span>
+                  <span className="font-medium">{plan.nameLocal}</span>
                   <span className="font-bold">
-                    {plan.price === "무료" ? "무료" : `${plan.price}/${plan.period}`}
+                    {!plan.period ? plan.price : `${plan.price}/${plan.period}`}
                   </span>
                 </div>
                 <p className="mt-1 text-xs text-muted-foreground">{plan.description}</p>
@@ -140,20 +174,20 @@ export default function SubscribePage() {
               {/* Card details */}
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="cardName">카드 소유자 이름</Label>
-                  <Input id="cardName" placeholder="홍길동" />
+                  <Label htmlFor="cardName">{t.subscribeCardName}</Label>
+                  <Input id="cardName" placeholder="John Doe" />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="cardNumber">카드 번호</Label>
+                  <Label htmlFor="cardNumber">{t.subscribeCardNumber}</Label>
                   <Input id="cardNumber" placeholder="0000 0000 0000 0000" />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="expiry">유효기간</Label>
+                    <Label htmlFor="expiry">{t.subscribeExpiry}</Label>
                     <Input id="expiry" placeholder="MM/YY" />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="cvc">CVC</Label>
+                    <Label htmlFor="cvc">{t.subscribeCVC}</Label>
                     <Input id="cvc" placeholder="000" />
                   </div>
                 </div>
@@ -165,16 +199,16 @@ export default function SubscribePage() {
               <div className="flex flex-col gap-2">
                 <Label htmlFor="referral" className="flex items-center gap-1.5">
                   <Gift className="size-4 text-primary" />
-                  추천인 코드
+                  {t.subscribeReferralCode}
                 </Label>
                 <Input
                   id="referral"
-                  placeholder="추천인 코드를 입력하세요 (선택사항)"
+                  placeholder={t.subscribeReferralPlaceholder}
                   value={referralCode}
                   onChange={(e) => setReferralCode(e.target.value)}
                 />
                 <p className="text-xs text-muted-foreground">
-                  추천인 코드를 입력하면 첫 달 20% 할인이 적용됩니다.
+                  {t.subscribeReferralDesc}
                 </p>
               </div>
             </CardContent>
@@ -187,12 +221,12 @@ export default function SubscribePage() {
                 {isProcessing ? (
                   <span className="flex items-center gap-2">
                     <span className="size-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
-                    결제 처리 중...
+                    {t.subscribeProcessing}
                   </span>
                 ) : (
                   <>
                     <CreditCard className="mr-2 size-4" />
-                    {plan.price === "무료" ? "무료 플랜 시작하기" : `${plan.price} 결제하기`}
+                    {!plan.period ? t.subscribeStartFree : `${plan.price} ${t.subscribePayBtn}`}
                   </>
                 )}
               </Button>

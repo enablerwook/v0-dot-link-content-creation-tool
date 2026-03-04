@@ -3,9 +3,11 @@
 import { useRouter } from "next/navigation"
 import { ContentCardComponent } from "@/components/library/content-card"
 import { useAppContext } from "@/lib/app-context"
+import { useLocale } from "@/lib/locale-context"
 import type { ContentCard } from "@/lib/types"
 
 export default function LibraryPage() {
+  const { t } = useLocale()
   const { libraryCards, setSelectedCardA } = useAppContext()
   const router = useRouter()
 
@@ -17,9 +19,9 @@ export default function LibraryPage() {
   return (
     <div className="px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">라이브러리</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t.libraryTitle}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          분석된 콘텐츠를 저장하고 관리합니다. 카드를 클릭하면 상세 분석을 볼 수 있습니다.
+          {t.libraryDesc}
         </p>
       </div>
 

@@ -4,8 +4,11 @@ import Link from "next/link"
 import { Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "@/components/language-selector"
+import { useLocale } from "@/lib/locale-context"
 
 export function LandingNav() {
+  const { t } = useLocale()
+
   return (
     <nav className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
@@ -17,12 +20,12 @@ export function LandingNav() {
         </Link>
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/analysis">시작하기</Link>
+            <Link href="/analysis">{t.landingNavStart}</Link>
           </Button>
           <span className="text-xs text-muted-foreground">Language</span>
           <LanguageSelector />
           <Button size="sm" asChild>
-            <Link href="/analysis">무료 체험</Link>
+            <Link href="/analysis">{t.landingNavTrial}</Link>
           </Button>
         </div>
       </div>

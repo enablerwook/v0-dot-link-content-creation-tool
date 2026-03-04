@@ -5,23 +5,37 @@ import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
+import { useLocale } from "@/lib/locale-context"
 
-const fields = [
-  { key: "script", label: "전체 스크립트(대본)" },
-  { key: "contentType", label: "콘텐츠 유형" },
-  { key: "hookVisual", label: "후킹 매력 요소" },
-  { key: "caption", label: "캡션 분석" },
-  { key: "storyboard", label: "연출 요소" },
-  { key: "engagement", label: "인게이지먼트 장치" },
-  { key: "salesPoints", label: "세일즈 포인트" },
-  { key: "difficulty", label: "제작 난이도 메모" },
+const fieldKeys = [
+  "script",
+  "contentType",
+  "hookVisual",
+  "caption",
+  "storyboard",
+  "engagement",
+  "salesPoints",
+  "difficulty",
 ] as const
 
-type FieldKey = (typeof fields)[number]["key"]
+type FieldKey = (typeof fieldKeys)[number]
 
 export function CreationCard() {
+  const { t } = useLocale()
+
+  const fields: { key: FieldKey; label: string }[] = [
+    { key: "script", label: t.creationScript },
+    { key: "contentType", label: t.creationContentType },
+    { key: "hookVisual", label: t.creationHook },
+    { key: "caption", label: t.creationCaption },
+    { key: "storyboard", label: t.creationDirection },
+    { key: "engagement", label: t.creationEngagement },
+    { key: "salesPoints", label: t.creationSalesPoints },
+    { key: "difficulty", label: t.creationDifficulty },
+  ]
+
   const [values, setValues] = useState<Record<FieldKey, string>>(
-    Object.fromEntries(fields.map((f) => [f.key, ""])) as Record<FieldKey, string>,
+    Object.fromEntries(fieldKeys.map((f) => [f, ""])) as Record<FieldKey, string>,
   )
 
   function handleChange(key: FieldKey, value: string) {
@@ -34,7 +48,7 @@ export function CreationCard() {
         <span className="text-xs font-semibold text-primary">Creation Card</span>
         <Button variant="ghost" size="sm" className="h-7 text-xs">
           <Download className="mr-1 size-3" />
-          내보내기
+          {t.creationExport}
         </Button>
       </div>
       <ScrollArea className="flex-1">
@@ -47,7 +61,7 @@ export function CreationCard() {
               <Textarea
                 value={values[key]}
                 onChange={(e) => handleChange(key, e.target.value)}
-                placeholder={`${label}을(를) 작성하세요...`}
+                placeholder={`${label}${t.creationPlaceholder}`}
                 className="min-h-[80px] resize-none text-xs"
               />
             </div>
