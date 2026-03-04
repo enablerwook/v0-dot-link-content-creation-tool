@@ -136,7 +136,7 @@ export function ComparisonCard({
               ))}
 
               <div>
-                <p className="mb-1 text-[8px] font-semibold text-primary">제작 난이도</p>
+                <p className="mb-1 text-[13px] font-semibold text-primary">제작 난이도</p>
                 <DifficultyMeter difficulty={card.analysis.difficulty} />
               </div>
 

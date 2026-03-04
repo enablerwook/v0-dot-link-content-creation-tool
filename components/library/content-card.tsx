@@ -145,7 +145,7 @@ export function ContentCardComponent({
               ))}
 
               <div>
-                <p className="mb-1 text-[8px] font-semibold text-primary">제작 난이도</p>
+                <p className="mb-1 text-xs font-semibold text-primary">제작 난이도</p>
                 <DifficultyMeter difficulty={card.analysis.difficulty} />
               </div>
 
