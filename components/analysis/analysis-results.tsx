@@ -1,16 +1,11 @@
 "use client"
 
-import { useState } from "react"
-import { Pencil, Check, X } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { Slider } from "@/components/ui/slider"
 import { FrameCarousel } from "./frame-carousel"
 import { DifficultyMeter } from "./difficulty-meter"
-import type { AnalysisResult, ContentCard, DifficultyRating } from "@/lib/types"
+import type { AnalysisResult, ContentCard } from "@/lib/types"
 
 const analysisLabels = [
   { key: "contentType", label: "콘텐츠 유형", short: "유형" },
@@ -24,12 +19,6 @@ const analysisLabels = [
 
 type AnalysisTextKey = (typeof analysisLabels)[number]["key"]
 
-const difficultyLabels: { key: keyof DifficultyRating; label: string }[] = [
-  { key: "planning", label: "기획" },
-  { key: "filming", label: "촬영" },
-  { key: "editing", label: "편집" },
-]
-
 export function AnalysisResults({
   card,
   onUpdate,
@@ -37,42 +26,6 @@ export function AnalysisResults({
   card: ContentCard
   onUpdate?: (analysis: AnalysisResult) => void
 }) {
-  const [editingKey, setEditingKey] = useState<AnalysisTextKey | "difficulty" | null>(null)
-  const [editValue, setEditValue] = useState("")
-  const [editDifficulty, setEditDifficulty] = useState<DifficultyRating>({
-    planning: 1,
-    filming: 1,
-    editing: 1,
-  })
-
-  function startTextEdit(key: AnalysisTextKey) {
-    setEditingKey(key)
-    setEditValue(card.analysis[key])
-  }
-
-  function startDifficultyEdit() {
-    setEditingKey("difficulty")
-    setEditDifficulty({ ...card.analysis.difficulty })
-  }
-
-  function saveTextEdit(key: AnalysisTextKey) {
-    if (onUpdate) {
-      onUpdate({ ...card.analysis, [key]: editValue })
-    }
-    setEditingKey(null)
-  }
-
-  function saveDifficultyEdit() {
-    if (onUpdate) {
-      onUpdate({ ...card.analysis, difficulty: editDifficulty })
-    }
-    setEditingKey(null)
-  }
-
-  function cancelEdit() {
-    setEditingKey(null)
-  }
-
   return (
     <div className="flex flex-col gap-6">
       {/* Frame carousel */}
@@ -86,9 +39,15 @@ export function AnalysisResults({
       </Card>
 
       {/* Analysis tabs */}
-      <Tabs defaultValue="contentType" className="w-full">
+      <Tabs defaultValue="summary" className="w-full">
         <ScrollArea className="w-full">
           <TabsList className="w-full justify-start">
+            <TabsTrigger
+              value="summary"
+              className="shrink-0 text-xs data-[state=active]:ring-2 data-[state=active]:ring-primary data-[state=active]:ring-offset-1 data-[state=active]:ring-offset-background"
+            >
+              요약
+            </TabsTrigger>
             {analysisLabels.map((item) => (
               <TabsTrigger
                 key={item.key}
@@ -107,68 +66,176 @@ export function AnalysisResults({
           </TabsList>
         </ScrollArea>
 
-        {analysisLabels.map((item) => (
-          <TabsContent key={item.key} value={item.key}>
-            {/* Engagement stats cards */}
-            {item.key === "engagementDevices" && (
-              <div className="mb-4 grid grid-cols-3 gap-3">
-                {[
-                  { value: "357,651", label: "조회수" },
-                  { value: "8,087", label: "좋아요" },
-                  { value: "313", label: "댓글" },
-                ].map((stat) => (
-                  <Card key={stat.label} className="border-border/60">
-                    <CardContent className="flex flex-col items-center justify-center px-3 py-4">
-                      <span className="text-lg font-bold tracking-tight text-foreground sm:text-xl">
-                        {stat.value}
-                      </span>
-                      <span className="mt-0.5 text-xs text-muted-foreground">{stat.label}</span>
+        {/* Summary tab */}
+        <TabsContent value="summary">
+          {(() => {
+            const viewsRaw = 357651
+            const likesRaw = 8087
+            const commentsRaw = 313
+            const ratio = (likesRaw / viewsRaw) * 100
+            const ratioStr = ratio.toFixed(1)
+
+            let grade: string
+            let gradeColor: string
+            if (ratio <= 0.1) { grade = "Bad"; gradeColor = "text-red-400/70" }
+            else if (ratio <= 0.5) { grade = "Normal"; gradeColor = "text-muted-foreground" }
+            else if (ratio <= 1.0) { grade = "Good"; gradeColor = "text-emerald-400" }
+            else if (ratio <= 2.0) { grade = "Great"; gradeColor = "text-blue-400" }
+            else { grade = "Excellent"; gradeColor = "text-amber-400" }
+
+            const avgDiff = ((card.analysis.difficulty.planning + card.analysis.difficulty.filming + card.analysis.difficulty.editing) / 3).toFixed(1)
+
+            const summaryItems = [
+              { label: "콘텐츠 유형", value: card.analysis.contentType },
+              { label: "후킹 매력 요소", value: card.analysis.hookVisual },
+              { label: "스크립트 매력 요소", value: card.analysis.scriptAppeal },
+              { label: "캡션 분석", value: card.analysis.captionAnalysis },
+              { label: "연출 요소", value: card.analysis.visualDirection },
+              { label: "인게이지먼트 장치", value: card.analysis.engagementDevices },
+              { label: "세일즈 포인트", value: card.analysis.salesPoints },
+            ]
+
+            return (
+              <div className="flex flex-col gap-4">
+                {/* Engagement stats */}
+                <Card className="border-border/60">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm">인게이지먼트 수치</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-4 gap-3">
+                      <div className="flex flex-col items-center rounded-lg border border-border/40 px-2 py-2">
+                        <span className="text-sm font-bold">{viewsRaw.toLocaleString()}</span>
+                        <span className="text-[11px] text-muted-foreground">조회수</span>
+                      </div>
+                      <div className="flex flex-col items-center rounded-lg border border-border/40 px-2 py-2">
+                        <span className="text-sm font-bold">{likesRaw.toLocaleString()}</span>
+                        <span className="text-[11px] text-muted-foreground">좋아요</span>
+                      </div>
+                      <div className="flex flex-col items-center rounded-lg border border-border/40 px-2 py-2">
+                        <span className="text-sm font-bold">
+                          {ratioStr}% <span className={`text-xs ${gradeColor}`}>{grade}</span>
+                        </span>
+                        <span className="text-[11px] text-muted-foreground">좋아요 비율</span>
+                      </div>
+                      <div className="flex flex-col items-center rounded-lg border border-border/40 px-2 py-2">
+                        <span className="text-sm font-bold">{commentsRaw.toLocaleString()}</span>
+                        <span className="text-[11px] text-muted-foreground">댓글</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Content type + difficulty */}
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Card className="border-border/60">
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">콘텐츠 유형</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="line-clamp-2 text-sm text-muted-foreground">{card.analysis.contentType}</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-border/60">
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">제작 난이도</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center gap-3">
+                        <span className="text-lg font-bold text-primary">{avgDiff}</span>
+                        <span className="text-xs text-muted-foreground">/ 5.0 평균</span>
+                      </div>
+                      <div className="mt-2 flex gap-4 text-xs text-muted-foreground">
+                        <span>기획 {card.analysis.difficulty.planning}/5</span>
+                        <span>촬영 {card.analysis.difficulty.filming}/5</span>
+                        <span>편집 {card.analysis.difficulty.editing}/5</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Remaining summary items */}
+                {summaryItems.slice(1).map((item) => (
+                  <Card key={item.label} className="border-border/60">
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm">{item.label}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">{item.value}</p>
                     </CardContent>
                   </Card>
                 ))}
               </div>
-            )}
+            )
+          })()}
+        </TabsContent>
+
+        {analysisLabels.map((item) => (
+          <TabsContent key={item.key} value={item.key}>
+            {/* Engagement stats cards */}
+            {item.key === "engagementDevices" && (() => {
+              const viewsRaw = 357651
+              const likesRaw = 8087
+              const commentsRaw = 313
+              const ratio = (likesRaw / viewsRaw) * 100
+              const ratioStr = ratio.toFixed(1)
+
+              let grade: string
+              let gradeColor: string
+              if (ratio <= 0.1) {
+                grade = "Bad"
+                gradeColor = "text-red-400/70"
+              } else if (ratio <= 0.5) {
+                grade = "Normal"
+                gradeColor = "text-muted-foreground"
+              } else if (ratio <= 1.0) {
+                grade = "Good"
+                gradeColor = "text-emerald-400"
+              } else if (ratio <= 2.0) {
+                grade = "Great"
+                gradeColor = "text-blue-400"
+              } else {
+                grade = "Excellent"
+                gradeColor = "text-amber-400"
+              }
+
+              const stats = [
+                { value: viewsRaw.toLocaleString(), label: "조회수", extra: null },
+                { value: likesRaw.toLocaleString(), label: "좋아요", extra: { ratioStr, grade, gradeColor } },
+                { value: commentsRaw.toLocaleString(), label: "댓글", extra: null },
+              ]
+
+              return (
+                <div className="mb-4 grid grid-cols-3 gap-3">
+                  {stats.map((stat) => (
+                    <Card key={stat.label} className="border-border/60">
+                      <CardContent className="flex flex-col items-center justify-center px-3 py-2">
+                        <span className="text-base font-bold tracking-tight text-foreground">
+                          {stat.value}
+                        </span>
+                        <span className="text-[11px] text-muted-foreground">{stat.label}</span>
+                        {stat.extra && (
+                          <span className="text-xs">
+                            <span className="text-muted-foreground">{stat.extra.ratioStr}%</span>
+                            {" "}
+                            <span className={stat.extra.gradeColor}>{stat.extra.grade}</span>
+                          </span>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )
+            })()}
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0">
+              <CardHeader>
                 <CardTitle className="text-base">{item.label}</CardTitle>
-                {editingKey !== item.key && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => startTextEdit(item.key)}
-                    className="h-8 gap-1 text-xs text-muted-foreground hover:text-foreground"
-                  >
-                    <Pencil className="size-3.5" />
-                    수정
-                  </Button>
-                )}
               </CardHeader>
               <CardContent>
-                {editingKey === item.key ? (
-                  <div className="flex flex-col gap-3">
-                    <Textarea
-                      value={editValue}
-                      onChange={(e) => setEditValue(e.target.value)}
-                      rows={4}
-                      className="text-sm leading-relaxed"
-                    />
-                    <div className="flex justify-end gap-2">
-                      <Button variant="ghost" size="sm" onClick={cancelEdit} className="h-8 gap-1 text-xs">
-                        <X className="size-3.5" />
-                        취소
-                      </Button>
-                      <Button size="sm" onClick={() => saveTextEdit(item.key)} className="h-8 gap-1 text-xs">
-                        <Check className="size-3.5" />
-                        저장
-                      </Button>
-                    </div>
-                  </div>
-                ) : (
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {card.analysis[item.key]}
-                  </p>
-                )}
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {card.analysis[item.key]}
+                </p>
               </CardContent>
             </Card>
           </TabsContent>
@@ -176,55 +243,11 @@ export function AnalysisResults({
 
         <TabsContent value="difficulty">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0">
+            <CardHeader>
               <CardTitle className="text-base">제작 난이도</CardTitle>
-              {editingKey !== "difficulty" && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={startDifficultyEdit}
-                  className="h-8 gap-1 text-xs text-muted-foreground hover:text-foreground"
-                >
-                  <Pencil className="size-3.5" />
-                  수정
-                </Button>
-              )}
             </CardHeader>
             <CardContent>
-              {editingKey === "difficulty" ? (
-                <div className="flex flex-col gap-5">
-                  {difficultyLabels.map(({ key, label }) => (
-                    <div key={key} className="flex items-center gap-3">
-                      <span className="w-10 shrink-0 text-sm text-muted-foreground">{label}</span>
-                      <Slider
-                        value={[editDifficulty[key]]}
-                        onValueChange={([v]) =>
-                          setEditDifficulty((prev) => ({ ...prev, [key]: v }))
-                        }
-                        min={1}
-                        max={5}
-                        step={1}
-                        className="flex-1"
-                      />
-                      <span className="w-8 text-right text-sm font-medium">
-                        {editDifficulty[key]}/5
-                      </span>
-                    </div>
-                  ))}
-                  <div className="flex justify-end gap-2">
-                    <Button variant="ghost" size="sm" onClick={cancelEdit} className="h-8 gap-1 text-xs">
-                      <X className="size-3.5" />
-                      취소
-                    </Button>
-                    <Button size="sm" onClick={saveDifficultyEdit} className="h-8 gap-1 text-xs">
-                      <Check className="size-3.5" />
-                      저장
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                <DifficultyMeter difficulty={card.analysis.difficulty} />
-              )}
+              <DifficultyMeter difficulty={card.analysis.difficulty} />
             </CardContent>
           </Card>
         </TabsContent>

@@ -54,6 +54,11 @@ export function UrlInput({
             placeholder={t.analysisPlaceholder}
             value={url}
             onChange={(e) => handleUrlChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && url.trim() && !isLoading) {
+                onAnalyze(url, selectedPlatform)
+              }
+            }}
             className="h-11 pr-10"
           />
           <button

@@ -230,10 +230,10 @@ export default function ExplorerPage() {
       (c) => !libraryIds.has(c.id) && !savedIds.has(c.id),
     )
     const picks = shuffleAndPick(
-      available.length >= 5
+      available.length >= 4
         ? available
         : explorerContentCards.filter((c) => !libraryIds.has(c.id)),
-      5,
+      4,
     )
     setRecommendations(picks)
     setHasExplored(true)
@@ -269,10 +269,13 @@ export default function ExplorerPage() {
               {t.explorerEmptyDesc}
             </p>
           </div>
-          <Button onClick={handleExplore} size="lg" className="gap-2">
-            <Compass className="size-4" />
-            {t.explorerExploreBtn}
-          </Button>
+          <div className="flex flex-col items-center gap-2">
+            <Button onClick={handleExplore} size="lg" className="gap-2">
+              <Compass className="size-4" />
+              {t.explorerExploreBtn}
+            </Button>
+            <p className="text-sm text-muted-foreground">분석 1회를 사용하여 4개의 콘텐츠를 추천합니다.</p>
+          </div>
         </div>
       ) : (
         <div className="flex flex-col gap-6">
@@ -284,15 +287,17 @@ export default function ExplorerPage() {
               </span>
               {t.explorerCount}
             </p>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleExplore}
-              className="gap-2"
-            >
-              <RefreshCw className="size-3.5" />
-              {t.explorerRefresh}
-            </Button>
+            <div className="flex items-center gap-3">
+              <p className="text-sm text-muted-foreground">분석 1회를 사용하여 4개의 콘텐츠를 추천합니다.</p>
+              <Button
+                size="sm"
+                onClick={handleExplore}
+                className="gap-2"
+              >
+                <RefreshCw className="size-3.5" />
+                {t.explorerRefresh}
+              </Button>
+            </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

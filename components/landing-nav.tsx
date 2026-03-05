@@ -19,13 +19,13 @@ export function LandingNav() {
           <span className="text-lg font-bold tracking-tight">DotLink</span>
         </Link>
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/analysis">{t.landingNavStart}</Link>
-          </Button>
           <span className="text-xs text-muted-foreground">Language</span>
           <LanguageSelector />
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/login">로그인</Link>
+          </Button>
           <Button size="sm" asChild>
-            <Link href="/analysis">{t.landingNavTrial}</Link>
+            <Link href="/signup">{t.landingNavTrial}</Link>
           </Button>
         </div>
       </div>
