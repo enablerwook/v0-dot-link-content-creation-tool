@@ -63,24 +63,60 @@ export function AnalysisResults({
         {analysisLabels.map((item) => (
           <TabsContent key={item.key} value={item.key}>
             {/* Engagement stats cards */}
-            {item.key === "engagementDevices" && (
-              <div className="mb-4 grid grid-cols-3 gap-3">
-                {[
-                  { value: "357,651", label: "조회수" },
-                  { value: "8,087", label: "좋아요" },
-                  { value: "313", label: "댓글" },
-                ].map((stat) => (
-                  <Card key={stat.label} className="border-border/60">
-                    <CardContent className="flex flex-col items-center justify-center px-3 py-4">
-                      <span className="text-lg font-bold tracking-tight text-foreground sm:text-xl">
-                        {stat.value}
-                      </span>
-                      <span className="mt-0.5 text-xs text-muted-foreground">{stat.label}</span>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
+            {item.key === "engagementDevices" && (() => {
+              const viewsRaw = 357651
+              const likesRaw = 8087
+              const commentsRaw = 313
+              const ratio = (likesRaw / viewsRaw) * 100
+              const ratioStr = ratio.toFixed(1)
+
+              let grade: string
+              let gradeColor: string
+              if (ratio <= 0.1) {
+                grade = "Bad"
+                gradeColor = "text-red-400/70"
+              } else if (ratio <= 0.5) {
+                grade = "Normal"
+                gradeColor = "text-muted-foreground"
+              } else if (ratio <= 1.0) {
+                grade = "Good"
+                gradeColor = "text-emerald-400"
+              } else if (ratio <= 2.0) {
+                grade = "Great"
+                gradeColor = "text-blue-400"
+              } else {
+                grade = "Excellent"
+                gradeColor = "text-amber-400"
+              }
+
+              const stats = [
+                { value: viewsRaw.toLocaleString(), label: "조회수", extra: null },
+                { value: likesRaw.toLocaleString(), label: "좋아요", extra: { ratioStr, grade, gradeColor } },
+                { value: commentsRaw.toLocaleString(), label: "댓글", extra: null },
+              ]
+
+              return (
+                <div className="mb-4 grid grid-cols-3 gap-3">
+                  {stats.map((stat) => (
+                    <Card key={stat.label} className="border-border/60">
+                      <CardContent className="flex flex-col items-center justify-center px-3 py-4">
+                        <span className="text-lg font-bold tracking-tight text-foreground sm:text-xl">
+                          {stat.value}
+                        </span>
+                        <span className="mt-0.5 text-xs text-muted-foreground">{stat.label}</span>
+                        {stat.extra && (
+                          <span className="mt-1 text-sm">
+                            <span className="text-muted-foreground">{stat.extra.ratioStr}%</span>
+                            {" "}
+                            <span className={stat.extra.gradeColor}>{stat.extra.grade}</span>
+                          </span>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )
+            })()}
 
             <Card>
               <CardHeader>
