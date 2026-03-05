@@ -99,13 +99,13 @@ export function AnalysisResults({
                 <div className="mb-4 grid grid-cols-3 gap-3">
                   {stats.map((stat) => (
                     <Card key={stat.label} className="border-border/60">
-                      <CardContent className="flex flex-col items-center justify-center px-3 py-4">
-                        <span className="text-lg font-bold tracking-tight text-foreground sm:text-xl">
+                      <CardContent className="flex flex-col items-center justify-center px-3 py-2">
+                        <span className="text-base font-bold tracking-tight text-foreground">
                           {stat.value}
                         </span>
-                        <span className="mt-0.5 text-xs text-muted-foreground">{stat.label}</span>
+                        <span className="text-[11px] text-muted-foreground">{stat.label}</span>
                         {stat.extra && (
-                          <span className="mt-1 text-sm">
+                          <span className="text-xs">
                             <span className="text-muted-foreground">{stat.extra.ratioStr}%</span>
                             {" "}
                             <span className={stat.extra.gradeColor}>{stat.extra.grade}</span>
