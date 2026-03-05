@@ -394,7 +394,7 @@ const ko: TranslationStrings = {
   settingsModalTestDev: "모달 테스트(DEV)",
   settingsActivated: "활성화",
   settingsLocked: "잠금",
-  settingsCongratsAmbassador: "축하합니다! 앰버서더 자격을 획득하셨��니다.",
+  settingsCongratsAmbassador: "축하합니다! 앰버서더 자격을 획득하셨���니다.",
   settingsAnalysisHint: "분석 기능을 {count}회 이상 사용한 '찐팬'에게만 주어지는 특별한 혜택!",
   settingsUnlockBtn: "추천인 코드 확인하기",
   settingsMoreAnalysis: "{count}회 더 분석하면 열립니다",
@@ -1365,45 +1365,82 @@ export function useLocale() {
   return ctx
 }
 
-const LOCALE_STORAGE_KEY = "dotlink-locale"
-const AUTO_TRANSLATE_STORAGE_KEY = "dotlink-auto-translate"
+const LOCALE_COOKIE_KEY = "dotlink-locale"
+const AUTO_TRANSLATE_COOKIE_KEY = "dotlink-auto-translate"
 
-function getStoredLocale(): LocaleCode {
-  if (typeof window === "undefined") return "ko"
-  try {
-    const stored = window.localStorage.getItem(LOCALE_STORAGE_KEY)
-    if (stored && stored in translations) return stored as LocaleCode
-  } catch {}
+// ── Cookie helpers (client-side) ─────────────────────────────
+function setCookie(name: string, value: string, days = 365) {
+  if (typeof document === "undefined") return
+  const expires = new Date(Date.now() + days * 864e5).toUTCString()
+  document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires};path=/;SameSite=Lax`
+}
+
+function getCookie(name: string): string | null {
+  if (typeof document === "undefined") return null
+  const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`))
+  return match ? decodeURIComponent(match[1]) : null
+}
+
+// ── Server-side helper (called from layout.tsx) ──────────────
+export function getLocaleFromCookies(cookieStore: { get: (name: string) => { value: string } | undefined }): LocaleCode {
+  const raw = cookieStore.get(LOCALE_COOKIE_KEY)?.value
+  if (raw && raw in translations) return raw as LocaleCode
   return "ko"
 }
 
-function getStoredAutoTranslate(): boolean {
-  if (typeof window === "undefined") return true
-  try {
-    const stored = window.localStorage.getItem(AUTO_TRANSLATE_STORAGE_KEY)
-    if (stored !== null) return stored === "true"
-  } catch {}
+export function getAutoTranslateFromCookies(cookieStore: { get: (name: string) => { value: string } | undefined }): boolean {
+  const raw = cookieStore.get(AUTO_TRANSLATE_COOKIE_KEY)?.value
+  if (raw !== undefined) return raw === "true"
   return true
 }
 
-export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<LocaleCode>("ko")
-  const [autoTranslate, setAutoTranslateState] = useState(true)
+// ── Exported translations map (for server usage) ─────────────
+export { translations }
 
-  // Sync from localStorage only after mount to avoid hydration mismatch
+interface LocaleProviderProps {
+  children: ReactNode
+  initialLocale?: LocaleCode
+  initialAutoTranslate?: boolean
+}
+
+export function LocaleProvider({ children, initialLocale = "ko", initialAutoTranslate = true }: LocaleProviderProps) {
+  const [locale, setLocaleState] = useState<LocaleCode>(initialLocale)
+  const [autoTranslate, setAutoTranslateState] = useState(initialAutoTranslate)
+
+  // One-time migration: sync any existing localStorage value into a cookie
+  // so returning users don't lose their preference.
   useEffect(() => {
-    setLocaleState(getStoredLocale())
-    setAutoTranslateState(getStoredAutoTranslate())
+    try {
+      const lsLocale = window.localStorage.getItem("dotlink-locale")
+      if (lsLocale && lsLocale in translations) {
+        const cookieVal = getCookie(LOCALE_COOKIE_KEY)
+        if (!cookieVal || cookieVal === "ko") {
+          // localStorage has a non-default value that the cookie doesn't – migrate it
+          setCookie(LOCALE_COOKIE_KEY, lsLocale)
+          setLocaleState(lsLocale as LocaleCode)
+        }
+        // Clean up localStorage after migration
+        window.localStorage.removeItem("dotlink-locale")
+      }
+      const lsAT = window.localStorage.getItem("dotlink-auto-translate")
+      if (lsAT !== null) {
+        setCookie(AUTO_TRANSLATE_COOKIE_KEY, lsAT)
+        setAutoTranslateState(lsAT === "true")
+        window.localStorage.removeItem("dotlink-auto-translate")
+      }
+    } catch {
+      // Ignore storage access errors
+    }
   }, [])
 
   const setLocale = useCallback((code: LocaleCode) => {
     setLocaleState(code)
-    try { window.localStorage.setItem(LOCALE_STORAGE_KEY, code) } catch {}
+    setCookie(LOCALE_COOKIE_KEY, code)
   }, [])
 
   const setAutoTranslate = useCallback((v: boolean) => {
     setAutoTranslateState(v)
-    try { window.localStorage.setItem(AUTO_TRANSLATE_STORAGE_KEY, String(v)) } catch {}
+    setCookie(AUTO_TRANSLATE_COOKIE_KEY, String(v))
   }, [])
 
   const t = translations[locale]

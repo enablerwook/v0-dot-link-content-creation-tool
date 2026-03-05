@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
@@ -43,7 +42,6 @@ const navItems: { key: NavKey; href: string; icon: typeof Home }[] = [
 
 export function AppSidebar() {
   const pathname = usePathname()
-  const [mounted, setMounted] = useState(false)
 
   let t: TranslationStrings | null = null
   try {
@@ -52,10 +50,6 @@ export function AppSidebar() {
   } catch {
     // LocaleProvider not available (e.g. outside dashboard)
   }
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const getLabel = (key: NavKey): string => {
     if (!t) {
@@ -89,7 +83,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>{mounted ? (t?.menu ?? "메뉴") : "\u00A0"}</SidebarGroupLabel>
+          <SidebarGroupLabel>{t?.menu ?? "메뉴"}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navItems.map((item) => (
@@ -101,7 +95,7 @@ export function AppSidebar() {
                   >
                     <Link href={item.href}>
                       <item.icon />
-                      <span suppressHydrationWarning>{getLabel(item.key)}</span>
+                      <span>{getLabel(item.key)}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
