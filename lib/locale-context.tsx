@@ -88,15 +88,25 @@ export interface TranslationStrings {
   synapseChangeCard: string
   // Creation Card
   creationExport: string
-  creationScript: string
-  creationContentType: string
-  creationHook: string
-  creationCaption: string
-  creationDirection: string
-  creationEngagement: string
-  creationSalesPoints: string
-  creationDifficulty: string
   creationPlaceholder: string
+  creationStep1Title: string
+  creationStep1Desc: string
+  creationStep2Title: string
+  creationStep2Desc: string
+  creationStep3Title: string
+  creationStep3Desc: string
+  creationStep4Title: string
+  creationStep4Desc: string
+  creationStep5Title: string
+  creationStep5Desc: string
+  creationStep6Title: string
+  creationStep6Desc: string
+  creationStep7Title: string
+  creationStep7Desc: string
+  creationStep8Title: string
+  creationStep8Desc: string
+  creationStep9Title: string
+  creationStep9Desc: string
   // Feature Request page
   featureRequestTitle: string
   featureRequestDesc: string
@@ -308,15 +318,25 @@ const ko: TranslationStrings = {
   synapseChangeCard: "카드 변경",
   // Creation Card
   creationExport: "내보내기",
-  creationScript: "전체 스크립트(대본)",
-  creationContentType: "콘텐츠 유형",
-  creationHook: "후킹 매력 요소",
-  creationCaption: "캡션 분석",
-  creationDirection: "연출 요소",
-  creationEngagement: "인게이지먼트 장치",
-  creationSalesPoints: "세일즈 포인트",
-  creationDifficulty: "제작 난이도 메모",
-  creationPlaceholder: "을(를) 작성하세요...",
+  creationPlaceholder: "내용을 입력하세요...",
+  creationStep1Title: "스크립트 작성 (초안)",
+  creationStep1Desc: "레퍼런스들을 보고 떠오르는 스크립트를 자유롭게 적어보세요. 아래 항목들을 보며 초안을 다듬어가면 됩니다.",
+  creationStep2Title: "콘텐츠 유형 정의",
+  creationStep2Desc: "초안에 작성된 스크립트의 유형은 뭐라고 정의할 수 있나요? 유형 정의를 하면 비슷한 유형들이 떠올라 아이디어가 더 풍부하게 생각날 수 있습니다.",
+  creationStep3Title: "후킹 매력 요소 (대사)",
+  creationStep3Desc: "초반 3초 가장 중요한거 아시죠? 레퍼런스를 보고 내 스크립트에 적절한 후킹 요소를 가져와보세요.",
+  creationStep4Title: "후킹 매력 요소 (영상)",
+  creationStep4Desc: "레퍼런스에서 시선을 사로잡는 장면을 활용해보세요. 왼쪽 카드에서 장면을 드래그앤드롭하면 편합니다.",
+  creationStep5Title: "인게이지먼트 유도 장치",
+  creationStep5Desc: "팔로우, 저장, 공유, 댓글을 유도하는 멘트 또는 상황이 있나요? 생각나지 않는다면 레퍼런스에서 찾아보세요.",
+  creationStep6Title: "캡션 작성",
+  creationStep6Desc: "캡션 글의 초반 첫 문장은 시청자가 영상을 보는 동안 보이게 됩니다. 초반 캡션글은 후킹의 의도가 있으면 좋습니다. 본문글은 콘텐츠의 진정성을 풀어서 이야기해주면 좋습니다.",
+  creationStep7Title: "세일즈 포인트",
+  creationStep7Desc: "지금까지 작성된 스크립트(기획)에 나의 상품을 어떻게 녹여낼지 아이디어를 떠올려보세요. 레퍼런스를 참고하셔도 좋습니다.",
+  creationStep8Title: "연출요소",
+  creationStep8Desc: "시청자가 영상에서 이탈하지 않도록, 영상에 몰입할 요소들을 넣어주세요. 화면전환, BGM, 효과음 등 다양한 연출 방법에 대해 생각해보세요.",
+  creationStep9Title: "스크립트 (최종안)",
+  creationStep9Desc: "스크립트 초안부터 연출요소까지를 모두 고려한 최종 스크립트를 작성해보세요. 치밀하게 설계된 탄탄한 스크립트가 나올 거예요.",
   // Feature Request
   featureRequestTitle: "기능 요청",
   featureRequestDesc: "DotLink에 추가되었으면 하는 기능을 제안해주세요.",
@@ -528,15 +548,25 @@ const en: TranslationStrings = {
   synapseChangeCard: "Change card",
   // Creation Card
   creationExport: "Export",
-  creationScript: "Full Script",
-  creationContentType: "Content Type",
-  creationHook: "Hook Elements",
-  creationCaption: "Caption Analysis",
-  creationDirection: "Direction Elements",
-  creationEngagement: "Engagement Devices",
-  creationSalesPoints: "Sales Points",
-  creationDifficulty: "Difficulty Notes",
   creationPlaceholder: "Write here...",
+  creationStep1Title: "Script Draft",
+  creationStep1Desc: "Write freely based on the references. Refine your draft as you go through the sections below.",
+  creationStep2Title: "Content Type Definition",
+  creationStep2Desc: "How would you define the type of your script? Defining the type can help spark more ideas by recalling similar formats.",
+  creationStep3Title: "Hook - Dialogue",
+  creationStep3Desc: "The first 3 seconds matter most! Find the right hook dialogue from the references for your script.",
+  creationStep4Title: "Hook - Visual",
+  creationStep4Desc: "Use eye-catching scenes from your references. Drag and drop scenes from the left cards for convenience.",
+  creationStep5Title: "Engagement Devices",
+  creationStep5Desc: "Any lines or situations that encourage follows, saves, shares, or comments? Look at references for inspiration.",
+  creationStep6Title: "Caption Writing",
+  creationStep6Desc: "The first sentence of your caption is seen while watching. Make it hook-worthy. The body should tell your authentic story.",
+  creationStep7Title: "Sales Point",
+  creationStep7Desc: "Think about how to naturally weave your product into the script. Feel free to reference the cards for ideas.",
+  creationStep8Title: "Direction Elements",
+  creationStep8Desc: "Add elements to keep viewers engaged: transitions, BGM, sound effects, and other production techniques.",
+  creationStep9Title: "Final Script",
+  creationStep9Desc: "Write the final script considering everything from draft to direction. You'll have a solid, well-designed script.",
   // Feature Request
   featureRequestTitle: "Feature Request",
   featureRequestDesc: "Suggest features you'd like to see added to DotLink.",
@@ -701,9 +731,16 @@ const jaBase: Partial<TranslationStrings> = {
   synapseTitle: "シナプス", synapseDesc: "2つのコンテンツを比較分析し新しいコンテンツを設計しましょう。",
   synapseNeedContent: "分析済みコンテンツが必要です", synapseNeedContentDesc: "まずライブラリからカードを選択するかコンテンツを分析してください。",
   synapseSelectCard: "ライブラリからカードを選択", synapseEmptySlot: "カードを選択してください", synapsePickFromLibrary: "ライブラリから選択", synapseLibraryEmpty: "ライブラリにカードがありません。まずコンテンツを分析してください。", synapseChangeCard: "カードを変更",
-  creationExport: "エクスポート", creationScript: "全体スクリプト（台本）", creationContentType: "コンテンツ種類",
-  creationHook: "フック魅力要素", creationCaption: "キャプション分析", creationDirection: "演出要素",
-  creationEngagement: "エンゲージメント装置", creationSalesPoints: "セールスポイント", creationDifficulty: "制作難易度メモ", creationPlaceholder: "を入力してください...",
+  creationExport: "エクスポート", creationPlaceholder: "入力してください...",
+  creationStep1Title: "スクリプト作成（下書き）", creationStep1Desc: "リファレンスを見て思いつくスクリプトを自由に書いてみましょう。",
+  creationStep2Title: "コンテンツ種類の定義", creationStep2Desc: "下書きのスクリプトはどのような種類と定義できますか？",
+  creationStep3Title: "フック要素（セリフ）", creationStep3Desc: "最初の3秒が最も重要です！リファレンスから適切なフック要素を見つけましょう。",
+  creationStep4Title: "フック要素（映像）", creationStep4Desc: "リファレンスから目を引くシーンを活用しましょう。左のカードからドラッグ＆ドロップできます。",
+  creationStep5Title: "エンゲージメント誘導", creationStep5Desc: "フォロー、保存、共有、コメントを促す言葉や状況はありますか？",
+  creationStep6Title: "キャプション作成", creationStep6Desc: "キャプションの最初の文は視聴中に表示されます。フックの意図を込めましょう。",
+  creationStep7Title: "セールスポイント", creationStep7Desc: "スクリプトに商品をどう織り込むかアイデアを考えてみましょう。",
+  creationStep8Title: "演出要素", creationStep8Desc: "視聴者が離脱しないよう、没入できる要素を入れましょう。画面遷移、BGM、効果音など。",
+  creationStep9Title: "スクリプト（最終版）", creationStep9Desc: "下書きから演出要素まで全てを考慮した最終スクリプトを作成しましょう。",
   featureRequestTitle: "機能リクエスト", featureRequestDesc: "DotLinkに追加して欲しい機能を提案してください。",
   featureRequestNewTitle: "新しい機能を提案する", featureRequestFormTitle: "タイトル", featureRequestFormTitlePlaceholder: "機能のタイトルを入力",
   featureRequestFormDesc: "説明", featureRequestFormDescPlaceholder: "機能について詳しく説明してください",
@@ -783,9 +820,16 @@ const esBase: Partial<TranslationStrings> = {
   synapseTitle: "Sinapsis", synapseDesc: "Compara y analiza dos contenidos para diseñar nuevo contenido.",
   synapseNeedContent: "Se necesita contenido analizado", synapseNeedContentDesc: "Selecciona una tarjeta de la biblioteca o analiza contenido primero.",
   synapseSelectCard: "Seleccionar tarjeta de biblioteca", synapseEmptySlot: "Selecciona una tarjeta", synapsePickFromLibrary: "Elegir de biblioteca", synapseLibraryEmpty: "No hay tarjetas en la biblioteca. Analiza contenido primero.", synapseChangeCard: "Cambiar tarjeta",
-  creationExport: "Exportar", creationScript: "Guion completo", creationContentType: "Tipo de contenido",
-  creationHook: "Elementos gancho", creationCaption: "Análisis de subtítulos", creationDirection: "Elementos de dirección",
-  creationEngagement: "Dispositivos de engagement", creationSalesPoints: "Puntos de venta", creationDifficulty: "Notas de dificultad", creationPlaceholder: "Escribe aquí...",
+  creationExport: "Exportar", creationPlaceholder: "Escribe aquí...",
+  creationStep1Title: "Borrador del guion", creationStep1Desc: "Escribe libremente basándote en las referencias.",
+  creationStep2Title: "Definición del tipo", creationStep2Desc: "¿Cómo definirías el tipo de tu guion?",
+  creationStep3Title: "Gancho - Diálogo", creationStep3Desc: "¡Los primeros 3 segundos son clave! Encuentra el gancho adecuado.",
+  creationStep4Title: "Gancho - Visual", creationStep4Desc: "Usa escenas llamativas de las referencias. Arrastra y suelta desde las tarjetas.",
+  creationStep5Title: "Dispositivos de engagement", creationStep5Desc: "¿Hay frases o situaciones que fomenten seguidores, guardados, compartidos o comentarios?",
+  creationStep6Title: "Redacción de caption", creationStep6Desc: "La primera frase del caption se ve mientras miran el video. Hazla atractiva.",
+  creationStep7Title: "Punto de venta", creationStep7Desc: "Piensa cómo integrar tu producto en el guion de forma natural.",
+  creationStep8Title: "Elementos de dirección", creationStep8Desc: "Añade elementos para mantener la atención: transiciones, BGM, efectos de sonido.",
+  creationStep9Title: "Guion final", creationStep9Desc: "Escribe el guion final considerando todo, desde el borrador hasta la dirección.",
   featureRequestTitle: "Solicitud de funciones", featureRequestDesc: "Sugiere funciones que te gustaría ver en DotLink.",
   featureRequestNewTitle: "Sugerir nueva función", featureRequestFormTitle: "Título", featureRequestFormTitlePlaceholder: "Ingresa el título de la función",
   featureRequestFormDesc: "Descripción", featureRequestFormDescPlaceholder: "Describe la función en detalle",
@@ -865,9 +909,16 @@ const frBase: Partial<TranslationStrings> = {
   synapseTitle: "Synapse", synapseDesc: "Comparez et analysez deux contenus pour en concevoir un nouveau.",
   synapseNeedContent: "Contenu analysé requis", synapseNeedContentDesc: "Sélectionnez d'abord une carte de la bibliothèque ou analysez du contenu.",
   synapseSelectCard: "Sélectionner une carte", synapseEmptySlot: "Sélectionnez une carte", synapsePickFromLibrary: "Choisir dans la bibliothèque", synapseLibraryEmpty: "Aucune carte dans la bibliothèque. Analysez d'abord du contenu.", synapseChangeCard: "Changer de carte",
-  creationExport: "Exporter", creationScript: "Script complet", creationContentType: "Type de contenu",
-  creationHook: "Éléments d'accroche", creationCaption: "Analyse des sous-titres", creationDirection: "Éléments de réalisation",
-  creationEngagement: "Dispositifs d'engagement", creationSalesPoints: "Arguments de vente", creationDifficulty: "Notes de difficulté", creationPlaceholder: "Écrivez ici...",
+  creationExport: "Exporter", creationPlaceholder: "Écrivez ici...",
+  creationStep1Title: "Brouillon du script", creationStep1Desc: "Écrivez librement en vous inspirant des références.",
+  creationStep2Title: "Définition du type", creationStep2Desc: "Comment définiriez-vous le type de votre script ?",
+  creationStep3Title: "Accroche - Dialogue", creationStep3Desc: "Les 3 premières secondes sont cruciales ! Trouvez la bonne accroche.",
+  creationStep4Title: "Accroche - Visuelle", creationStep4Desc: "Utilisez des scènes accrocheuses des références. Glissez-déposez depuis les cartes.",
+  creationStep5Title: "Dispositifs d'engagement", creationStep5Desc: "Y a-t-il des phrases encourageant les abonnements, sauvegardes, partages ou commentaires ?",
+  creationStep6Title: "Rédaction de légende", creationStep6Desc: "La première phrase est vue pendant le visionnage. Rendez-la accrocheuse.",
+  creationStep7Title: "Argument de vente", creationStep7Desc: "Réfléchissez à comment intégrer votre produit naturellement dans le script.",
+  creationStep8Title: "Éléments de réalisation", creationStep8Desc: "Ajoutez des éléments pour capter l'attention : transitions, musique, effets sonores.",
+  creationStep9Title: "Script final", creationStep9Desc: "Rédigez le script final en tenant compte de tout, du brouillon à la réalisation.",
   featureRequestTitle: "Demande de fonctionnalité", featureRequestDesc: "Suggérez des fonctionnalités pour DotLink.",
   featureRequestNewTitle: "Suggérer une nouvelle fonctionnalité", featureRequestFormTitle: "Titre", featureRequestFormTitlePlaceholder: "Entrez le titre de la fonctionnalité",
   featureRequestFormDesc: "Description", featureRequestFormDescPlaceholder: "Décrivez la fonctionnalité en détail",
@@ -947,9 +998,16 @@ const deBase: Partial<TranslationStrings> = {
   synapseTitle: "Synapse", synapseDesc: "Vergleichen und analysieren Sie zwei Inhalte, um neue zu gestalten.",
   synapseNeedContent: "Analysierte Inhalte erforderlich", synapseNeedContentDesc: "Wählen Sie zuerst eine Karte aus der Bibliothek oder analysieren Sie Inhalte.",
   synapseSelectCard: "Karte aus Bibliothek auswählen", synapseEmptySlot: "Karte auswählen", synapsePickFromLibrary: "Aus Bibliothek wählen", synapseLibraryEmpty: "Keine Karten in der Bibliothek. Analysieren Sie zuerst Inhalte.", synapseChangeCard: "Karte ändern",
-  creationExport: "Exportieren", creationScript: "Vollständiges Skript", creationContentType: "Inhaltstyp",
-  creationHook: "Hook-Elemente", creationCaption: "Untertitel-Analyse", creationDirection: "Regie-Elemente",
-  creationEngagement: "Engagement-Mechanismen", creationSalesPoints: "Verkaufsargumente", creationDifficulty: "Schwierigkeitsnotizen", creationPlaceholder: "Hier schreiben...",
+  creationExport: "Exportieren", creationPlaceholder: "Hier schreiben...",
+  creationStep1Title: "Skript-Entwurf", creationStep1Desc: "Schreiben Sie frei basierend auf den Referenzen.",
+  creationStep2Title: "Inhaltstyp-Definition", creationStep2Desc: "Wie würden Sie den Typ Ihres Skripts definieren?",
+  creationStep3Title: "Hook - Dialog", creationStep3Desc: "Die ersten 3 Sekunden zählen! Finden Sie den richtigen Hook.",
+  creationStep4Title: "Hook - Visuell", creationStep4Desc: "Nutzen Sie auffällige Szenen aus den Referenzen. Per Drag & Drop von den Karten.",
+  creationStep5Title: "Engagement-Mechanismen", creationStep5Desc: "Gibt es Aussagen, die zum Folgen, Speichern, Teilen oder Kommentieren anregen?",
+  creationStep6Title: "Caption schreiben", creationStep6Desc: "Der erste Satz wird beim Ansehen angezeigt. Machen Sie ihn fesselnd.",
+  creationStep7Title: "Verkaufsargument", creationStep7Desc: "Überlegen Sie, wie Sie Ihr Produkt natürlich ins Skript einbinden können.",
+  creationStep8Title: "Regie-Elemente", creationStep8Desc: "Fügen Sie Elemente hinzu: Übergänge, BGM, Soundeffekte und andere Techniken.",
+  creationStep9Title: "Finales Skript", creationStep9Desc: "Schreiben Sie das finale Skript unter Berücksichtigung aller bisherigen Schritte.",
   featureRequestTitle: "Funktionsanfrage", featureRequestDesc: "Schlagen Sie Funktionen vor, die Sie in DotLink sehen möchten.",
   featureRequestNewTitle: "Neue Funktion vorschlagen", featureRequestFormTitle: "Titel", featureRequestFormTitlePlaceholder: "Geben Sie den Funktionstitel ein",
   featureRequestFormDesc: "Beschreibung", featureRequestFormDescPlaceholder: "Beschreiben Sie die Funktion im Detail",
@@ -1029,9 +1087,16 @@ const zhCNBase: Partial<TranslationStrings> = {
   synapseTitle: "突触", synapseDesc: "比较分析两个内容，设计新内容。",
   synapseNeedContent: "需要已分析的内容", synapseNeedContentDesc: "请先从资料库选择卡片或分析内容。",
   synapseSelectCard: "从资料库选择卡片", synapseEmptySlot: "请选择卡片", synapsePickFromLibrary: "从资料库选择", synapseLibraryEmpty: "资料库中没有卡片。请先分析内容。", synapseChangeCard: "更换卡片",
-  creationExport: "导出", creationScript: "完整脚本", creationContentType: "内容类型",
-  creationHook: "钩子魅力要素", creationCaption: "字幕分析", creationDirection: "导演要素",
-  creationEngagement: "互动装置", creationSalesPoints: "卖点", creationDifficulty: "制作难度备注", creationPlaceholder: "请输入...",
+  creationExport: "导出", creationPlaceholder: "请输入...",
+  creationStep1Title: "脚本撰写（草稿）", creationStep1Desc: "参考素材自由撰写脚本，后续逐步完善。",
+  creationStep2Title: "内容类型定义", creationStep2Desc: "如何定义你的脚本类型？定义类型有助于激发更多灵感。",
+  creationStep3Title: "钩子要素（台词）", creationStep3Desc: "前3秒最重要！从参考中找到合适的钩子台词。",
+  creationStep4Title: "钩子要素（画面）", creationStep4Desc: "利用参考中的吸睛画面，可从左侧卡片拖放场景。",
+  creationStep5Title: "互动引导装置", creationStep5Desc: "有没有引导关注、收藏、分享、评论的话术或场景？",
+  creationStep6Title: "文案撰写", creationStep6Desc: "文案的第一句话在观看时可见，要有吸引力。正文讲述真实故事。",
+  creationStep7Title: "销售卖点", creationStep7Desc: "思考如何将产品自然融入脚本中。",
+  creationStep8Title: "导演要素", creationStep8Desc: "添加让观众沉浸的要素：转场、BGM、音效等。",
+  creationStep9Title: "脚本（终稿）", creationStep9Desc: "综合以上所有要素撰写最终脚本。",
   featureRequestTitle: "功能请求", featureRequestDesc: "建议您希望DotLink添加的功能。",
   featureRequestNewTitle: "提出新功能建议", featureRequestFormTitle: "标题", featureRequestFormTitlePlaceholder: "输入功能标题",
   featureRequestFormDesc: "描述", featureRequestFormDescPlaceholder: "详细描述功能",
@@ -1111,9 +1176,17 @@ const zhTWBase: Partial<TranslationStrings> = {
   synapseTitle: "突觸", synapseDesc: "比較分析兩個內容，設計新內容。",
   synapseNeedContent: "需要已分析的內容", synapseNeedContentDesc: "請先從資料庫選擇卡片或分析內容。",
   synapseSelectCard: "從資料庫選擇卡片", synapseEmptySlot: "請選擇卡片", synapsePickFromLibrary: "從資料庫選擇", synapseLibraryEmpty: "資料庫中沒有卡片。請先分析內容。", synapseChangeCard: "更換卡片",
-  creationExport: "匯出", creationScript: "完整腳本", creationContentType: "內容類型",
-  creationHook: "鉤子魅力要素", creationCaption: "字幕分析", creationDirection: "導演要素",
-  creationEngagement: "互動裝置", creationSalesPoints: "賣點", creationDifficulty: "製作難度備註", creationPlaceholder: "請輸入...",
+  creationExport: "匯出",
+  creationPlaceholder: "請輸入...",
+  creationStep1Title: "腳本撰寫（草稿）", creationStep1Desc: "參考素材自由撰寫腳本，後續逐步完善。",
+  creationStep2Title: "內容類型定義", creationStep2Desc: "如何定義你的腳本類型？定義類型有助於激發更多靈感。",
+  creationStep3Title: "鉤子要素（台詞）", creationStep3Desc: "前3秒最重要！從參考中找到合適的鉤子台詞。",
+  creationStep4Title: "鉤子要素（畫面）", creationStep4Desc: "利用參考中的吸睛畫面，可從左側卡片拖放場景。",
+  creationStep5Title: "互動引導裝置", creationStep5Desc: "有沒有引導關注、收藏、分享、留言的話術或場景？",
+  creationStep6Title: "文案撰寫", creationStep6Desc: "文案的第一句話在觀看時可見，要有吸引力。正文講述真實故事。",
+  creationStep7Title: "銷售賣點", creationStep7Desc: "思考如何將產品自然融入腳本中。",
+  creationStep8Title: "導演要素", creationStep8Desc: "添加讓觀眾沉浸的要素：轉場、BGM、音效等。",
+  creationStep9Title: "腳本（終稿）", creationStep9Desc: "綜合以上所有要素撰寫最終腳本。",
   featureRequestTitle: "功能請求", featureRequestDesc: "建議您希望DotLink新增的功能。",
   featureRequestNewTitle: "提出新功能建議", featureRequestFormTitle: "標題", featureRequestFormTitlePlaceholder: "輸入功能標題",
   featureRequestFormDesc: "描述", featureRequestFormDescPlaceholder: "詳細描述功能",
