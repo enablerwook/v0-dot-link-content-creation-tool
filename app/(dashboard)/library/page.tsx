@@ -1,8 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { ContentCardComponent } from "@/components/library/content-card"
 import { CreationCardList } from "@/components/library/creation-card-list"
+import { CardDetailModal } from "@/components/library/card-detail-modal"
 import { useAppContext } from "@/lib/app-context"
 import { useLocale } from "@/lib/locale-context"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
@@ -13,6 +15,8 @@ export default function LibraryPage() {
   const { t } = useLocale()
   const { libraryCards, setSelectedCardA } = useAppContext()
   const router = useRouter()
+
+  const [expandedCard, setExpandedCard] = useState<ContentCard | null>(null)
 
   function handleSynapseClick(card: ContentCard) {
     setSelectedCardA(card)
@@ -47,6 +51,7 @@ export default function LibraryPage() {
                 key={card.id}
                 card={card}
                 onSynapseClick={handleSynapseClick}
+                onExpandClick={(c) => setExpandedCard(c)}
               />
             ))}
           </div>
@@ -56,6 +61,13 @@ export default function LibraryPage() {
           <CreationCardList />
         </TabsContent>
       </Tabs>
+
+      {/* "크게 보기" full modal */}
+      <CardDetailModal
+        card={expandedCard}
+        open={!!expandedCard}
+        onOpenChange={(open) => { if (!open) setExpandedCard(null) }}
+      />
     </div>
   )
 }

@@ -1,11 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, X, Zap, ExternalLink } from "lucide-react"
+import { ChevronLeft, ChevronRight, Zap, ExternalLink, X, ZoomIn } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { DifficultyMeter } from "@/components/analysis/difficulty-meter"
+import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Separator } from "@/components/ui/separator"
 import type { ContentCard } from "@/lib/types"
 
 const platformColors: Record<string, string> = {
@@ -14,7 +15,17 @@ const platformColors: Record<string, string> = {
   youtube: "bg-red-500/20 text-red-400",
 }
 
-const analysisSections = [
+/* Like-ratio grading */
+function getLikeGrade(ratio: number) {
+  if (ratio <= 0.1) return { grade: "Bad", color: "text-red-400/70" }
+  if (ratio <= 0.5) return { grade: "Normal", color: "text-muted-foreground" }
+  if (ratio <= 1.0) return { grade: "Good", color: "text-emerald-400" }
+  if (ratio <= 2.0) return { grade: "Great", color: "text-blue-400" }
+  return { grade: "Excellent", color: "text-amber-400" }
+}
+
+/* Ordered sections for full tab */
+const fullSections = [
   { key: "contentType", label: "콘텐츠 유형" },
   { key: "hookVisual", label: "후킹 매력 요소" },
   { key: "scriptAppeal", label: "스크립트 매력 요소" },
@@ -24,23 +35,34 @@ const analysisSections = [
   { key: "salesPoints", label: "세일즈 포인트" },
 ] as const
 
+type SectionKey = (typeof fullSections)[number]["key"]
+
 export function ContentCardComponent({
   card,
   onSynapseClick,
+  onExpandClick,
 }: {
   card: ContentCard
   onSynapseClick: (card: ContentCard) => void
+  onExpandClick: (card: ContentCard) => void
 }) {
   const [frameIndex, setFrameIndex] = useState(0)
-  const [isFlipped, setIsFlipped] = useState(false)
+  const [showOverlay, setShowOverlay] = useState(false)
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card transition-colors hover:border-border">
+    <div
+      className={cn(
+        "group relative flex flex-col overflow-hidden rounded-xl border bg-card transition-colors",
+        showOverlay
+          ? "border-primary ring-2 ring-primary/30"
+          : "border-border/50 hover:border-border",
+      )}
+    >
       {/* Frame carousel area - 9:12 aspect ratio */}
       <div
         className="relative cursor-pointer"
         style={{ aspectRatio: "9/12" }}
-        onClick={() => setIsFlipped(true)}
+        onClick={() => setShowOverlay((v) => !v)}
       >
         <div
           className={cn(
@@ -110,62 +132,13 @@ export function ContentCardComponent({
         >
           <Zap className="size-3.5" />
         </button>
-
-        {/* Glass overlay with analysis results */}
-        <div
-          className={cn(
-            "absolute inset-0 flex flex-col transition-all duration-300",
-            "bg-background/80 backdrop-blur-xl",
-            isFlipped
-              ? "pointer-events-auto opacity-100"
-              : "pointer-events-none opacity-0",
-          )}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Close button */}
-          <button
-            onClick={() => setIsFlipped(false)}
-            className="absolute top-2 right-2 z-10 rounded-full bg-foreground/10 p-1 transition-colors hover:bg-foreground/20"
-            aria-label="닫기"
-          >
-            <X className="size-3.5" />
-          </button>
-
-          <ScrollArea className="h-full">
-            <div className="flex flex-col gap-2.5 p-3 pt-8">
-              <h4 className="text-xs font-bold text-foreground">{card.title}</h4>
-
-              {analysisSections.map(({ key, label }) => (
-                <div key={key}>
-                  <p className="mb-0.5 text-xs font-semibold text-primary">{label}</p>
-                  <p className="text-xs leading-relaxed text-foreground/80">
-                    {card.analysis[key]}
-                  </p>
-                </div>
-              ))}
-
-              <div>
-                <p className="mb-1 text-xs font-semibold text-primary">제작 난이도</p>
-                <DifficultyMeter difficulty={card.analysis.difficulty} />
-              </div>
-
-              <div className="flex flex-wrap gap-1">
-                {card.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary" className="text-[9px] px-1.5 py-0">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </ScrollArea>
-        </div>
       </div>
 
       {/* Card info */}
       <div className="flex flex-col gap-1 p-3">
         <h3
           className="cursor-pointer truncate text-sm font-medium hover:text-primary"
-          onClick={() => setIsFlipped(true)}
+          onClick={() => setShowOverlay((v) => !v)}
         >
           {card.title}
         </h3>
@@ -183,6 +156,210 @@ export function ContentCardComponent({
           </a>
         </div>
       </div>
+
+      {/* ──── In-card glass overlay ──── */}
+      {showOverlay && (
+        <InCardOverlay
+          card={card}
+          onClose={() => setShowOverlay(false)}
+          onExpandClick={() => onExpandClick(card)}
+        />
+      )}
+    </div>
+  )
+}
+
+/* ──────────────────────────────────────────
+   Overlay that renders INSIDE the card
+   absolute inset-0 so it never changes the card size
+   ────────────────────────────────────────── */
+function InCardOverlay({
+  card,
+  onClose,
+  onExpandClick,
+}: {
+  card: ContentCard
+  onClose: () => void
+  onExpandClick: () => void
+}) {
+  const viewsRaw = 357651
+  const likesRaw = 8087
+  const commentsRaw = 313
+  const ratio = (likesRaw / viewsRaw) * 100
+  const ratioStr = ratio.toFixed(1)
+  const { grade, color: gradeColor } = getLikeGrade(ratio)
+
+  const avgDiff = (
+    (card.analysis.difficulty.planning +
+      card.analysis.difficulty.filming +
+      card.analysis.difficulty.editing) /
+    3
+  ).toFixed(1)
+
+  return (
+    <div
+      className="absolute inset-0 z-10 flex flex-col rounded-xl bg-background/85 backdrop-blur-lg"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Sticky header with close + expand */}
+      <div className="flex shrink-0 items-center justify-between border-b border-border/30 px-3 py-2">
+        <span className="truncate text-sm font-semibold">{card.title}</span>
+        <div className="flex items-center gap-0.5">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-6"
+            onClick={onExpandClick}
+            title="크게 보기"
+          >
+            <ZoomIn className="size-3" />
+            <span className="sr-only">크게 보기</span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-6"
+            onClick={onClose}
+          >
+            <X className="size-3" />
+            <span className="sr-only">닫기</span>
+          </Button>
+        </div>
+      </div>
+
+      {/* Scrollable content area */}
+      <div className="flex-1 overflow-y-auto overscroll-contain px-3 py-2 [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border/50">
+        <Tabs defaultValue="summary" className="w-full">
+          <TabsList className="mb-2 h-8 w-full justify-start p-0.5">
+            <TabsTrigger value="summary" className="h-7 px-3 text-xs">
+              분석 요약
+            </TabsTrigger>
+            <TabsTrigger value="full" className="h-7 px-3 text-xs">
+              분석 전체
+            </TabsTrigger>
+          </TabsList>
+
+          {/* ── Summary Tab ── */}
+          <TabsContent value="summary" className="mt-0 flex flex-col gap-2">
+            {/* Engagement stats - 2x2 grid for compact card */}
+            <div className="rounded-lg border border-border/40 p-2.5">
+              <p className="mb-1.5 text-xs font-semibold text-foreground">인게이지먼트 수치</p>
+              <div className="grid grid-cols-2 gap-1.5">
+                <StatCell label="조회수" value={viewsRaw.toLocaleString()} />
+                <StatCell label="좋아요" value={likesRaw.toLocaleString()} />
+                <StatCell
+                  label="좋아요 비율"
+                  value={
+                    <>
+                      {ratioStr}% <span className={`${gradeColor}`}>{grade}</span>
+                    </>
+                  }
+                />
+                <StatCell label="댓글" value={commentsRaw.toLocaleString()} />
+              </div>
+            </div>
+
+            {/* Type + Difficulty */}
+            <div className="grid grid-cols-2 gap-1.5">
+              <MiniCard title="콘텐츠 유형">
+                <p className="line-clamp-2 text-xs text-muted-foreground">{card.analysis.contentType}</p>
+              </MiniCard>
+              <MiniCard title="제작 난이도">
+                <p className="text-sm font-bold text-primary">{avgDiff} <span className="text-xs font-normal text-muted-foreground">/ 5.0</span></p>
+                <p className="mt-0.5 text-[11px] text-muted-foreground">
+                  기획 {card.analysis.difficulty.planning}/5 &middot; 촬영 {card.analysis.difficulty.filming}/5 &middot; 편집 {card.analysis.difficulty.editing}/5
+                </p>
+              </MiniCard>
+            </div>
+
+            {/* Summary sections */}
+            {([
+              { label: "후킹 매력 요소", key: "hookVisual" as SectionKey },
+              { label: "스크립트 매력 요소", key: "scriptAppeal" as SectionKey },
+              { label: "캡션 분석", key: "captionAnalysis" as SectionKey },
+              { label: "연출 요소", key: "visualDirection" as SectionKey },
+              { label: "인게이지먼트 장치", key: "engagementDevices" as SectionKey },
+              { label: "세일즈 포인트", key: "salesPoints" as SectionKey },
+            ]).map((item) => (
+              <MiniCard key={item.key} title={item.label}>
+                <p className="line-clamp-3 text-xs leading-relaxed text-muted-foreground">
+                  {card.analysis[item.key]}
+                </p>
+              </MiniCard>
+            ))}
+          </TabsContent>
+
+          {/* ── Full Tab ── */}
+          <TabsContent value="full" className="mt-0 flex flex-col gap-2.5">
+            {/* Engagement stats */}
+            <div className="rounded-lg border border-border/40 p-2.5">
+              <p className="mb-1.5 text-xs font-semibold text-foreground">인게이지먼트 수치</p>
+              <div className="grid grid-cols-2 gap-1.5">
+                <StatCell label="조회수" value={viewsRaw.toLocaleString()} />
+                <StatCell label="좋아요" value={likesRaw.toLocaleString()} />
+                <StatCell
+                  label="좋아요 비율"
+                  value={
+                    <>
+                      {ratioStr}% <span className={`${gradeColor}`}>{grade}</span>
+                    </>
+                  }
+                />
+                <StatCell label="댓글" value={commentsRaw.toLocaleString()} />
+              </div>
+            </div>
+
+            {/* Full sections */}
+            {fullSections.map(({ key, label }) => (
+              <div key={key}>
+                <p className="mb-0.5 text-xs font-semibold text-foreground">{label}</p>
+                <p className="text-xs leading-relaxed text-muted-foreground">
+                  {card.analysis[key]}
+                </p>
+                <Separator className="mt-2" />
+              </div>
+            ))}
+
+            {/* Difficulty */}
+            <div>
+              <p className="mb-0.5 text-xs font-semibold text-foreground">제작 난이도</p>
+              <p className="text-xs text-muted-foreground">
+                기획 {card.analysis.difficulty.planning}/5 &middot; 촬영 {card.analysis.difficulty.filming}/5 &middot; 편집 {card.analysis.difficulty.editing}/5
+                &nbsp;(평균 {avgDiff}/5)
+              </p>
+            </div>
+
+            {/* Tags */}
+            <div className="flex flex-wrap gap-1">
+              {card.tags.map((tag) => (
+                <Badge key={tag} variant="secondary" className="text-xs">
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  )
+}
+
+/* Compact stat cell */
+function StatCell({ label, value }: { label: string; value: React.ReactNode }) {
+  return (
+    <div className="flex flex-col items-center rounded-md border border-border/30 py-1.5">
+      <span className="text-sm font-bold">{value}</span>
+      <span className="text-xs text-muted-foreground">{label}</span>
+    </div>
+  )
+}
+
+/* Mini card wrapper */
+function MiniCard({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="rounded-lg border border-border/40 p-2.5">
+      <p className="mb-1 text-xs font-semibold text-foreground">{title}</p>
+      {children}
     </div>
   )
 }
