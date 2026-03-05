@@ -64,7 +64,7 @@ export function CreationCard() {
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl border border-primary/30 bg-card">
       {/* Header */}
-      <div className="flex items-center justify-between border-b px-4 py-3">
+      <div className="flex shrink-0 items-center justify-between border-b px-4 py-3">
         <div className="flex items-center gap-2">
           <span className="text-xs font-semibold text-primary">Creation Card</span>
           <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary">
@@ -78,9 +78,10 @@ export function CreationCard() {
       </div>
 
       {/* Scrollable step list */}
-      <ScrollArea className="flex-1">
-        <div className="flex flex-col gap-0">
-          {steps.map(({ key, title, desc }, i) => {
+      <div className="relative min-h-0 flex-1">
+        <ScrollArea className="absolute inset-0">
+          <div className="flex flex-col gap-0">
+            {steps.map(({ key, title, desc }, i) => {
             const isOpen = expanded.has(key)
             const hasContent = values[key].trim().length > 0
 
@@ -143,8 +144,9 @@ export function CreationCard() {
               </div>
             )
           })}
-        </div>
-      </ScrollArea>
+          </div>
+        </ScrollArea>
+      </div>
     </div>
   )
 }
