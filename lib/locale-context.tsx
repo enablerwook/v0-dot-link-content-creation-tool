@@ -81,6 +81,11 @@ export interface TranslationStrings {
   synapseDesc: string
   synapseNeedContent: string
   synapseNeedContentDesc: string
+  synapseSelectCard: string
+  synapseEmptySlot: string
+  synapsePickFromLibrary: string
+  synapseLibraryEmpty: string
+  synapseChangeCard: string
   // Creation Card
   creationExport: string
   creationScript: string
@@ -296,6 +301,11 @@ const ko: TranslationStrings = {
   synapseDesc: "두 콘텐츠를 비교 분석하고 새로운 콘텐츠를 설계하세요.",
   synapseNeedContent: "분석된 콘텐츠가 필요합니다",
   synapseNeedContentDesc: "먼저 라이브러리에서 카드를 선택하거나 콘텐츠를 분석해주세요.",
+  synapseSelectCard: "라이브러리에서 카드 선택",
+  synapseEmptySlot: "카드를 선택해주세요",
+  synapsePickFromLibrary: "라이브러리에서 선택",
+  synapseLibraryEmpty: "라이브러리에 카드가 없습니다. 먼저 콘텐츠를 분석해주세요.",
+  synapseChangeCard: "카드 변경",
   // Creation Card
   creationExport: "내보내기",
   creationScript: "전체 스크립트(대본)",
@@ -394,7 +404,7 @@ const ko: TranslationStrings = {
   settingsModalTestDev: "모달 테스트(DEV)",
   settingsActivated: "활성화",
   settingsLocked: "잠금",
-  settingsCongratsAmbassador: "축하합니다! 앰버서더 자격을 획득하셨����니다.",
+  settingsCongratsAmbassador: "축하합니다! 앰버서더 자격을 획득��셨����니다.",
   settingsAnalysisHint: "분석 기능을 {count}회 이상 사용한 '찐팬'에게만 주어지는 특별한 혜택!",
   settingsUnlockBtn: "추천인 코드 확인하기",
   settingsMoreAnalysis: "{count}회 더 분석하면 열립니다",
@@ -511,6 +521,11 @@ const en: TranslationStrings = {
   synapseDesc: "Compare and analyze two contents to design new content.",
   synapseNeedContent: "Analyzed content required",
   synapseNeedContentDesc: "Please select a card from the library or analyze content first.",
+  synapseSelectCard: "Select card from library",
+  synapseEmptySlot: "Select a card",
+  synapsePickFromLibrary: "Pick from library",
+  synapseLibraryEmpty: "No cards in library. Please analyze content first.",
+  synapseChangeCard: "Change card",
   // Creation Card
   creationExport: "Export",
   creationScript: "Full Script",
@@ -685,6 +700,7 @@ const jaBase: Partial<TranslationStrings> = {
   explorerExploreBtn: "探索する", explorerRecommended: "おすすめコンテンツ分析", explorerCount: "件", explorerRefresh: "再探索", explorerViewVideo: "動画を見る",
   synapseTitle: "シナプス", synapseDesc: "2つのコンテンツを比較分析し新しいコンテンツを設計しましょう。",
   synapseNeedContent: "分析済みコンテンツが必要です", synapseNeedContentDesc: "まずライブラリからカードを選択するかコンテンツを分析してください。",
+  synapseSelectCard: "ライブラリからカードを選択", synapseEmptySlot: "カードを選択してください", synapsePickFromLibrary: "ライブラリから選択", synapseLibraryEmpty: "ライブラリにカードがありません。まずコンテンツを分析してください。", synapseChangeCard: "カードを変更",
   creationExport: "エクスポート", creationScript: "全体スクリプト（台本）", creationContentType: "コンテンツ種類",
   creationHook: "フック魅力要素", creationCaption: "キャプション分析", creationDirection: "演出要素",
   creationEngagement: "エンゲージメント装置", creationSalesPoints: "セールスポイント", creationDifficulty: "制作難易度メモ", creationPlaceholder: "を入力してください...",
@@ -766,6 +782,7 @@ const esBase: Partial<TranslationStrings> = {
   explorerExploreBtn: "Explorar", explorerRecommended: "Análisis de contenido recomendado", explorerCount: "", explorerRefresh: "Explorar de nuevo", explorerViewVideo: "Ver video",
   synapseTitle: "Sinapsis", synapseDesc: "Compara y analiza dos contenidos para diseñar nuevo contenido.",
   synapseNeedContent: "Se necesita contenido analizado", synapseNeedContentDesc: "Selecciona una tarjeta de la biblioteca o analiza contenido primero.",
+  synapseSelectCard: "Seleccionar tarjeta de biblioteca", synapseEmptySlot: "Selecciona una tarjeta", synapsePickFromLibrary: "Elegir de biblioteca", synapseLibraryEmpty: "No hay tarjetas en la biblioteca. Analiza contenido primero.", synapseChangeCard: "Cambiar tarjeta",
   creationExport: "Exportar", creationScript: "Guion completo", creationContentType: "Tipo de contenido",
   creationHook: "Elementos gancho", creationCaption: "Análisis de subtítulos", creationDirection: "Elementos de dirección",
   creationEngagement: "Dispositivos de engagement", creationSalesPoints: "Puntos de venta", creationDifficulty: "Notas de dificultad", creationPlaceholder: "Escribe aquí...",
@@ -847,6 +864,7 @@ const frBase: Partial<TranslationStrings> = {
   explorerExploreBtn: "Explorer", explorerRecommended: "Analyses de contenu recommandées", explorerCount: "", explorerRefresh: "Explorer à nouveau", explorerViewVideo: "Voir la vidéo",
   synapseTitle: "Synapse", synapseDesc: "Comparez et analysez deux contenus pour en concevoir un nouveau.",
   synapseNeedContent: "Contenu analysé requis", synapseNeedContentDesc: "Sélectionnez d'abord une carte de la bibliothèque ou analysez du contenu.",
+  synapseSelectCard: "Sélectionner une carte", synapseEmptySlot: "Sélectionnez une carte", synapsePickFromLibrary: "Choisir dans la bibliothèque", synapseLibraryEmpty: "Aucune carte dans la bibliothèque. Analysez d'abord du contenu.", synapseChangeCard: "Changer de carte",
   creationExport: "Exporter", creationScript: "Script complet", creationContentType: "Type de contenu",
   creationHook: "Éléments d'accroche", creationCaption: "Analyse des sous-titres", creationDirection: "Éléments de réalisation",
   creationEngagement: "Dispositifs d'engagement", creationSalesPoints: "Arguments de vente", creationDifficulty: "Notes de difficulté", creationPlaceholder: "Écrivez ici...",
@@ -928,6 +946,7 @@ const deBase: Partial<TranslationStrings> = {
   explorerExploreBtn: "Erkunden", explorerRecommended: "Empfohlene Inhaltsanalysen", explorerCount: "", explorerRefresh: "Erneut erkunden", explorerViewVideo: "Video ansehen",
   synapseTitle: "Synapse", synapseDesc: "Vergleichen und analysieren Sie zwei Inhalte, um neue zu gestalten.",
   synapseNeedContent: "Analysierte Inhalte erforderlich", synapseNeedContentDesc: "Wählen Sie zuerst eine Karte aus der Bibliothek oder analysieren Sie Inhalte.",
+  synapseSelectCard: "Karte aus Bibliothek auswählen", synapseEmptySlot: "Karte auswählen", synapsePickFromLibrary: "Aus Bibliothek wählen", synapseLibraryEmpty: "Keine Karten in der Bibliothek. Analysieren Sie zuerst Inhalte.", synapseChangeCard: "Karte ändern",
   creationExport: "Exportieren", creationScript: "Vollständiges Skript", creationContentType: "Inhaltstyp",
   creationHook: "Hook-Elemente", creationCaption: "Untertitel-Analyse", creationDirection: "Regie-Elemente",
   creationEngagement: "Engagement-Mechanismen", creationSalesPoints: "Verkaufsargumente", creationDifficulty: "Schwierigkeitsnotizen", creationPlaceholder: "Hier schreiben...",
@@ -1009,6 +1028,7 @@ const zhCNBase: Partial<TranslationStrings> = {
   explorerExploreBtn: "探索", explorerRecommended: "推荐内容分析", explorerCount: "个", explorerRefresh: "重新探索", explorerViewVideo: "观看视频",
   synapseTitle: "突触", synapseDesc: "比较分析两个内容，设计新内容。",
   synapseNeedContent: "需要已分析的内容", synapseNeedContentDesc: "请先从资料库选择卡片或分析内容。",
+  synapseSelectCard: "从资料库选择卡片", synapseEmptySlot: "请选择卡片", synapsePickFromLibrary: "从资料库选择", synapseLibraryEmpty: "资料库中没有卡片。请先分析内容。", synapseChangeCard: "更换卡片",
   creationExport: "导出", creationScript: "完整脚本", creationContentType: "内容类型",
   creationHook: "钩子魅力要素", creationCaption: "字幕分析", creationDirection: "导演要素",
   creationEngagement: "互动装置", creationSalesPoints: "卖点", creationDifficulty: "制作难度备注", creationPlaceholder: "请输入...",
@@ -1063,7 +1083,7 @@ const zhTWBase: Partial<TranslationStrings> = {
   menu: "選單", home: "首頁", analysis: "分析", library: "資料庫", synapse: "突觸",
   explorer: "探索", featureRequest: "功能請求", subscribe: "訂閱", settings: "設定",
   gnbTitle: "DotLink", langModalTranslation: "翻譯",
-  langModalTranslationDesc: "自動將內容腳本翻譯成您的語言。",
+  langModalTranslationDesc: "自動將內容腳本翻���成您的語言。",
   langModalRecommended: "推薦語言和地區", langModalChoose: "選擇語言和地區",
   analysisTitle: "DNA分析", analysisDesc: "輸入短影音URL，分析9種DNA要素。",
   analysisPlaceholder: "貼上短影音URL...", analysisButton: "開始分析",
@@ -1090,6 +1110,7 @@ const zhTWBase: Partial<TranslationStrings> = {
   explorerExploreBtn: "探索", explorerRecommended: "推薦內容分析", explorerCount: "個", explorerRefresh: "重新探索", explorerViewVideo: "觀看影片",
   synapseTitle: "突觸", synapseDesc: "比較分析兩個內容，設計新內容。",
   synapseNeedContent: "需要已分析的內容", synapseNeedContentDesc: "請先從資料庫選擇卡片或分析內容。",
+  synapseSelectCard: "從資料庫選擇卡片", synapseEmptySlot: "請選擇卡片", synapsePickFromLibrary: "從資料庫選擇", synapseLibraryEmpty: "資料庫中沒有卡片。請先分析內容。", synapseChangeCard: "更換卡片",
   creationExport: "匯出", creationScript: "完整腳本", creationContentType: "內容類型",
   creationHook: "鉤子魅力要素", creationCaption: "字幕分析", creationDirection: "導演要素",
   creationEngagement: "互動裝置", creationSalesPoints: "賣點", creationDifficulty: "製作難度備註", creationPlaceholder: "請輸入...",
@@ -1152,6 +1173,7 @@ const ptBase: Partial<TranslationStrings> = {
   explorerExploreBtn: "Explorar", explorerRecommended: "Análises de conteúdo recomendadas", explorerCount: "", explorerRefresh: "Explorar novamente", explorerViewVideo: "Assistir vídeo",
   synapseTitle: "Sinapse", synapseDesc: "Compare e analise dois conteúdos para projetar um novo.",
   synapseNeedContent: "Conteúdo analisado necessário", synapseNeedContentDesc: "Selecione um cartão da biblioteca ou analise conteúdo primeiro.",
+  synapseSelectCard: "Selecionar cartão da biblioteca", synapseEmptySlot: "Selecione um cartão", synapsePickFromLibrary: "Escolher da biblioteca", synapseLibraryEmpty: "Nenhum cartão na biblioteca. Analise conteúdo primeiro.", synapseChangeCard: "Trocar cartão",
   featureRequestTitle: "Solicitação de recurso", featureRequestDesc: "Sugira recursos que você gostaria de ver no DotLink.",
   featureRequestNewTitle: "Sugerir novo recurso", featureRequestFormTitle: "Título", featureRequestFormTitlePlaceholder: "Digite o título do recurso",
   featureRequestFormDesc: "Descrição", featureRequestFormDescPlaceholder: "Descreva o recurso em detalhes",
@@ -1178,6 +1200,7 @@ const itBase: Partial<TranslationStrings> = {
   explorerTitle: "Esploratore", explorerDesc: "Scopri analisi di contenuti che non avevi ancora visto",
   explorerExploreBtn: "Esplora", explorerRefresh: "Esplora di nuovo", explorerViewVideo: "Guarda video",
   synapseTitle: "Sinapsi", synapseDesc: "Confronta e analizza due contenuti per progettarne uno nuovo.",
+  synapseSelectCard: "Seleziona scheda dalla libreria", synapseEmptySlot: "Seleziona una scheda", synapsePickFromLibrary: "Scegli dalla libreria", synapseLibraryEmpty: "Nessuna scheda nella libreria. Analizza prima i contenuti.", synapseChangeCard: "Cambia scheda",
   featureRequestTitle: "Richiesta funzionalità", featureRequestDesc: "Suggerisci funzionalità per DotLink.",
   subscribeTitle: "Abbonamento", subscribeDesc: "Scegli il piano adatto e inizia ad analizzare i contenuti.",
   settingsTitle: "Impostazioni", settingsDesc: "Verifica le informazioni del tuo account e lo stato dell'abbonamento.",
