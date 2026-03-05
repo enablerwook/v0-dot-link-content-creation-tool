@@ -19,11 +19,11 @@ export function LandingNav() {
           <span className="text-lg font-bold tracking-tight">DotLink</span>
         </Link>
         <div className="flex items-center gap-2">
+          <span className="text-xs text-muted-foreground">Language</span>
+          <LanguageSelector />
           <Button variant="ghost" size="sm" asChild>
             <Link href="/analysis">{t.landingNavStart}</Link>
           </Button>
-          <span className="text-xs text-muted-foreground">Language</span>
-          <LanguageSelector />
           <Button size="sm" asChild>
             <Link href="/analysis">{t.landingNavTrial}</Link>
           </Button>
