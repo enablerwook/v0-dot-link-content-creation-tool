@@ -19,12 +19,6 @@ export function GnbHeader() {
       <div className="ml-auto flex items-center gap-2">
         <span className="text-xs text-muted-foreground">Language</span>
         <LanguageSelector />
-        <Button variant="ghost" size="sm" className="h-8 text-xs">
-          시작하기
-        </Button>
-        <Button size="sm" className="h-8 text-xs">
-          무료 체험
-        </Button>
       </div>
     </header>
   )
