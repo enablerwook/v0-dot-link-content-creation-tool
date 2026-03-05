@@ -4,7 +4,6 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { ContentCardComponent } from "@/components/library/content-card"
 import { CreationCardList } from "@/components/library/creation-card-list"
-import { CardDetailOverlay } from "@/components/library/card-detail-overlay"
 import { CardDetailModal } from "@/components/library/card-detail-modal"
 import { useAppContext } from "@/lib/app-context"
 import { useLocale } from "@/lib/locale-context"
@@ -17,16 +16,11 @@ export default function LibraryPage() {
   const { libraryCards, setSelectedCardA } = useAppContext()
   const router = useRouter()
 
-  const [selectedCard, setSelectedCard] = useState<ContentCard | null>(null)
-  const [expandedModalOpen, setExpandedModalOpen] = useState(false)
+  const [expandedCard, setExpandedCard] = useState<ContentCard | null>(null)
 
   function handleSynapseClick(card: ContentCard) {
     setSelectedCardA(card)
     router.push("/synapse")
-  }
-
-  function handleCardClick(card: ContentCard) {
-    setSelectedCard((prev) => (prev?.id === card.id ? null : card))
   }
 
   return (
@@ -51,25 +45,13 @@ export default function LibraryPage() {
         </TabsList>
 
         <TabsContent value="analysis">
-          {/* Inline overlay when a card is selected */}
-          {selectedCard && (
-            <div className="mb-6">
-              <CardDetailOverlay
-                card={selectedCard}
-                onClose={() => setSelectedCard(null)}
-                onExpandClick={() => setExpandedModalOpen(true)}
-              />
-            </div>
-          )}
-
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {libraryCards.map((card) => (
               <ContentCardComponent
                 key={card.id}
                 card={card}
                 onSynapseClick={handleSynapseClick}
-                onCardClick={handleCardClick}
-                isSelected={selectedCard?.id === card.id}
+                onExpandClick={(c) => setExpandedCard(c)}
               />
             ))}
           </div>
@@ -80,11 +62,11 @@ export default function LibraryPage() {
         </TabsContent>
       </Tabs>
 
-      {/* Expanded "크게 보기" popup */}
+      {/* "크게 보기" full modal */}
       <CardDetailModal
-        card={selectedCard}
-        open={expandedModalOpen}
-        onOpenChange={setExpandedModalOpen}
+        card={expandedCard}
+        open={!!expandedCard}
+        onOpenChange={(open) => { if (!open) setExpandedCard(null) }}
       />
     </div>
   )
