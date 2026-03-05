@@ -25,7 +25,7 @@ export function LandingNav() {
             <Link href="/login">로그인</Link>
           </Button>
           <Button size="sm" asChild>
-            <Link href="/analysis">{t.landingNavTrial}</Link>
+            <Link href="/signup">{t.landingNavTrial}</Link>
           </Button>
         </div>
       </div>
