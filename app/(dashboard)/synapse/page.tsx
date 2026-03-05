@@ -1,5 +1,6 @@
 "use client"
 
+// Synapse page: Card A + Card B (empty slots with picker) + Creation Card (9-step)
 import { useState } from "react"
 import { useAppContext } from "@/lib/app-context"
 import { useLocale } from "@/lib/locale-context"
@@ -12,7 +13,6 @@ import type { ContentCard } from "@/lib/types"
 export default function SynapsePage() {
   const { t } = useLocale()
   const { selectedCardA, libraryCards } = useAppContext()
-
   // Slot A: pre-selected from library page or user picks from dialog
   const [slotA, setSlotA] = useState<ContentCard | null>(selectedCardA)
   // Slot B: always starts empty, user picks from dialog

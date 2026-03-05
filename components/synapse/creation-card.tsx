@@ -24,7 +24,6 @@ type StepKey = (typeof stepKeys)[number]
 
 export function CreationCard() {
   const { t } = useLocale()
-
   const steps: { key: StepKey; title: string; desc: string }[] = [
     { key: "step1", title: t.creationStep1Title, desc: t.creationStep1Desc },
     { key: "step2", title: t.creationStep2Title, desc: t.creationStep2Desc },
