@@ -203,7 +203,7 @@ function InCardOverlay({
     >
       {/* Sticky header with close + expand */}
       <div className="flex shrink-0 items-center justify-between border-b border-border/30 px-3 py-2">
-        <span className="truncate text-xs font-semibold">{card.title}</span>
+        <span className="truncate text-sm font-semibold">{card.title}</span>
         <div className="flex items-center gap-0.5">
           <Button
             variant="ghost"
@@ -230,11 +230,11 @@ function InCardOverlay({
       {/* Scrollable content area */}
       <div className="flex-1 overflow-y-auto overscroll-contain px-3 py-2 [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border/50">
         <Tabs defaultValue="summary" className="w-full">
-          <TabsList className="mb-2 h-7 w-full justify-start p-0.5">
-            <TabsTrigger value="summary" className="h-6 px-2.5 text-[10px]">
+          <TabsList className="mb-2 h-8 w-full justify-start p-0.5">
+            <TabsTrigger value="summary" className="h-7 px-3 text-xs">
               분석 요약
             </TabsTrigger>
-            <TabsTrigger value="full" className="h-6 px-2.5 text-[10px]">
+            <TabsTrigger value="full" className="h-7 px-3 text-xs">
               분석 전체
             </TabsTrigger>
           </TabsList>
@@ -242,8 +242,8 @@ function InCardOverlay({
           {/* ── Summary Tab ── */}
           <TabsContent value="summary" className="mt-0 flex flex-col gap-2">
             {/* Engagement stats - 2x2 grid for compact card */}
-            <div className="rounded-lg border border-border/40 p-2">
-              <p className="mb-1.5 text-[10px] font-semibold text-foreground">인게이지먼트 수치</p>
+            <div className="rounded-lg border border-border/40 p-2.5">
+              <p className="mb-1.5 text-xs font-semibold text-foreground">인게이지먼트 수치</p>
               <div className="grid grid-cols-2 gap-1.5">
                 <StatCell label="조회수" value={viewsRaw.toLocaleString()} />
                 <StatCell label="좋아요" value={likesRaw.toLocaleString()} />
@@ -262,11 +262,11 @@ function InCardOverlay({
             {/* Type + Difficulty */}
             <div className="grid grid-cols-2 gap-1.5">
               <MiniCard title="콘텐츠 유형">
-                <p className="line-clamp-2 text-[10px] text-muted-foreground">{card.analysis.contentType}</p>
+                <p className="line-clamp-2 text-xs text-muted-foreground">{card.analysis.contentType}</p>
               </MiniCard>
               <MiniCard title="제작 난이도">
-                <p className="text-xs font-bold text-primary">{avgDiff} <span className="text-[10px] font-normal text-muted-foreground">/ 5.0</span></p>
-                <p className="mt-0.5 text-[9px] text-muted-foreground">
+                <p className="text-sm font-bold text-primary">{avgDiff} <span className="text-xs font-normal text-muted-foreground">/ 5.0</span></p>
+                <p className="mt-0.5 text-[11px] text-muted-foreground">
                   기획 {card.analysis.difficulty.planning}/5 &middot; 촬영 {card.analysis.difficulty.filming}/5 &middot; 편집 {card.analysis.difficulty.editing}/5
                 </p>
               </MiniCard>
@@ -282,7 +282,7 @@ function InCardOverlay({
               { label: "세일즈 포인트", key: "salesPoints" as SectionKey },
             ]).map((item) => (
               <MiniCard key={item.key} title={item.label}>
-                <p className="line-clamp-3 text-[10px] leading-relaxed text-muted-foreground">
+                <p className="line-clamp-3 text-xs leading-relaxed text-muted-foreground">
                   {card.analysis[item.key]}
                 </p>
               </MiniCard>
@@ -292,8 +292,8 @@ function InCardOverlay({
           {/* ── Full Tab ── */}
           <TabsContent value="full" className="mt-0 flex flex-col gap-2.5">
             {/* Engagement stats */}
-            <div className="rounded-lg border border-border/40 p-2">
-              <p className="mb-1.5 text-[10px] font-semibold text-foreground">인게이지먼트 수치</p>
+            <div className="rounded-lg border border-border/40 p-2.5">
+              <p className="mb-1.5 text-xs font-semibold text-foreground">인게이지먼트 수치</p>
               <div className="grid grid-cols-2 gap-1.5">
                 <StatCell label="조회수" value={viewsRaw.toLocaleString()} />
                 <StatCell label="좋아요" value={likesRaw.toLocaleString()} />
@@ -312,8 +312,8 @@ function InCardOverlay({
             {/* Full sections */}
             {fullSections.map(({ key, label }) => (
               <div key={key}>
-                <p className="mb-0.5 text-[10px] font-semibold text-foreground">{label}</p>
-                <p className="text-[10px] leading-relaxed text-muted-foreground">
+                <p className="mb-0.5 text-xs font-semibold text-foreground">{label}</p>
+                <p className="text-xs leading-relaxed text-muted-foreground">
                   {card.analysis[key]}
                 </p>
                 <Separator className="mt-2" />
@@ -322,8 +322,8 @@ function InCardOverlay({
 
             {/* Difficulty */}
             <div>
-              <p className="mb-0.5 text-[10px] font-semibold text-foreground">제작 난이도</p>
-              <p className="text-[10px] text-muted-foreground">
+              <p className="mb-0.5 text-xs font-semibold text-foreground">제작 난이도</p>
+              <p className="text-xs text-muted-foreground">
                 기획 {card.analysis.difficulty.planning}/5 &middot; 촬영 {card.analysis.difficulty.filming}/5 &middot; 편집 {card.analysis.difficulty.editing}/5
                 &nbsp;(평균 {avgDiff}/5)
               </p>
@@ -332,7 +332,7 @@ function InCardOverlay({
             {/* Tags */}
             <div className="flex flex-wrap gap-1">
               {card.tags.map((tag) => (
-                <Badge key={tag} variant="secondary" className="text-[9px]">
+                <Badge key={tag} variant="secondary" className="text-xs">
                   {tag}
                 </Badge>
               ))}
@@ -348,8 +348,8 @@ function InCardOverlay({
 function StatCell({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex flex-col items-center rounded-md border border-border/30 py-1.5">
-      <span className="text-[11px] font-bold">{value}</span>
-      <span className="text-[9px] text-muted-foreground">{label}</span>
+      <span className="text-sm font-bold">{value}</span>
+      <span className="text-xs text-muted-foreground">{label}</span>
     </div>
   )
 }
@@ -357,8 +357,8 @@ function StatCell({ label, value }: { label: string; value: React.ReactNode }) {
 /* Mini card wrapper */
 function MiniCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-border/40 p-2">
-      <p className="mb-1 text-[10px] font-semibold text-foreground">{title}</p>
+    <div className="rounded-lg border border-border/40 p-2.5">
+      <p className="mb-1 text-xs font-semibold text-foreground">{title}</p>
       {children}
     </div>
   )
