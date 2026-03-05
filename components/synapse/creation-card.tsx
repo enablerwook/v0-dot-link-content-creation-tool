@@ -2,7 +2,9 @@
 
 import { useState, useCallback } from "react"
 import { Textarea } from "@/components/ui/textarea"
+import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 import { Download, ChevronDown, X, ImageIcon, Save, FolderOpen } from "lucide-react"
 import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
@@ -105,11 +107,30 @@ export function CreationCard() {
     (k) => values[k].trim().length > 0 || (droppedFrames[k]?.length ?? 0) > 0,
   ).length
 
-  function handleSave() {
+  // Save dialog state
+  const [showSaveDialog, setShowSaveDialog] = useState(false)
+  const [saveTitle, setSaveTitle] = useState("")
+
+  function handleSaveConfirm() {
+    if (!saveTitle.trim()) return
     try {
-      const data = { values, droppedFrames }
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+      const entry = {
+        id: `creation-${Date.now()}`,
+        title: saveTitle.trim(),
+        savedAt: new Date().toISOString(),
+        values,
+        droppedFrames,
+      }
+      // Load existing list and append
+      const raw = window.localStorage.getItem(STORAGE_KEY)
+      const list = raw ? JSON.parse(raw) : []
+      // Support legacy single-object format
+      const existing = Array.isArray(list) ? list : [list]
+      existing.unshift(entry)
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(existing))
       toast.success(t.creationSaveSuccess)
+      setShowSaveDialog(false)
+      setSaveTitle("")
     } catch {
       toast.error("Save failed")
     }
@@ -122,9 +143,12 @@ export function CreationCard() {
         toast.warning(t.creationLoadEmpty)
         return
       }
-      const data = JSON.parse(raw) as {
-        values?: Record<StepKey, string>
-        droppedFrames?: Record<string, DroppedFrame[]>
+      const parsed = JSON.parse(raw)
+      // Support new array format (load most recent) and legacy single-object
+      const data = Array.isArray(parsed) ? parsed[0] : parsed
+      if (!data) {
+        toast.warning(t.creationLoadEmpty)
+        return
       }
       if (data.values) setValues(data.values)
       if (data.droppedFrames) setDroppedFrames(data.droppedFrames)
@@ -145,7 +169,7 @@ export function CreationCard() {
           </span>
         </div>
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={handleSave}>
+          <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={() => setShowSaveDialog(true)}>
             <Save className="mr-1 size-3" />
             {t.creationSave}
           </Button>
@@ -295,6 +319,33 @@ export function CreationCard() {
           })}
         </div>
       </div>
+
+      {/* Save title dialog */}
+      <Dialog open={showSaveDialog} onOpenChange={setShowSaveDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>기획안 저장</DialogTitle>
+            <DialogDescription>저장할 기획안의 제목을 입력해주세요.</DialogDescription>
+          </DialogHeader>
+          <Input
+            autoFocus
+            placeholder="예: 립밤 ASMR 숏폼 기획안"
+            value={saveTitle}
+            onChange={(e) => setSaveTitle(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && saveTitle.trim()) handleSaveConfirm()
+            }}
+          />
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setShowSaveDialog(false)}>
+              취소
+            </Button>
+            <Button onClick={handleSaveConfirm} disabled={!saveTitle.trim()}>
+              저장하기
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

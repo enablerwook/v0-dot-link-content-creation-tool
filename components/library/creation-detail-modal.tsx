@@ -53,7 +53,7 @@ export function CreationDetailModal({
       <DialogContent className="max-h-[85vh] max-w-2xl p-0" showCloseButton>
         <DialogHeader className="px-6 pt-6">
           <div className="flex items-center gap-2">
-            <DialogTitle className="text-lg">기획안 상세</DialogTitle>
+            <DialogTitle className="text-lg">{creation.title || "기획안 상세"}</DialogTitle>
             <Badge variant="outline" className="border-primary/30 text-primary">
               <Zap className="mr-1 size-3" />
               {filledCount}/9

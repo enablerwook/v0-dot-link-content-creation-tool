@@ -17,6 +17,7 @@ interface DroppedFrame {
 
 export interface CreationSaveData {
   id: string
+  title?: string
   savedAt: string
   values: Record<string, string>
   droppedFrames: Record<string, DroppedFrame[]>
@@ -26,6 +27,7 @@ export interface CreationSaveData {
 const MOCK_CREATIONS: CreationSaveData[] = [
   {
     id: "mock-1",
+    title: "립밤 ASMR 리뷰 숏폼",
     savedAt: "2026-03-04T14:30:00",
     values: {
       step1: "첫 프레임에서 제품을 클로즈업하며 반짝이는 질감을 강조. 손가락으로 립밤을 바르는 ASMR 스타일의 시각적 요소가 시청자의 감각을 자극합니다. 배경은 미니멀한 파스텔톤으로 제품에 시선이 집중됩니다.",
@@ -50,6 +52,7 @@ const MOCK_CREATIONS: CreationSaveData[] = [
   },
   {
     id: "mock-2",
+    title: "편의점 컵밥 먹방 기획",
     savedAt: "2026-03-03T09:15:00",
     values: {
       step1: "30초 만에 완판된 이 컵밥의 비밀을 공개합니다. 먹방 스타일로 시작해서 제품의 차별점을 자연스럽게 노출하는 구성입니다.",
@@ -71,6 +74,7 @@ const MOCK_CREATIONS: CreationSaveData[] = [
   },
   {
     id: "mock-3",
+    title: "원룸 인테리어 변신기",
     savedAt: "2026-03-01T18:45:00",
     values: {
       step1: "월세 50만원 원룸을 호텔처럼 꾸미는 인테리어 팁 5가지. 저예산으로 감성 공간을 만드는 과정을 타임랩스로 보여줍니다.",
@@ -113,18 +117,28 @@ export function CreationCardList() {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY)
       if (raw) {
-        const data = JSON.parse(raw)
-        if (data.values) {
-          const lsSave: CreationSaveData = {
-            id: "localstorage-save",
-            savedAt: new Date().toISOString(),
-            values: data.values,
-            droppedFrames: data.droppedFrames ?? { step4: [], step8: [] },
-          }
-          // Prepend to mocks, avoid duplicates
+        const parsed = JSON.parse(raw)
+        // Support new array format and legacy single-object
+        const list: CreationSaveData[] = Array.isArray(parsed)
+          ? parsed.map((item: CreationSaveData, i: number) => ({
+              ...item,
+              id: item.id || `ls-${i}`,
+              droppedFrames: item.droppedFrames ?? { step4: [], step8: [] },
+            }))
+          : parsed.values
+            ? [{
+                id: "localstorage-save",
+                title: parsed.title,
+                savedAt: parsed.savedAt || new Date().toISOString(),
+                values: parsed.values,
+                droppedFrames: parsed.droppedFrames ?? { step4: [], step8: [] },
+              }]
+            : []
+        if (list.length > 0) {
           setCreations((prev) => {
-            const filtered = prev.filter((c) => c.id !== "localstorage-save")
-            return [lsSave, ...filtered]
+            // Remove any existing ls items and prepend new ones
+            const mockOnly = prev.filter((c) => c.id.startsWith("mock-"))
+            return [...list, ...mockOnly]
           })
         }
       }
@@ -162,6 +176,11 @@ export function CreationCardList() {
               onClick={() => setSelectedCreation(c)}
             >
               <CardContent className="flex flex-col gap-3 p-4">
+                {/* Title */}
+                <h3 className="truncate text-sm font-bold text-foreground">
+                  {c.title || "제목 없음"}
+                </h3>
+
                 {/* Header: date + badge */}
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] text-muted-foreground">{formatDate(c.savedAt)}</span>
