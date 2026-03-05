@@ -340,7 +340,7 @@ const ko: TranslationStrings = {
   creationStep7Title: "세일즈 포인트",
   creationStep7Desc: "지금까지 작성된 스크립트(기획)에 나의 상품을 어떻게 녹여낼지 아이디어를 떠올려보세요. 레퍼런스를 참고하셔도 좋습니다.",
   creationStep8Title: "연출요소",
-  creationStep8Desc: "시청자가 영상에서 이탈하지 않도록, 영상에 몰입할 요소들을 넣어주세요. 화면전환, BGM, 효과음 등 다양한 연출 ���법에 대해 생각해보세요.",
+  creationStep8Desc: "시청자가 영상에서 이탈하지 않도록, 영상에 몰입할 요소���을 넣어주세요. 화면전환, BGM, 효과음 등 다양한 연출 ���법에 대해 생각해보세요.",
   creationStep9Title: "스크립트 (최종안)",
   creationStep9Desc: "스크립트 초안부터 연출요소까지를 모두 고려한 최종 스크립트를 작성해보세요. 치밀하게 설계된 탄탄한 스크립트가 나올 거예요.",
   creationDropHint: "이곳으로 레퍼런스 프레임을 드래그 앤 드롭 하세요",
@@ -351,7 +351,7 @@ const ko: TranslationStrings = {
   creationLoadEmpty: "저장된 내역이 없습니다",
   // Feature Request
   featureRequestTitle: "기능 요청",
-  featureRequestDesc: "DotLink에 추가되었으면 하는 기능을 제안해주세요.",
+  featureRequestDesc: "DotLink는 당신의 창작을 진심으로 돕고 싶습니다. 제안하세요",
   featureRequestNewTitle: "새로운 기능 제안하기",
   featureRequestFormTitle: "제목",
   featureRequestFormTitlePlaceholder: "원하는 기능의 제목을 입력하세요",
@@ -1206,7 +1206,7 @@ const zhTWBase: Partial<TranslationStrings> = {
   synapseSelectCard: "從資料庫選擇卡片", synapseEmptySlot: "請選擇卡片", synapsePickFromLibrary: "從資料庫選擇", synapseLibraryEmpty: "資料庫中沒有卡片。請先分析內容。", synapseChangeCard: "更換卡片",
   creationExport: "匯出",
   creationPlaceholder: "請輸入...",
-  creationStep1Title: "腳本撰寫（草稿）", creationStep1Desc: "參考素材自由撰寫腳本，後續逐步完善。",
+  creationStep1Title: "腳本撰寫（草稿）", creationStep1Desc: "參考素材���由撰寫腳本，後續逐步完善。",
   creationStep2Title: "內容類型定義", creationStep2Desc: "如何定義你的腳本類型？定義類型有助於激發更多靈感。",
   creationStep3Title: "鉤子要素（台詞）", creationStep3Desc: "前3秒最重要！從參考中找到合適的鉤子台詞。",
   creationStep4Title: "鉤子要素（畫面）", creationStep4Desc: "利用參考中的吸睛畫面，可從左側卡片拖放場景。",
@@ -1368,7 +1368,7 @@ const arBase: Partial<TranslationStrings> = {
 }
 const hiBase: Partial<TranslationStrings> = {
   menu: "मेनू", home: "होम", analysis: "विश्लेषण", library: "लाइब्रेरी", synapse: "सिनैप्स",
-  explorer: "एक्सप्लोरर", featureRequest: "अनुरोध", subscribe: "सदस्यता", settings: "सेटिंग्स",
+  explorer: "एक्सप्ल���रर", featureRequest: "अनुरोध", subscribe: "सदस्यता", settings: "सेटिंग्स",
   gnbTitle: "DotLink", langModalTranslation: "अनुवाद",
   langModalTranslationDesc: "सामग्री स्क्रिप्ट को स्वचालित रूप से आपकी भाषा में अनुवाद करें।",
   langModalRecommended: "सुझाई गई भाषाएँ और क्षेत्र", langModalChoose: "भाषा और क्षेत्र चुनें",
