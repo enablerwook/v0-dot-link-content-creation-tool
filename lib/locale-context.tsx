@@ -394,7 +394,7 @@ const ko: TranslationStrings = {
   settingsModalTestDev: "모달 테스트(DEV)",
   settingsActivated: "활성화",
   settingsLocked: "잠금",
-  settingsCongratsAmbassador: "축하합니다! 앰버서더 자격을 획득하셨습니다.",
+  settingsCongratsAmbassador: "축하합니다! 앰버서더 자격을 획득하셨��니다.",
   settingsAnalysisHint: "분석 기능을 {count}회 이상 사용한 '찐팬'에게만 주어지는 특별한 혜택!",
   settingsUnlockBtn: "추천인 코드 확인하기",
   settingsMoreAnalysis: "{count}회 더 분석하면 열립니다",
@@ -1387,13 +1387,12 @@ function getStoredAutoTranslate(): boolean {
 }
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<LocaleCode>(getStoredLocale)
-  const [autoTranslate, setAutoTranslateState] = useState(getStoredAutoTranslate)
+  const [locale, setLocaleState] = useState<LocaleCode>("ko")
+  const [autoTranslate, setAutoTranslateState] = useState(true)
 
-  // Hydration safety: sync from localStorage after mount in case SSR default differs
+  // Sync from localStorage only after mount to avoid hydration mismatch
   useEffect(() => {
-    const stored = getStoredLocale()
-    setLocaleState(stored)
+    setLocaleState(getStoredLocale())
     setAutoTranslateState(getStoredAutoTranslate())
   }, [])
 
