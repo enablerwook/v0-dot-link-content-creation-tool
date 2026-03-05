@@ -274,7 +274,7 @@ export default function ExplorerPage() {
               <Compass className="size-4" />
               {t.explorerExploreBtn}
             </Button>
-            <p className="text-xs text-muted-foreground/70">분석 1회 차감됩니다</p>
+            <p className="text-sm text-muted-foreground">분석 1회를 사용하여 4개의 콘텐츠를 추천합니다.</p>
           </div>
         </div>
       ) : (
@@ -288,7 +288,7 @@ export default function ExplorerPage() {
               {t.explorerCount}
             </p>
             <div className="flex items-center gap-3">
-              <p className="text-[11px] text-muted-foreground/70">분석 1회 차감됩니다</p>
+              <p className="text-sm text-muted-foreground">분석 1회를 사용하여 4개의 콘텐츠를 추천합니다.</p>
               <Button
                 size="sm"
                 onClick={handleExplore}
