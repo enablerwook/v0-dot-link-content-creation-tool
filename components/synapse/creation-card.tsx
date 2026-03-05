@@ -8,22 +8,16 @@ import { useLocale } from "@/lib/locale-context"
 import { cn } from "@/lib/utils"
 
 const stepKeys = [
-  "step1",
-  "step2",
-  "step3",
-  "step4",
-  "step5",
-  "step6",
-  "step7",
-  "step8",
-  "step9",
+  "step1", "step2", "step3", "step4", "step5",
+  "step6", "step7", "step8", "step9",
 ] as const
 
 type StepKey = (typeof stepKeys)[number]
 
 export function CreationCard() {
   const { t } = useLocale()
-  const steps: { key: StepKey; title: string; desc: string }[] = [
+
+  const steps: Array<{ key: StepKey; title: string; desc: string }> = [
     { key: "step1", title: t.creationStep1Title, desc: t.creationStep1Desc },
     { key: "step2", title: t.creationStep2Title, desc: t.creationStep2Desc },
     { key: "step3", title: t.creationStep3Title, desc: t.creationStep3Desc },
@@ -38,18 +32,13 @@ export function CreationCard() {
   const [values, setValues] = useState<Record<StepKey, string>>(
     Object.fromEntries(stepKeys.map((k) => [k, ""])) as Record<StepKey, string>,
   )
-
-  // Track which steps are expanded (step1 open by default)
   const [expanded, setExpanded] = useState<Set<StepKey>>(new Set(["step1"]))
 
   function toggleExpand(key: StepKey) {
     setExpanded((prev) => {
       const next = new Set(prev)
-      if (next.has(key)) {
-        next.delete(key)
-      } else {
-        next.add(key)
-      }
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
       return next
     })
   }
@@ -62,7 +51,7 @@ export function CreationCard() {
 
   return (
     <div className="flex h-full max-h-full flex-col overflow-hidden rounded-xl border border-primary/30 bg-card">
-      {/* Header - fixed at top */}
+      {/* Header */}
       <div className="flex shrink-0 items-center justify-between border-b px-4 py-3">
         <div className="flex items-center gap-2">
           <span className="text-xs font-semibold text-primary">Creation Card</span>
@@ -77,7 +66,13 @@ export function CreationCard() {
       </div>
 
       {/* Scrollable step list */}
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/40">
+      <div
+        className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
+        style={{
+          scrollbarWidth: "thin",
+          scrollbarColor: "hsl(var(--border)) transparent",
+        }}
+      >
         <div className="flex flex-col">
           {steps.map(({ key, title, desc }, i) => {
             const isOpen = expanded.has(key)
@@ -85,7 +80,6 @@ export function CreationCard() {
 
             return (
               <div key={key} className="border-b border-border/50 last:border-b-0">
-                {/* Step header - always visible */}
                 <button
                   type="button"
                   onClick={() => toggleExpand(key)}
@@ -94,7 +88,6 @@ export function CreationCard() {
                     isOpen && "bg-accent/30",
                   )}
                 >
-                  {/* Step number badge */}
                   <span
                     className={cn(
                       "flex size-6 shrink-0 items-center justify-center rounded-full text-[10px] font-bold transition-colors",
@@ -105,8 +98,6 @@ export function CreationCard() {
                   >
                     {i + 1}
                   </span>
-
-                  {/* Title and preview */}
                   <div className="min-w-0 flex-1">
                     <span className="text-xs font-medium text-foreground">{title}</span>
                     {!isOpen && hasContent && (
@@ -115,8 +106,6 @@ export function CreationCard() {
                       </p>
                     )}
                   </div>
-
-                  {/* Expand icon */}
                   <ChevronDown
                     className={cn(
                       "size-3.5 shrink-0 text-muted-foreground transition-transform",
@@ -125,7 +114,6 @@ export function CreationCard() {
                   />
                 </button>
 
-                {/* Collapsible body */}
                 {isOpen && (
                   <div className="px-4 pb-4 pt-1">
                     <p className="mb-3 text-[11px] leading-relaxed text-muted-foreground">

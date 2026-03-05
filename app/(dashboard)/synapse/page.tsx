@@ -1,6 +1,5 @@
 "use client"
 
-// Synapse page: Card A + Card B (empty slots with picker) + Creation Card (9-step)
 import { useState } from "react"
 import { useAppContext } from "@/lib/app-context"
 import { useLocale } from "@/lib/locale-context"
@@ -13,12 +12,9 @@ import type { ContentCard } from "@/lib/types"
 export default function SynapsePage() {
   const { t } = useLocale()
   const { selectedCardA, libraryCards } = useAppContext()
-  // Slot A: pre-selected from library page or user picks from dialog
-  const [slotA, setSlotA] = useState<ContentCard | null>(selectedCardA)
-  // Slot B: always starts empty, user picks from dialog
-  const [slotB, setSlotB] = useState<ContentCard | null>(null)
 
-  // Dialog state
+  const [slotA, setSlotA] = useState<ContentCard | null>(selectedCardA)
+  const [slotB, setSlotB] = useState<ContentCard | null>(null)
   const [pickerSlot, setPickerSlot] = useState<"A" | "B" | null>(null)
 
   function openPicker(slot: "A" | "B") {
@@ -28,28 +24,25 @@ export default function SynapsePage() {
   function handleSelect(card: ContentCard) {
     if (pickerSlot === "A") {
       setSlotA(card)
-      // If B was the same card, clear B
       if (slotB?.id === card.id) setSlotB(null)
     } else {
       setSlotB(card)
-      // If A was the same card, clear A
       if (slotA?.id === card.id) setSlotA(null)
     }
   }
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] flex-col px-4 py-6">
-      <div className="mb-6">
+    <div className="flex h-full flex-col px-4 py-6" style={{ height: "calc(100vh - 3.5rem)" }}>
+      {/* Title */}
+      <div className="mb-6 shrink-0">
         <h1 className="text-2xl font-bold tracking-tight text-balance">
           {t.synapseTitle}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">{t.synapseDesc}</p>
       </div>
 
-      <div
-        className="grid flex-1 gap-4 overflow-hidden md:grid-cols-3"
-        style={{ minHeight: 0 }}
-      >
+      {/* 3-column grid */}
+      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 overflow-hidden md:grid-cols-3">
         {/* Card A */}
         <div className="min-h-0 overflow-hidden">
           {slotA ? (
@@ -60,10 +53,7 @@ export default function SynapsePage() {
               changeLabel={t.synapseChangeCard}
             />
           ) : (
-            <EmptyCardSlot
-              label="Card A"
-              onClick={() => openPicker("A")}
-            />
+            <EmptyCardSlot label="Card A" onClick={() => openPicker("A")} />
           )}
         </div>
 
@@ -77,10 +67,7 @@ export default function SynapsePage() {
               changeLabel={t.synapseChangeCard}
             />
           ) : (
-            <EmptyCardSlot
-              label="Card B"
-              onClick={() => openPicker("B")}
-            />
+            <EmptyCardSlot label="Card B" onClick={() => openPicker("B")} />
           )}
         </div>
 
@@ -93,7 +80,7 @@ export default function SynapsePage() {
       {/* Library Picker Dialog */}
       <LibraryPickerDialog
         open={pickerSlot !== null}
-        onOpenChange={(open) => {
+        onOpenChange={(open: boolean) => {
           if (!open) setPickerSlot(null)
         }}
         cards={libraryCards}
