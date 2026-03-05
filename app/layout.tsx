@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { cookies } from 'next/headers'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { LocaleProvider, getLocaleFromCookies, getAutoTranslateFromCookies } from '@/lib/locale-context'
+import { LocaleProvider } from '@/lib/locale-context'
+import { getLocaleFromCookies, getAutoTranslateFromCookies } from '@/lib/locale-server'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });

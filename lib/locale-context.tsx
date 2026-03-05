@@ -389,12 +389,12 @@ const ko: TranslationStrings = {
   settingsCurrentPlanDesc: "현재 이용 중인 플랜 정보입니다.",
   settingsChangePlan: "플랜 변경",
   settingsReferralProgram: "추천인 프로그램",
-  settingsReferralDescLocked: "분석 기능�� 10회 이상 사용하면 앰버서더 프로그램에 참여할 수 있습니다.",
+  settingsReferralDescLocked: "분��� 기능�� 10회 이상 사용하면 앰버서더 프로그램에 참여할 수 있습니다.",
   settingsReferralDescActive: "추천인 대시보드에서 리워드를 관리하세요.",
   settingsModalTestDev: "모달 테스트(DEV)",
   settingsActivated: "활성화",
   settingsLocked: "잠금",
-  settingsCongratsAmbassador: "축하합니다! 앰버서더 자격을 획득하셨���니다.",
+  settingsCongratsAmbassador: "축하합니다! 앰버서더 자격을 획득하셨����니다.",
   settingsAnalysisHint: "분석 기능을 {count}회 이상 사용한 '찐팬'에게만 주어지는 특별한 혜택!",
   settingsUnlockBtn: "추천인 코드 확인하기",
   settingsMoreAnalysis: "{count}회 더 분석하면 열립니다",
@@ -1203,7 +1203,7 @@ const thBase: Partial<TranslationStrings> = {
   explorer: "สำรวจ", featureRequest: "คำขอ", subscribe: "สมัครสมาชิก", settings: "ตั้งค่า",
   gnbTitle: "DotLink", langModalTranslation: "การแปล",
   langModalTranslationDesc: "แปลสคริปต์เนื้อหาเป็นภาษาของคุณโดยอัตโนมัติ",
-  langModalRecommended: "ภาษาและภูมิภาคที่แนะนำ", langModalChoose: "เลือกภาษาและภูมิภาค",
+  langModalRecommended: "ภาษาและภูมิภาคที่แนะน���", langModalChoose: "เลือกภาษาและภูมิภาค",
   libraryTitle: "ไลบรารี", libraryDesc: "บันทึกและจัดการเนื้อหาที่วิเคราะห์แล้ว คลิกการ์ดเพื่อดูรายละเอียด",
   explorerTitle: "สำรวจ", explorerDesc: "ค้นพบการวิเคราะห์เน��้อหาที่คุณยังไม่เคยเห็น",
   synapseTitle: "ไซแนปส์", synapseDesc: "เปรียบเทียบและวิเคราะห์เนื้อหาสองรายการเพื่อออกแบบเนื้อหาใหม่",
@@ -1380,22 +1380,6 @@ function getCookie(name: string): string | null {
   const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`))
   return match ? decodeURIComponent(match[1]) : null
 }
-
-// ── Server-side helper (called from layout.tsx) ──────────────
-export function getLocaleFromCookies(cookieStore: { get: (name: string) => { value: string } | undefined }): LocaleCode {
-  const raw = cookieStore.get(LOCALE_COOKIE_KEY)?.value
-  if (raw && raw in translations) return raw as LocaleCode
-  return "ko"
-}
-
-export function getAutoTranslateFromCookies(cookieStore: { get: (name: string) => { value: string } | undefined }): boolean {
-  const raw = cookieStore.get(AUTO_TRANSLATE_COOKIE_KEY)?.value
-  if (raw !== undefined) return raw === "true"
-  return true
-}
-
-// ── Exported translations map (for server usage) ─────────────
-export { translations }
 
 interface LocaleProviderProps {
   children: ReactNode
