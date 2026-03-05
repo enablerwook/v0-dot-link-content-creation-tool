@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { Textarea } from "@/components/ui/textarea"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Button } from "@/components/ui/button"
 import { Download, ChevronDown } from "lucide-react"
 import { useLocale } from "@/lib/locale-context"
@@ -62,8 +61,8 @@ export function CreationCard() {
   const filledCount = stepKeys.filter((k) => values[k].trim().length > 0).length
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-xl border border-primary/30 bg-card">
-      {/* Header */}
+    <div className="flex h-full max-h-full flex-col overflow-hidden rounded-xl border border-primary/30 bg-card">
+      {/* Header - fixed at top */}
       <div className="flex shrink-0 items-center justify-between border-b px-4 py-3">
         <div className="flex items-center gap-2">
           <span className="text-xs font-semibold text-primary">Creation Card</span>
@@ -78,10 +77,9 @@ export function CreationCard() {
       </div>
 
       {/* Scrollable step list */}
-      <div className="relative min-h-0 flex-1">
-        <ScrollArea className="absolute inset-0">
-          <div className="flex flex-col gap-0">
-            {steps.map(({ key, title, desc }, i) => {
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/40">
+        <div className="flex flex-col">
+          {steps.map(({ key, title, desc }, i) => {
             const isOpen = expanded.has(key)
             const hasContent = values[key].trim().length > 0
 
@@ -109,7 +107,7 @@ export function CreationCard() {
                   </span>
 
                   {/* Title and preview */}
-                  <div className="flex-1 min-w-0">
+                  <div className="min-w-0 flex-1">
                     <span className="text-xs font-medium text-foreground">{title}</span>
                     {!isOpen && hasContent && (
                       <p className="mt-0.5 truncate text-[10px] text-muted-foreground">
@@ -144,8 +142,7 @@ export function CreationCard() {
               </div>
             )
           })}
-          </div>
-        </ScrollArea>
+        </div>
       </div>
     </div>
   )
