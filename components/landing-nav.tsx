@@ -22,7 +22,7 @@ export function LandingNav() {
           <span className="text-xs text-muted-foreground">Language</span>
           <LanguageSelector />
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/analysis">로그인</Link>
+            <Link href="/login">로그인</Link>
           </Button>
           <Button size="sm" asChild>
             <Link href="/analysis">{t.landingNavTrial}</Link>
