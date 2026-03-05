@@ -269,10 +269,13 @@ export default function ExplorerPage() {
               {t.explorerEmptyDesc}
             </p>
           </div>
-          <Button onClick={handleExplore} size="lg" className="gap-2">
-            <Compass className="size-4" />
-            {t.explorerExploreBtn}
-          </Button>
+          <div className="flex flex-col items-center gap-2">
+            <Button onClick={handleExplore} size="lg" className="gap-2">
+              <Compass className="size-4" />
+              {t.explorerExploreBtn}
+            </Button>
+            <p className="text-xs text-muted-foreground/70">분석 1회 차감됩니다</p>
+          </div>
         </div>
       ) : (
         <div className="flex flex-col gap-6">
