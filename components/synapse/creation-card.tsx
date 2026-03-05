@@ -222,12 +222,15 @@ export function CreationCard() {
                     <p className="mb-3 text-[11px] leading-relaxed text-muted-foreground">
                       {desc}
                     </p>
-                    <Textarea
-                      value={values[key]}
-                      onChange={(e) => handleChange(key, e.target.value)}
-                      placeholder={t.creationPlaceholder}
-                      className="min-h-[100px] resize-none text-xs leading-relaxed"
-                    />
+                    {/* Hide textarea for step4 (visual-only drop zone) */}
+                    {key !== "step4" && (
+                      <Textarea
+                        value={values[key]}
+                        onChange={(e) => handleChange(key, e.target.value)}
+                        placeholder={t.creationPlaceholder}
+                        className="min-h-[100px] resize-none text-xs leading-relaxed"
+                      />
+                    )}
 
                     {/* Drop zone for step4 & step8 */}
                     {hasDropZone && (
