@@ -43,7 +43,9 @@ export function CreationDetailModal({
   if (!creation) return null
 
   const filledCount = STEP_META.filter(
-    ({ key }) => (creation.values[key] ?? "").trim().length > 0,
+    ({ key }) =>
+      (creation.values[key] ?? "").trim().length > 0 ||
+      (creation.droppedFrames[key]?.length ?? 0) > 0,
   ).length
 
   return (

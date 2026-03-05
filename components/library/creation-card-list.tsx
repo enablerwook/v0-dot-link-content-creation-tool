@@ -133,10 +133,12 @@ export function CreationCardList() {
     }
   }, [])
 
-  // Count filled steps
-  function getFilledCount(values: Record<string, string>) {
+  // Count filled steps (text OR dropped frames)
+  function getFilledCount(c: CreationSaveData) {
     const keys = ["step1", "step2", "step3", "step4", "step5", "step6", "step7", "step8", "step9"]
-    return keys.filter((k) => (values[k] ?? "").trim().length > 0).length
+    return keys.filter(
+      (k) => (c.values[k] ?? "").trim().length > 0 || (c.droppedFrames[k]?.length ?? 0) > 0,
+    ).length
   }
 
   // Collect all dropped frame count
@@ -148,7 +150,7 @@ export function CreationCardList() {
     <>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {creations.map((c) => {
-          const filled = getFilledCount(c.values)
+          const filled = getFilledCount(c)
           const totalFrames = getTotalFrames(c.droppedFrames)
           const preview = c.values.step1?.trim() || c.values.step9?.trim() || "내용 없음"
           const allFrames = [...(c.droppedFrames.step4 ?? []), ...(c.droppedFrames.step8 ?? [])]
@@ -178,7 +180,7 @@ export function CreationCardList() {
                 <div className="flex gap-1">
                   {STEP_LABELS.map((label, i) => {
                     const key = `step${i + 1}`
-                    const hasFill = (c.values[key] ?? "").trim().length > 0
+                    const hasFill = (c.values[key] ?? "").trim().length > 0 || (c.droppedFrames[key]?.length ?? 0) > 0
                     return (
                       <div
                         key={key}
