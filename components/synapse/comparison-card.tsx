@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import { ChevronLeft, ChevronRight, X, RefreshCw } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
@@ -27,9 +27,13 @@ const analysisSections = [
 export function ComparisonCard({
   card,
   label,
+  onChangeCard,
+  changeLabel,
 }: {
   card: ContentCard
   label: string
+  onChangeCard?: () => void
+  changeLabel?: string
 }) {
   const [frameIndex, setFrameIndex] = useState(0)
   const [isFlipped, setIsFlipped] = useState(false)
@@ -37,16 +41,27 @@ export function ComparisonCard({
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl border border-border/50 bg-card">
       {/* Label header */}
-      <div className="flex items-center gap-2 border-b px-4 py-2">
-        <span className="text-xs font-semibold text-primary">{label}</span>
-        <Badge
-          className={cn(
-            "border-0 text-[10px] capitalize",
-            platformColors[card.platform],
-          )}
-        >
-          {card.platform}
-        </Badge>
+      <div className="flex items-center justify-between border-b px-4 py-2">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-primary">{label}</span>
+          <Badge
+            className={cn(
+              "border-0 text-[10px] capitalize",
+              platformColors[card.platform],
+            )}
+          >
+            {card.platform}
+          </Badge>
+        </div>
+        {onChangeCard && (
+          <button
+            onClick={onChangeCard}
+            className="flex items-center gap-1 rounded-md px-2 py-1 text-[10px] text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+          >
+            <RefreshCw className="size-3" />
+            {changeLabel}
+          </button>
+        )}
       </div>
 
       {/* Image area with glass overlay */}
@@ -55,14 +70,28 @@ export function ComparisonCard({
         style={{ aspectRatio: "9/12" }}
         onClick={() => setIsFlipped(true)}
       >
-        {/* Frame image */}
+        {/* Frame image — draggable */}
         <div
+          draggable
+          onDragStart={(e) => {
+            const frame = card.frames[frameIndex]
+            e.dataTransfer.setData(
+              "application/x-dotlink-frame",
+              JSON.stringify({
+                id: `${card.id}-frame-${frame.id}`,
+                gradient: frame.gradient,
+                label: frame.label,
+                sourceCard: label,
+              }),
+            )
+            e.dataTransfer.effectAllowed = "copy"
+          }}
           className={cn(
             "absolute inset-0 bg-gradient-to-br",
             card.frames[frameIndex].gradient,
           )}
         />
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <span className="text-xs text-foreground/50">
             {card.frames[frameIndex].label}
           </span>

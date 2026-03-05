@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
+import { cookies } from 'next/headers'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { LocaleProvider } from '@/lib/locale-context'
+import { getLocaleFromCookies, getAutoTranslateFromCookies } from '@/lib/locale-server'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -33,15 +35,19 @@ export const viewport: Viewport = {
   themeColor: '#1a1625',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const cookieStore = await cookies()
+  const locale = getLocaleFromCookies(cookieStore)
+  const autoTranslate = getAutoTranslateFromCookies(cookieStore)
+
   return (
-    <html lang="ko" className="dark">
+    <html lang={locale} className="dark">
       <body className="font-sans antialiased">
-        <LocaleProvider>
+        <LocaleProvider initialLocale={locale} initialAutoTranslate={autoTranslate}>
           {children}
         </LocaleProvider>
       </body>

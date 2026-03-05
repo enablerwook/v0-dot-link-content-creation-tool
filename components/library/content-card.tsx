@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, X, Zap } from "lucide-react"
+import { ChevronLeft, ChevronRight, X, Zap, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -169,7 +169,19 @@ export function ContentCardComponent({
         >
           {card.title}
         </h3>
-        <p className="text-xs text-muted-foreground">{card.dateAnalyzed}</p>
+        <div className="flex items-center justify-between">
+          <p className="text-xs text-muted-foreground">{card.dateAnalyzed}</p>
+          <a
+            href={card.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium text-primary transition-colors hover:bg-primary/10"
+          >
+            영상 보러가기
+            <ExternalLink className="size-3" />
+          </a>
+        </div>
       </div>
     </div>
   )
