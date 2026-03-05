@@ -3,7 +3,8 @@
 import { useState, useCallback } from "react"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { Download, ChevronDown, X, ImageIcon } from "lucide-react"
+import { Download, ChevronDown, X, ImageIcon, Save, FolderOpen } from "lucide-react"
+import { toast } from "sonner"
 import { useLocale } from "@/lib/locale-context"
 import { cn } from "@/lib/utils"
 
@@ -16,6 +17,8 @@ type StepKey = (typeof stepKeys)[number]
 
 /** Steps that support frame drag-and-drop */
 const DROP_ENABLED_STEPS = new Set<StepKey>(["step4", "step8"])
+
+const STORAGE_KEY = "dotlink-creation-save"
 
 interface DroppedFrame {
   id: string
@@ -100,6 +103,35 @@ export function CreationCard() {
 
   const filledCount = stepKeys.filter((k) => values[k].trim().length > 0).length
 
+  function handleSave() {
+    try {
+      const data = { values, droppedFrames }
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+      toast.success(t.creationSaveSuccess)
+    } catch {
+      toast.error("Save failed")
+    }
+  }
+
+  function handleLoad() {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY)
+      if (!raw) {
+        toast.warning(t.creationLoadEmpty)
+        return
+      }
+      const data = JSON.parse(raw) as {
+        values?: Record<StepKey, string>
+        droppedFrames?: Record<string, DroppedFrame[]>
+      }
+      if (data.values) setValues(data.values)
+      if (data.droppedFrames) setDroppedFrames(data.droppedFrames)
+      toast.success(t.creationLoadSuccess)
+    } catch {
+      toast.error("Load failed")
+    }
+  }
+
   return (
     <div className="flex h-full max-h-full flex-col overflow-hidden rounded-xl border border-primary/30 bg-card">
       {/* Header */}
@@ -110,10 +142,20 @@ export function CreationCard() {
             {filledCount}/{stepKeys.length}
           </span>
         </div>
-        <Button variant="ghost" size="sm" className="h-7 text-xs">
-          <Download className="mr-1 size-3" />
-          {t.creationExport}
-        </Button>
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={handleSave}>
+            <Save className="mr-1 size-3" />
+            {t.creationSave}
+          </Button>
+          <Button variant="outline" size="sm" className="h-7 text-xs" onClick={handleLoad}>
+            <FolderOpen className="mr-1 size-3" />
+            {t.creationLoad}
+          </Button>
+          <Button variant="ghost" size="sm" className="h-7 text-xs">
+            <Download className="mr-1 size-3" />
+            {t.creationExport}
+          </Button>
+        </div>
       </div>
 
       {/* Scrollable step list */}

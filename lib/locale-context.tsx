@@ -108,6 +108,11 @@ export interface TranslationStrings {
   creationStep9Title: string
   creationStep9Desc: string
   creationDropHint: string
+  creationSave: string
+  creationLoad: string
+  creationSaveSuccess: string
+  creationLoadSuccess: string
+  creationLoadEmpty: string
   // Feature Request page
   featureRequestTitle: string
   featureRequestDesc: string
@@ -335,10 +340,15 @@ const ko: TranslationStrings = {
   creationStep7Title: "세일즈 포인트",
   creationStep7Desc: "지금까지 작성된 스크립트(기획)에 나의 상품을 어떻게 녹여낼지 아이디어를 떠올려보세요. 레퍼런스를 참고하셔도 좋습니다.",
   creationStep8Title: "연출요소",
-  creationStep8Desc: "시청자가 영상에서 이탈하지 않도록, 영상에 몰입할 요소들을 넣어주세요. 화면전환, BGM, 효과음 등 다양한 연출 방법에 대해 생각해보세요.",
+  creationStep8Desc: "시청자가 영상에서 이탈하지 않도록, 영상에 몰입할 요소들을 넣어주세요. 화면전환, BGM, 효과음 등 다양한 연출 ���법에 대해 생각해보세요.",
   creationStep9Title: "스크립트 (최종안)",
   creationStep9Desc: "스크립트 초안부터 연출요소까지를 모두 고려한 최종 스크립트를 작성해보세요. 치밀하게 설계된 탄탄한 스크립트가 나올 거예요.",
   creationDropHint: "이곳으로 레퍼런스 프레임을 드래그 앤 드롭 하세요",
+  creationSave: "저장하기",
+  creationLoad: "불러오기",
+  creationSaveSuccess: "성공적으로 저장되었습니다",
+  creationLoadSuccess: "저장된 기획안을 불러왔습니다",
+  creationLoadEmpty: "저장된 내역이 없습니다",
   // Feature Request
   featureRequestTitle: "기능 요청",
   featureRequestDesc: "DotLink에 추가되었으면 하는 기능을 제안해주세요.",
@@ -367,7 +377,7 @@ const ko: TranslationStrings = {
   subscribeRecommended: "추천",
   subscribeFree: "무료",
   subscribeFreeBtn: "무료로 시작하기",
-  subscribeBtn: "구독하기",
+  subscribeBtn: "구��하기",
   subscribeMonth: "월",
   subscribeBackToPlans: "플랜 선택으로 돌아가기",
   subscribePaymentInfo: "결제 정보",
@@ -376,7 +386,7 @@ const ko: TranslationStrings = {
   subscribeExpiry: "유효기간",
   subscribeCVC: "CVC",
   subscribeReferralCode: "추천인 코드",
-  subscribeReferralPlaceholder: "추천인 코드를 입력하세요 (선택사항)",
+  subscribeReferralPlaceholder: "추천인 코드��� 입력하세요 (선택사항)",
   subscribeReferralDesc: "추천인 코드를 입력하면 첫 달 20% 할인이 적���됩니다.",
   subscribeProcessing: "결제 처리 중...",
   subscribePayBtn: "결제하기",
@@ -570,6 +580,11 @@ const en: TranslationStrings = {
   creationStep9Title: "Final Script",
   creationStep9Desc: "Write the final script considering everything from draft to direction. You'll have a solid, well-designed script.",
   creationDropHint: "Drag and drop reference frames here",
+  creationSave: "Save",
+  creationLoad: "Load",
+  creationSaveSuccess: "Saved successfully",
+  creationLoadSuccess: "Loaded saved draft",
+  creationLoadEmpty: "No saved data found",
   // Feature Request
   featureRequestTitle: "Feature Request",
   featureRequestDesc: "Suggest features you'd like to see added to DotLink.",
@@ -745,6 +760,7 @@ const jaBase: Partial<TranslationStrings> = {
   creationStep8Title: "演出要素", creationStep8Desc: "視聴者が離脱しないよう、没入できる要素を入れましょう。画面遷移、BGM、効果音など。",
   creationStep9Title: "スクリプト（最終版）", creationStep9Desc: "下書きから演出要素まで全てを考慮した最終スクリプトを作成しましょう。",
   creationDropHint: "ここにリファレンスフレームをドラッグ＆ドロップ",
+  creationSave: "保存", creationLoad: "読み込む", creationSaveSuccess: "正常に保存されました", creationLoadSuccess: "保存された企画書を読み込みました", creationLoadEmpty: "保存されたデータがありません",
   featureRequestTitle: "機能リクエスト", featureRequestDesc: "DotLinkに追加して欲しい機能を提案してください。",
   featureRequestNewTitle: "新しい機能を提案する", featureRequestFormTitle: "タイトル", featureRequestFormTitlePlaceholder: "機能のタイトルを入力",
   featureRequestFormDesc: "説明", featureRequestFormDescPlaceholder: "��能について詳しく説明してください",
@@ -835,6 +851,7 @@ const esBase: Partial<TranslationStrings> = {
   creationStep8Title: "Elementos de dirección", creationStep8Desc: "Añade elementos para mantener la atención: transiciones, BGM, efectos de sonido.",
   creationStep9Title: "Guion final", creationStep9Desc: "Escribe el guion final considerando todo, desde el borrador hasta la dirección.",
   creationDropHint: "Arrastra y suelta marcos de referencia aquí",
+  creationSave: "Guardar", creationLoad: "Cargar", creationSaveSuccess: "Guardado correctamente", creationLoadSuccess: "Borrador cargado", creationLoadEmpty: "No hay datos guardados",
   featureRequestTitle: "Solicitud de funciones", featureRequestDesc: "Sugiere funciones que te gustaría ver en DotLink.",
   featureRequestNewTitle: "Sugerir nueva función", featureRequestFormTitle: "Título", featureRequestFormTitlePlaceholder: "Ingresa el título de la función",
   featureRequestFormDesc: "Descripción", featureRequestFormDescPlaceholder: "Describe la función en detalle",
@@ -925,6 +942,7 @@ const frBase: Partial<TranslationStrings> = {
   creationStep8Title: "Éléments de réalisation", creationStep8Desc: "Ajoutez des éléments pour capter l'attention : transitions, musique, effets sonores.",
   creationStep9Title: "Script final", creationStep9Desc: "Rédigez le script final en tenant compte de tout, du brouillon à la réalisation.",
   creationDropHint: "Glissez-déposez les cadres de référence ici",
+  creationSave: "Enregistrer", creationLoad: "Charger", creationSaveSuccess: "Enregistré avec succès", creationLoadSuccess: "Brouillon chargé", creationLoadEmpty: "Aucune donnée enregistrée",
   featureRequestTitle: "Demande de fonctionnalité", featureRequestDesc: "Suggérez des fonctionnalités pour DotLink.",
   featureRequestNewTitle: "Suggérer une nouvelle fonctionnalité", featureRequestFormTitle: "Titre", featureRequestFormTitlePlaceholder: "Entrez le titre de la fonctionnalité",
   featureRequestFormDesc: "Description", featureRequestFormDescPlaceholder: "Décrivez la fonctionnalité en détail",
@@ -1015,6 +1033,7 @@ const deBase: Partial<TranslationStrings> = {
   creationStep8Title: "Regie-Elemente", creationStep8Desc: "Fügen Sie Elemente hinzu: Übergänge, BGM, Soundeffekte und andere Techniken.",
   creationStep9Title: "Finales Skript", creationStep9Desc: "Schreiben Sie das finale Skript unter Berücksichtigung aller bisherigen Schritte.",
   creationDropHint: "Referenzrahmen hierher ziehen und ablegen",
+  creationSave: "Speichern", creationLoad: "Laden", creationSaveSuccess: "Erfolgreich gespeichert", creationLoadSuccess: "Entwurf geladen", creationLoadEmpty: "Keine gespeicherten Daten",
   featureRequestTitle: "Funktionsanfrage", featureRequestDesc: "Schlagen Sie Funktionen vor, die Sie in DotLink sehen möchten.",
   featureRequestNewTitle: "Neue Funktion vorschlagen", featureRequestFormTitle: "Titel", featureRequestFormTitlePlaceholder: "Geben Sie den Funktionstitel ein",
   featureRequestFormDesc: "Beschreibung", featureRequestFormDescPlaceholder: "Beschreiben Sie die Funktion im Detail",
@@ -1105,6 +1124,7 @@ const zhCNBase: Partial<TranslationStrings> = {
   creationStep8Title: "导演要素", creationStep8Desc: "添加让观众沉浸的要素：转场、BGM、音效等。",
   creationStep9Title: "脚本（终稿）", creationStep9Desc: "综合以上所有要素撰写最终脚本。",
   creationDropHint: "将参考帧拖放到此处",
+  creationSave: "保存", creationLoad: "加载", creationSaveSuccess: "保存成功", creationLoadSuccess: "已加载保存的草稿", creationLoadEmpty: "没有保存的数据",
   featureRequestTitle: "功能请求", featureRequestDesc: "建议您希望DotLink添加的功能。",
   featureRequestNewTitle: "提出新功能建议", featureRequestFormTitle: "标题", featureRequestFormTitlePlaceholder: "输入功能标题",
   featureRequestFormDesc: "描述", featureRequestFormDescPlaceholder: "详细描述功能",
@@ -1196,6 +1216,7 @@ const zhTWBase: Partial<TranslationStrings> = {
   creationStep8Title: "導演要素", creationStep8Desc: "添加讓觀眾沉浸的要素：轉場、BGM、音效等。",
   creationStep9Title: "腳本（終稿）", creationStep9Desc: "綜合以上所有要素撰寫最終腳本。",
   creationDropHint: "將參考幀拖放到此處",
+  creationSave: "儲存", creationLoad: "載入", creationSaveSuccess: "儲存成功", creationLoadSuccess: "已載入儲存的草稿", creationLoadEmpty: "沒有儲存的資料",
   featureRequestTitle: "功能請求", featureRequestDesc: "建議您希望DotLink新增的功能。",
   featureRequestNewTitle: "提出新功能建議", featureRequestFormTitle: "標題", featureRequestFormTitlePlaceholder: "輸入功能標題",
   featureRequestFormDesc: "描述", featureRequestFormDescPlaceholder: "詳細描述功能",
@@ -1336,7 +1357,7 @@ const arBase: Partial<TranslationStrings> = {
   explorer: "استكشاف", featureRequest: "طلب", subscribe: "اشتراك", settings: "الإعدادات",
   gnbTitle: "DotLink", langModalTranslation: "ترجمة",
   langModalTranslationDesc: "ترجمة محتوى النصوص تلقائيًا إلى لغتك.",
-  langModalRecommended: "اللغات والمناطق المقترحة", langModalChoose: "اختر لغة ومنطقة",
+  langModalRecommended: "اللغا�� والمناطق المقترحة", langModalChoose: "اختر لغة ومنطقة",
   libraryTitle: "المكتبة", libraryDesc: "احفظ وأدِر المحتوى المحلل. انقر على بطاقة لعرض التحليل التفصيلي.",
   explorerTitle: "استكشاف", explorerDesc: "اكتشف تحليلات محتوى لم ترها من قبل",
   synapseTitle: "سينابس", synapseDesc: "قارن وحلل محتويين لتصميم محتوى جديد.",

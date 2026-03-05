@@ -4,6 +4,7 @@ import { AppProvider } from "@/lib/app-context"
 import { mockContentCards } from "@/lib/mock-data"
 import { Separator } from "@/components/ui/separator"
 import { GnbHeader } from "@/components/gnb-header"
+import { Toaster } from "@/components/ui/sonner"
 
 export default function DashboardLayout({
   children,
@@ -21,6 +22,7 @@ export default function DashboardLayout({
           </div>
         </SidebarInset>
       </SidebarProvider>
+      <Toaster position="bottom-right" richColors />
     </AppProvider>
   )
 }
