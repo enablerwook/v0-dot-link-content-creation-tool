@@ -101,7 +101,9 @@ export function CreationCard() {
     }))
   }
 
-  const filledCount = stepKeys.filter((k) => values[k].trim().length > 0).length
+  const filledCount = stepKeys.filter(
+    (k) => values[k].trim().length > 0 || (droppedFrames[k]?.length ?? 0) > 0,
+  ).length
 
   function handleSave() {
     try {
