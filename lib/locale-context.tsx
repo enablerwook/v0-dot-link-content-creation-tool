@@ -107,6 +107,7 @@ export interface TranslationStrings {
   creationStep8Desc: string
   creationStep9Title: string
   creationStep9Desc: string
+  creationDropHint: string
   // Feature Request page
   featureRequestTitle: string
   featureRequestDesc: string
@@ -337,6 +338,7 @@ const ko: TranslationStrings = {
   creationStep8Desc: "시청자가 영상에서 이탈하지 않도록, 영상에 몰입할 요소들을 넣어주세요. 화면전환, BGM, 효과음 등 다양한 연출 방법에 대해 생각해보세요.",
   creationStep9Title: "스크립트 (최종안)",
   creationStep9Desc: "스크립트 초안부터 연출요소까지를 모두 고려한 최종 스크립트를 작성해보세요. 치밀하게 설계된 탄탄한 스크립트가 나올 거예요.",
+  creationDropHint: "이곳으로 레퍼런스 프레임을 드래그 앤 드롭 하세요",
   // Feature Request
   featureRequestTitle: "기능 요청",
   featureRequestDesc: "DotLink에 추가되었으면 하는 기능을 제안해주세요.",
@@ -375,7 +377,7 @@ const ko: TranslationStrings = {
   subscribeCVC: "CVC",
   subscribeReferralCode: "추천인 코드",
   subscribeReferralPlaceholder: "추천인 코드를 입력하세요 (선택사항)",
-  subscribeReferralDesc: "추천인 코드를 입력하면 첫 달 20% 할인이 적용됩니다.",
+  subscribeReferralDesc: "추천인 코드를 입력하면 첫 달 20% 할인이 적���됩니다.",
   subscribeProcessing: "결제 처리 중...",
   subscribePayBtn: "결제하기",
   subscribeStartFree: "무료 플랜 시작하기",
@@ -567,6 +569,7 @@ const en: TranslationStrings = {
   creationStep8Desc: "Add elements to keep viewers engaged: transitions, BGM, sound effects, and other production techniques.",
   creationStep9Title: "Final Script",
   creationStep9Desc: "Write the final script considering everything from draft to direction. You'll have a solid, well-designed script.",
+  creationDropHint: "Drag and drop reference frames here",
   // Feature Request
   featureRequestTitle: "Feature Request",
   featureRequestDesc: "Suggest features you'd like to see added to DotLink.",
@@ -741,9 +744,10 @@ const jaBase: Partial<TranslationStrings> = {
   creationStep7Title: "セールスポイント", creationStep7Desc: "スクリプトに商品をどう織り込むかアイデアを考えてみましょう。",
   creationStep8Title: "演出要素", creationStep8Desc: "視聴者が離脱しないよう、没入できる要素を入れましょう。画面遷移、BGM、効果音など。",
   creationStep9Title: "スクリプト（最終版）", creationStep9Desc: "下書きから演出要素まで全てを考慮した最終スクリプトを作成しましょう。",
+  creationDropHint: "ここにリファレンスフレームをドラッグ＆ドロップ",
   featureRequestTitle: "機能リクエスト", featureRequestDesc: "DotLinkに追加して欲しい機能を提案してください。",
   featureRequestNewTitle: "新しい機能を提案する", featureRequestFormTitle: "タイトル", featureRequestFormTitlePlaceholder: "機能のタイトルを入力",
-  featureRequestFormDesc: "説明", featureRequestFormDescPlaceholder: "機能について詳しく説明してください",
+  featureRequestFormDesc: "説明", featureRequestFormDescPlaceholder: "��能について詳しく説明してください",
   featureRequestFormCategory: "カテゴリ", featureRequestFormCategoryPlaceholder: "カテゴリ選択",
   featureRequestFormPriority: "優先度", featureRequestPriorityLow: "低", featureRequestPriorityMedium: "中", featureRequestPriorityHigh: "高",
   featureRequestSubmit: "送信", featureRequestListTitle: "提案された機能",
@@ -830,6 +834,7 @@ const esBase: Partial<TranslationStrings> = {
   creationStep7Title: "Punto de venta", creationStep7Desc: "Piensa cómo integrar tu producto en el guion de forma natural.",
   creationStep8Title: "Elementos de dirección", creationStep8Desc: "Añade elementos para mantener la atención: transiciones, BGM, efectos de sonido.",
   creationStep9Title: "Guion final", creationStep9Desc: "Escribe el guion final considerando todo, desde el borrador hasta la dirección.",
+  creationDropHint: "Arrastra y suelta marcos de referencia aquí",
   featureRequestTitle: "Solicitud de funciones", featureRequestDesc: "Sugiere funciones que te gustaría ver en DotLink.",
   featureRequestNewTitle: "Sugerir nueva función", featureRequestFormTitle: "Título", featureRequestFormTitlePlaceholder: "Ingresa el título de la función",
   featureRequestFormDesc: "Descripción", featureRequestFormDescPlaceholder: "Describe la función en detalle",
@@ -919,6 +924,7 @@ const frBase: Partial<TranslationStrings> = {
   creationStep7Title: "Argument de vente", creationStep7Desc: "Réfléchissez à comment intégrer votre produit naturellement dans le script.",
   creationStep8Title: "Éléments de réalisation", creationStep8Desc: "Ajoutez des éléments pour capter l'attention : transitions, musique, effets sonores.",
   creationStep9Title: "Script final", creationStep9Desc: "Rédigez le script final en tenant compte de tout, du brouillon à la réalisation.",
+  creationDropHint: "Glissez-déposez les cadres de référence ici",
   featureRequestTitle: "Demande de fonctionnalité", featureRequestDesc: "Suggérez des fonctionnalités pour DotLink.",
   featureRequestNewTitle: "Suggérer une nouvelle fonctionnalité", featureRequestFormTitle: "Titre", featureRequestFormTitlePlaceholder: "Entrez le titre de la fonctionnalité",
   featureRequestFormDesc: "Description", featureRequestFormDescPlaceholder: "Décrivez la fonctionnalité en détail",
@@ -1008,6 +1014,7 @@ const deBase: Partial<TranslationStrings> = {
   creationStep7Title: "Verkaufsargument", creationStep7Desc: "Überlegen Sie, wie Sie Ihr Produkt natürlich ins Skript einbinden können.",
   creationStep8Title: "Regie-Elemente", creationStep8Desc: "Fügen Sie Elemente hinzu: Übergänge, BGM, Soundeffekte und andere Techniken.",
   creationStep9Title: "Finales Skript", creationStep9Desc: "Schreiben Sie das finale Skript unter Berücksichtigung aller bisherigen Schritte.",
+  creationDropHint: "Referenzrahmen hierher ziehen und ablegen",
   featureRequestTitle: "Funktionsanfrage", featureRequestDesc: "Schlagen Sie Funktionen vor, die Sie in DotLink sehen möchten.",
   featureRequestNewTitle: "Neue Funktion vorschlagen", featureRequestFormTitle: "Titel", featureRequestFormTitlePlaceholder: "Geben Sie den Funktionstitel ein",
   featureRequestFormDesc: "Beschreibung", featureRequestFormDescPlaceholder: "Beschreiben Sie die Funktion im Detail",
@@ -1097,6 +1104,7 @@ const zhCNBase: Partial<TranslationStrings> = {
   creationStep7Title: "销售卖点", creationStep7Desc: "思考如何将产品自然融入脚本中。",
   creationStep8Title: "导演要素", creationStep8Desc: "添加让观众沉浸的要素：转场、BGM、音效等。",
   creationStep9Title: "脚本（终稿）", creationStep9Desc: "综合以上所有要素撰写最终脚本。",
+  creationDropHint: "将参考帧拖放到此处",
   featureRequestTitle: "功能请求", featureRequestDesc: "建议您希望DotLink添加的功能。",
   featureRequestNewTitle: "提出新功能建议", featureRequestFormTitle: "标题", featureRequestFormTitlePlaceholder: "输入功能标题",
   featureRequestFormDesc: "描述", featureRequestFormDescPlaceholder: "详细描述功能",
@@ -1187,6 +1195,7 @@ const zhTWBase: Partial<TranslationStrings> = {
   creationStep7Title: "銷售賣點", creationStep7Desc: "思考如何將產品自然融入腳本中。",
   creationStep8Title: "導演要素", creationStep8Desc: "添加讓觀眾沉浸的要素：轉場、BGM、音效等。",
   creationStep9Title: "腳本（終稿）", creationStep9Desc: "綜合以上所有要素撰寫最終腳本。",
+  creationDropHint: "將參考幀拖放到此處",
   featureRequestTitle: "功能請求", featureRequestDesc: "建議您希望DotLink新增的功能。",
   featureRequestNewTitle: "提出新功能建議", featureRequestFormTitle: "標題", featureRequestFormTitlePlaceholder: "輸入功能標題",
   featureRequestFormDesc: "描述", featureRequestFormDescPlaceholder: "詳細描述功能",
@@ -1295,7 +1304,7 @@ const viBase: Partial<TranslationStrings> = {
   landingNavStart: "Bắt đầu", landingNavTrial: "Dùng thử miễn phí",
 }
 const thBase: Partial<TranslationStrings> = {
-  menu: "เมนู", home: "หน้าหลัก", analysis: "วิเคราะห์", library: "ไลบรารี", synapse: "ไซแนปส์",
+  menu: "เมน���", home: "หน้าหลัก", analysis: "วิเคราะห์", library: "ไลบรารี", synapse: "ไซแนปส์",
   explorer: "สำรวจ", featureRequest: "คำขอ", subscribe: "สมัครสมาชิก", settings: "ตั้งค่า",
   gnbTitle: "DotLink", langModalTranslation: "การแปล",
   langModalTranslationDesc: "แปลสคริปต์เนื้อหาเป็นภาษาของคุณโดยอัตโนมัติ",
@@ -1331,7 +1340,7 @@ const arBase: Partial<TranslationStrings> = {
   libraryTitle: "المكتبة", libraryDesc: "احفظ وأدِر المحتوى المحلل. انقر على بطاقة لعرض التحليل التفصيلي.",
   explorerTitle: "استكشاف", explorerDesc: "اكتشف تحليلات محتوى لم ترها من قبل",
   synapseTitle: "سينابس", synapseDesc: "قارن وحلل محتويين لتصميم محتوى جديد.",
-  featureRequestTitle: "طلب ميزة", featureRequestDesc: "اقترح ميزات تريد رؤيتها في DotLink.",
+  featureRequestTitle: "طلب ميزة", featureRequestDesc: "اقترح ميزات تريد رؤيتها ف�� DotLink.",
   subscribeTitle: "اشتراك", subscribeDesc: "اختر الخطة المناسبة وابدأ بتحليل المحتوى.",
   settingsTitle: "الإعدادات", settingsDesc: "تحقق من معلومات حسابك وحالة الاشتراك.",
   landingNavStart: "ابدأ", landingNavTrial: "تجربة مجانية",

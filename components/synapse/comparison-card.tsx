@@ -70,14 +70,28 @@ export function ComparisonCard({
         style={{ aspectRatio: "9/12" }}
         onClick={() => setIsFlipped(true)}
       >
-        {/* Frame image */}
+        {/* Frame image — draggable */}
         <div
+          draggable
+          onDragStart={(e) => {
+            const frame = card.frames[frameIndex]
+            e.dataTransfer.setData(
+              "application/x-dotlink-frame",
+              JSON.stringify({
+                id: `${card.id}-frame-${frame.id}`,
+                gradient: frame.gradient,
+                label: frame.label,
+                sourceCard: label,
+              }),
+            )
+            e.dataTransfer.effectAllowed = "copy"
+          }}
           className={cn(
             "absolute inset-0 bg-gradient-to-br",
             card.frames[frameIndex].gradient,
           )}
         />
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <span className="text-xs text-foreground/50">
             {card.frames[frameIndex].label}
           </span>

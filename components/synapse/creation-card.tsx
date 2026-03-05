@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { Download, ChevronDown } from "lucide-react"
+import { Download, ChevronDown, X, ImageIcon } from "lucide-react"
 import { useLocale } from "@/lib/locale-context"
 import { cn } from "@/lib/utils"
 
@@ -13,6 +13,16 @@ const stepKeys = [
 ] as const
 
 type StepKey = (typeof stepKeys)[number]
+
+/** Steps that support frame drag-and-drop */
+const DROP_ENABLED_STEPS = new Set<StepKey>(["step4", "step8"])
+
+interface DroppedFrame {
+  id: string
+  gradient: string
+  label: string
+  sourceCard: string
+}
 
 export function CreationCard() {
   const { t } = useLocale()
@@ -33,6 +43,11 @@ export function CreationCard() {
     Object.fromEntries(stepKeys.map((k) => [k, ""])) as Record<StepKey, string>,
   )
   const [expanded, setExpanded] = useState<Set<StepKey>>(new Set(["step1"]))
+  const [droppedFrames, setDroppedFrames] = useState<Record<string, DroppedFrame[]>>({
+    step4: [],
+    step8: [],
+  })
+  const [dragOverStep, setDragOverStep] = useState<StepKey | null>(null)
 
   function toggleExpand(key: StepKey) {
     setExpanded((prev) => {
@@ -45,6 +60,42 @@ export function CreationCard() {
 
   function handleChange(key: StepKey, value: string) {
     setValues((prev) => ({ ...prev, [key]: value }))
+  }
+
+  const handleDragOver = useCallback((e: React.DragEvent, key: StepKey) => {
+    if (!e.dataTransfer.types.includes("application/x-dotlink-frame")) return
+    e.preventDefault()
+    e.dataTransfer.dropEffect = "copy"
+    setDragOverStep(key)
+  }, [])
+
+  const handleDragLeave = useCallback(() => {
+    setDragOverStep(null)
+  }, [])
+
+  const handleDrop = useCallback((e: React.DragEvent, key: StepKey) => {
+    e.preventDefault()
+    setDragOverStep(null)
+    const raw = e.dataTransfer.getData("application/x-dotlink-frame")
+    if (!raw) return
+    try {
+      const frame: DroppedFrame = JSON.parse(raw)
+      setDroppedFrames((prev) => {
+        const existing = prev[key] ?? []
+        // Prevent duplicates
+        if (existing.some((f) => f.id === frame.id)) return prev
+        return { ...prev, [key]: [...existing, frame] }
+      })
+    } catch {
+      // ignore malformed data
+    }
+  }, [])
+
+  function removeFrame(key: StepKey, frameId: string) {
+    setDroppedFrames((prev) => ({
+      ...prev,
+      [key]: (prev[key] ?? []).filter((f) => f.id !== frameId),
+    }))
   }
 
   const filledCount = stepKeys.filter((k) => values[k].trim().length > 0).length
@@ -77,9 +128,13 @@ export function CreationCard() {
           {steps.map(({ key, title, desc }, i) => {
             const isOpen = expanded.has(key)
             const hasContent = values[key].trim().length > 0
+            const hasDropZone = DROP_ENABLED_STEPS.has(key)
+            const frames = droppedFrames[key] ?? []
+            const isDragOver = dragOverStep === key
 
             return (
               <div key={key} className="border-b border-border/50 last:border-b-0">
+                {/* Step header */}
                 <button
                   type="button"
                   onClick={() => toggleExpand(key)}
@@ -91,7 +146,7 @@ export function CreationCard() {
                   <span
                     className={cn(
                       "flex size-6 shrink-0 items-center justify-center rounded-full text-[10px] font-bold transition-colors",
-                      hasContent
+                      hasContent || frames.length > 0
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted text-muted-foreground",
                     )}
@@ -105,6 +160,11 @@ export function CreationCard() {
                         {values[key]}
                       </p>
                     )}
+                    {!isOpen && !hasContent && frames.length > 0 && (
+                      <p className="mt-0.5 text-[10px] text-muted-foreground">
+                        {frames.length} frame{frames.length > 1 ? "s" : ""}
+                      </p>
+                    )}
                   </div>
                   <ChevronDown
                     className={cn(
@@ -114,6 +174,7 @@ export function CreationCard() {
                   />
                 </button>
 
+                {/* Collapsible body */}
                 {isOpen && (
                   <div className="px-4 pb-4 pt-1">
                     <p className="mb-3 text-[11px] leading-relaxed text-muted-foreground">
@@ -125,6 +186,60 @@ export function CreationCard() {
                       placeholder={t.creationPlaceholder}
                       className="min-h-[100px] resize-none text-xs leading-relaxed"
                     />
+
+                    {/* Drop zone for step4 & step8 */}
+                    {hasDropZone && (
+                      <div
+                        onDragOver={(e) => handleDragOver(e, key)}
+                        onDragLeave={handleDragLeave}
+                        onDrop={(e) => handleDrop(e, key)}
+                        className={cn(
+                          "mt-3 rounded-lg border-2 border-dashed p-3 transition-colors",
+                          isDragOver
+                            ? "border-primary bg-primary/10"
+                            : "border-border/60 bg-muted/30",
+                        )}
+                      >
+                        {/* Dropped thumbnails - horizontal scroll */}
+                        {frames.length > 0 && (
+                          <div className="mb-2 flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "thin" }}>
+                            {frames.map((frame) => (
+                              <div key={frame.id} className="group/thumb relative shrink-0">
+                                <div
+                                  className={cn(
+                                    "size-16 rounded-md bg-gradient-to-br",
+                                    frame.gradient,
+                                  )}
+                                  title={`${frame.sourceCard} - ${frame.label}`}
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => removeFrame(key, frame.id)}
+                                  className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-destructive text-destructive-foreground opacity-0 transition-opacity group-hover/thumb:opacity-100"
+                                  aria-label="Remove frame"
+                                >
+                                  <X className="size-2.5" />
+                                </button>
+                                <p className="mt-0.5 max-w-16 truncate text-center text-[8px] text-muted-foreground">
+                                  {frame.label}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        {/* Hint text */}
+                        <div
+                          className={cn(
+                            "flex items-center justify-center gap-1.5 py-2",
+                            isDragOver ? "text-primary" : "text-muted-foreground",
+                          )}
+                        >
+                          <ImageIcon className="size-3.5" />
+                          <span className="text-[11px]">{t.creationDropHint}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
