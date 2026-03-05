@@ -1,11 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, X, Zap, ExternalLink } from "lucide-react"
+import { ChevronLeft, ChevronRight, Zap, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { DifficultyMeter } from "@/components/analysis/difficulty-meter"
+import { CardDetailModal } from "@/components/library/card-detail-modal"
 import type { ContentCard } from "@/lib/types"
 
 const platformColors: Record<string, string> = {
@@ -13,16 +12,6 @@ const platformColors: Record<string, string> = {
   tiktok: "bg-cyan-500/20 text-cyan-400",
   youtube: "bg-red-500/20 text-red-400",
 }
-
-const analysisSections = [
-  { key: "contentType", label: "콘텐츠 유형" },
-  { key: "hookVisual", label: "후킹 매력 요소" },
-  { key: "scriptAppeal", label: "스크립트 매력 요소" },
-  { key: "captionAnalysis", label: "캡션 분석" },
-  { key: "visualDirection", label: "연출 요소" },
-  { key: "engagementDevices", label: "인게이지먼트 장치" },
-  { key: "salesPoints", label: "세일즈 포인트" },
-] as const
 
 export function ContentCardComponent({
   card,
@@ -32,157 +21,117 @@ export function ContentCardComponent({
   onSynapseClick: (card: ContentCard) => void
 }) {
   const [frameIndex, setFrameIndex] = useState(0)
-  const [isFlipped, setIsFlipped] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card transition-colors hover:border-border">
-      {/* Frame carousel area - 9:12 aspect ratio */}
-      <div
-        className="relative cursor-pointer"
-        style={{ aspectRatio: "9/12" }}
-        onClick={() => setIsFlipped(true)}
-      >
+    <>
+      <div className="group relative flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card transition-colors hover:border-border">
+        {/* Frame carousel area - 9:12 aspect ratio */}
         <div
-          className={cn(
-            "absolute inset-0 bg-gradient-to-br",
-            card.frames[frameIndex].gradient,
-          )}
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-xs text-foreground/50">
-            {card.frames[frameIndex].label}
-          </span>
-        </div>
-
-        {/* Nav arrows */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation()
-            setFrameIndex((i) => (i === 0 ? card.frames.length - 1 : i - 1))
-          }}
-          className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-background/60 p-1 opacity-0 transition-opacity group-hover:opacity-100"
-          aria-label="이전 프레임"
+          className="relative cursor-pointer"
+          style={{ aspectRatio: "9/12" }}
+          onClick={() => setModalOpen(true)}
         >
-          <ChevronLeft className="size-3.5" />
-        </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation()
-            setFrameIndex((i) => (i === card.frames.length - 1 ? 0 : i + 1))
-          }}
-          className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-background/60 p-1 opacity-0 transition-opacity group-hover:opacity-100"
-          aria-label="다음 프레임"
-        >
-          <ChevronRight className="size-3.5" />
-        </button>
+          <div
+            className={cn(
+              "absolute inset-0 bg-gradient-to-br",
+              card.frames[frameIndex].gradient,
+            )}
+          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-xs text-foreground/50">
+              {card.frames[frameIndex].label}
+            </span>
+          </div>
 
-        {/* Frame indicator */}
-        <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-0.5">
-          {card.frames.slice(0, 15).map((_, i) => (
-            <div
-              key={i}
-              className={cn(
-                "size-1 rounded-full transition-colors",
-                i === frameIndex ? "bg-foreground" : "bg-foreground/30",
-              )}
-            />
-          ))}
-        </div>
-
-        {/* Platform badge */}
-        <Badge
-          className={cn(
-            "absolute top-2 left-2 border-0 text-[10px] capitalize",
-            platformColors[card.platform],
-          )}
-        >
-          {card.platform}
-        </Badge>
-
-        {/* Synapse button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation()
-            onSynapseClick(card)
-          }}
-          className="absolute top-2 right-2 rounded-full bg-primary/80 p-1.5 text-primary-foreground opacity-0 transition-opacity hover:bg-primary group-hover:opacity-100"
-          aria-label="시냅스로 보내기"
-        >
-          <Zap className="size-3.5" />
-        </button>
-
-        {/* Glass overlay with analysis results */}
-        <div
-          className={cn(
-            "absolute inset-0 flex flex-col transition-all duration-300",
-            "bg-background/80 backdrop-blur-xl",
-            isFlipped
-              ? "pointer-events-auto opacity-100"
-              : "pointer-events-none opacity-0",
-          )}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Close button */}
+          {/* Nav arrows */}
           <button
-            onClick={() => setIsFlipped(false)}
-            className="absolute top-2 right-2 z-10 rounded-full bg-foreground/10 p-1 transition-colors hover:bg-foreground/20"
-            aria-label="닫기"
+            onClick={(e) => {
+              e.stopPropagation()
+              setFrameIndex((i) => (i === 0 ? card.frames.length - 1 : i - 1))
+            }}
+            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-background/60 p-1 opacity-0 transition-opacity group-hover:opacity-100"
+            aria-label="이전 프레임"
           >
-            <X className="size-3.5" />
+            <ChevronLeft className="size-3.5" />
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              setFrameIndex((i) => (i === card.frames.length - 1 ? 0 : i + 1))
+            }}
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-background/60 p-1 opacity-0 transition-opacity group-hover:opacity-100"
+            aria-label="다음 프레임"
+          >
+            <ChevronRight className="size-3.5" />
           </button>
 
-          <ScrollArea className="h-full">
-            <div className="flex flex-col gap-2.5 p-3 pt-8">
-              <h4 className="text-xs font-bold text-foreground">{card.title}</h4>
+          {/* Frame indicator */}
+          <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-0.5">
+            {card.frames.slice(0, 15).map((_, i) => (
+              <div
+                key={i}
+                className={cn(
+                  "size-1 rounded-full transition-colors",
+                  i === frameIndex ? "bg-foreground" : "bg-foreground/30",
+                )}
+              />
+            ))}
+          </div>
 
-              {analysisSections.map(({ key, label }) => (
-                <div key={key}>
-                  <p className="mb-0.5 text-xs font-semibold text-primary">{label}</p>
-                  <p className="text-xs leading-relaxed text-foreground/80">
-                    {card.analysis[key]}
-                  </p>
-                </div>
-              ))}
-
-              <div>
-                <p className="mb-1 text-xs font-semibold text-primary">제작 난이도</p>
-                <DifficultyMeter difficulty={card.analysis.difficulty} />
-              </div>
-
-              <div className="flex flex-wrap gap-1">
-                {card.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary" className="text-[9px] px-1.5 py-0">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </ScrollArea>
-        </div>
-      </div>
-
-      {/* Card info */}
-      <div className="flex flex-col gap-1 p-3">
-        <h3
-          className="cursor-pointer truncate text-sm font-medium hover:text-primary"
-          onClick={() => setIsFlipped(true)}
-        >
-          {card.title}
-        </h3>
-        <div className="flex items-center justify-between">
-          <p className="text-xs text-muted-foreground">{card.dateAnalyzed}</p>
-          <a
-            href={card.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium text-primary transition-colors hover:bg-primary/10"
+          {/* Platform badge */}
+          <Badge
+            className={cn(
+              "absolute top-2 left-2 border-0 text-[10px] capitalize",
+              platformColors[card.platform],
+            )}
           >
-            영상 보러가기
-            <ExternalLink className="size-3" />
-          </a>
+            {card.platform}
+          </Badge>
+
+          {/* Synapse button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              onSynapseClick(card)
+            }}
+            className="absolute top-2 right-2 rounded-full bg-primary/80 p-1.5 text-primary-foreground opacity-0 transition-opacity hover:bg-primary group-hover:opacity-100"
+            aria-label="시냅스로 보내기"
+          >
+            <Zap className="size-3.5" />
+          </button>
+        </div>
+
+        {/* Card info */}
+        <div className="flex flex-col gap-1 p-3">
+          <h3
+            className="cursor-pointer truncate text-sm font-medium hover:text-primary"
+            onClick={() => setModalOpen(true)}
+          >
+            {card.title}
+          </h3>
+          <div className="flex items-center justify-between">
+            <p className="text-xs text-muted-foreground">{card.dateAnalyzed}</p>
+            <a
+              href={card.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium text-primary transition-colors hover:bg-primary/10"
+            >
+              영상 보러가기
+              <ExternalLink className="size-3" />
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Detail modal */}
+      <CardDetailModal
+        card={card}
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+      />
+    </>
   )
 }
