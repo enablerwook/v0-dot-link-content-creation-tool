@@ -17,14 +17,9 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { ChevronUp } from "lucide-react"
+import { useLocale } from "@/lib/locale-context"
 import { mockFeatureRequests } from "@/lib/mock-data"
 import type { FeatureRequest } from "@/lib/types"
-
-const priorityLabels: Record<string, string> = {
-  high: "높음",
-  medium: "보통",
-  low: "낮음",
-}
 
 const priorityColors: Record<string, string> = {
   high: "bg-red-500/20 text-red-400",
@@ -33,11 +28,18 @@ const priorityColors: Record<string, string> = {
 }
 
 export default function FeatureRequestPage() {
+  const { t } = useLocale()
   const [requests, setRequests] = useState<FeatureRequest[]>(mockFeatureRequests)
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [category, setCategory] = useState("")
   const [priority, setPriority] = useState("medium")
+
+  const priorityLabels: Record<string, string> = {
+    high: t.featureRequestPriorityHigh,
+    medium: t.featureRequestPriorityMedium,
+    low: t.featureRequestPriorityLow,
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -50,7 +52,7 @@ export default function FeatureRequestPage() {
       category,
       priority: priority as FeatureRequest["priority"],
       upvotes: 0,
-      author: "나",
+      author: "Me",
       dateSubmitted: new Date().toISOString().split("T")[0],
       hasUpvoted: false,
     }
@@ -78,78 +80,78 @@ export default function FeatureRequestPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">기능 요청</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t.featureRequestTitle}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          DotLink에 추가되었으면 하는 기능을 제안해주세요.
+          {t.featureRequestDesc}
         </p>
       </div>
 
       {/* Form */}
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle className="text-base">새로운 기능 제안하기</CardTitle>
+          <CardTitle className="text-base">{t.featureRequestNewTitle}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
               <Label htmlFor="req-title" className="mb-1.5 text-sm">
-                제목
+                {t.featureRequestFormTitle}
               </Label>
               <Input
                 id="req-title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="원하는 기능의 제목을 입력하세요"
+                placeholder={t.featureRequestFormTitlePlaceholder}
               />
             </div>
             <div>
               <Label htmlFor="req-desc" className="mb-1.5 text-sm">
-                설명
+                {t.featureRequestFormDesc}
               </Label>
               <Textarea
                 id="req-desc"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="기능에 대해 자세히 설명해주세요"
+                placeholder={t.featureRequestFormDescPlaceholder}
                 className="min-h-[100px]"
               />
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <Label className="mb-1.5 text-sm">카테고리</Label>
+                <Label className="mb-1.5 text-sm">{t.featureRequestFormCategory}</Label>
                 <Select value={category} onValueChange={setCategory}>
                   <SelectTrigger>
-                    <SelectValue placeholder="카테고리 선택" />
+                    <SelectValue placeholder={t.featureRequestFormCategoryPlaceholder} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="AI 기능">AI 기능</SelectItem>
-                    <SelectItem value="분석">분석</SelectItem>
-                    <SelectItem value="협업">협업</SelectItem>
-                    <SelectItem value="유틸리티">유틸리티</SelectItem>
-                    <SelectItem value="UI/UX">UI/UX</SelectItem>
-                    <SelectItem value="기타">기타</SelectItem>
+                    <SelectItem value="AI 기능">{t.featureRequestCategoryAI}</SelectItem>
+                    <SelectItem value="분석">{t.featureRequestCategoryAnalysis}</SelectItem>
+                    <SelectItem value="협업">{t.featureRequestCategoryCollab}</SelectItem>
+                    <SelectItem value="유틸리티">{t.featureRequestCategoryUtility}</SelectItem>
+                    <SelectItem value="UI/UX">{t.featureRequestCategoryUIUX}</SelectItem>
+                    <SelectItem value="기타">{t.featureRequestCategoryOther}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label className="mb-1.5 text-sm">우선순위</Label>
+                <Label className="mb-1.5 text-sm">{t.featureRequestFormPriority}</Label>
                 <RadioGroup value={priority} onValueChange={setPriority} className="flex gap-4 pt-2">
                   <div className="flex items-center gap-1.5">
                     <RadioGroupItem value="low" id="p-low" />
-                    <Label htmlFor="p-low" className="text-sm">낮음</Label>
+                    <Label htmlFor="p-low" className="text-sm">{t.featureRequestPriorityLow}</Label>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <RadioGroupItem value="medium" id="p-med" />
-                    <Label htmlFor="p-med" className="text-sm">보통</Label>
+                    <Label htmlFor="p-med" className="text-sm">{t.featureRequestPriorityMedium}</Label>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <RadioGroupItem value="high" id="p-high" />
-                    <Label htmlFor="p-high" className="text-sm">높음</Label>
+                    <Label htmlFor="p-high" className="text-sm">{t.featureRequestPriorityHigh}</Label>
                   </div>
                 </RadioGroup>
               </div>
             </div>
-            <Button type="submit" className="self-end">제출하기</Button>
+            <Button type="submit" className="self-end">{t.featureRequestSubmit}</Button>
           </form>
         </CardContent>
       </Card>
@@ -158,7 +160,7 @@ export default function FeatureRequestPage() {
 
       {/* Request list */}
       <div className="flex flex-col gap-3">
-        <h2 className="text-lg font-semibold">제안된 기능 ({requests.length})</h2>
+        <h2 className="text-lg font-semibold">{t.featureRequestListTitle} ({requests.length})</h2>
         {requests
           .sort((a, b) => b.upvotes - a.upvotes)
           .map((req) => (
@@ -172,7 +174,7 @@ export default function FeatureRequestPage() {
                       ? "border-primary bg-primary/10 text-primary"
                       : "border-border hover:border-primary/50"
                   }`}
-                  aria-label={`추천 ${req.upvotes}`}
+                  aria-label={`Upvote ${req.upvotes}`}
                 >
                   <ChevronUp className="size-4" />
                   <span className="text-xs font-medium">{req.upvotes}</span>

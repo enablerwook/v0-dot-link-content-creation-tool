@@ -3,6 +3,7 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { AppProvider } from "@/lib/app-context"
 import { mockContentCards } from "@/lib/mock-data"
 import { Separator } from "@/components/ui/separator"
+import { GnbHeader } from "@/components/gnb-header"
 
 export default function DashboardLayout({
   children,
@@ -14,11 +15,7 @@ export default function DashboardLayout({
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
-          <header className="flex h-14 items-center gap-2 border-b px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <span className="text-sm font-medium text-muted-foreground">DotLink</span>
-          </header>
+          <GnbHeader />
           <div className="flex-1 overflow-auto">
             {children}
           </div>

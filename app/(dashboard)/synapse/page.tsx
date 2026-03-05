@@ -2,11 +2,13 @@
 
 import { useState, useMemo } from "react"
 import { useAppContext } from "@/lib/app-context"
+import { useLocale } from "@/lib/locale-context"
 import { ComparisonCard } from "@/components/synapse/comparison-card"
 import { CardStack } from "@/components/synapse/card-stack"
 import { CreationCard } from "@/components/synapse/creation-card"
 
 export default function SynapsePage() {
+  const { t } = useLocale()
   const { selectedCardA, libraryCards } = useAppContext()
   const [bIndex, setBIndex] = useState(0)
 
@@ -31,9 +33,9 @@ export default function SynapsePage() {
     return (
       <div className="flex h-[60vh] items-center justify-center px-4">
         <div className="text-center">
-          <h2 className="text-lg font-semibold">분석된 콘텐츠가 필요합니다</h2>
+          <h2 className="text-lg font-semibold">{t.synapseNeedContent}</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            먼저 라이브러리에서 카드를 선택하거나 콘텐츠를 분석해주세요.
+            {t.synapseNeedContentDesc}
           </p>
         </div>
       </div>
@@ -43,9 +45,9 @@ export default function SynapsePage() {
   return (
     <div className="flex h-[calc(100vh-3.5rem)] flex-col px-4 py-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight">시냅스</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t.synapseTitle}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          두 콘텐츠를 비교 분석하고 새로운 콘텐츠를 설계하세요.
+          {t.synapseDesc}
         </p>
       </div>
 

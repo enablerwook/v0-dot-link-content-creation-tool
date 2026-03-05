@@ -7,9 +7,11 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { FolderPlus, Check } from "lucide-react"
 import { mockContentCards } from "@/lib/mock-data"
+import { useLocale } from "@/lib/locale-context"
 import type { AnalysisResult, ContentCard, Platform } from "@/lib/types"
 
 export default function AnalysisPage() {
+  const { t } = useLocale()
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState<ContentCard | null>(null)
   const [isSaved, setIsSaved] = useState(false)
@@ -36,9 +38,9 @@ export default function AnalysisPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">DNA 분석</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t.analysisTitle}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          숏폼 콘텐츠의 URL을 입력하면 9가지 DNA 요소를 분석합니다.
+          {t.analysisDesc}
         </p>
       </div>
 
@@ -47,7 +49,7 @@ export default function AnalysisPage() {
       {isLoading && (
         <div className="mt-12 flex flex-col items-center gap-3">
           <div className="size-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-          <p className="text-sm text-muted-foreground">콘텐츠 DNA를 분석하고 있습니다...</p>
+          <p className="text-sm text-muted-foreground">{t.analysisAnalyzing}</p>
         </div>
       )}
 
@@ -69,12 +71,12 @@ export default function AnalysisPage() {
               {isSaved ? (
                 <>
                   <Check className="mr-1 size-4" />
-                  저장됨
+                  {t.analysisSaved}
                 </>
               ) : (
                 <>
                   <FolderPlus className="mr-1 size-4" />
-                  라이브러리에 저장
+                  {t.analysisSaveToLibrary}
                 </>
               )}
             </Button>
