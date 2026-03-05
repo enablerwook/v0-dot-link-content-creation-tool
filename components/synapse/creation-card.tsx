@@ -244,14 +244,15 @@ export function CreationCard() {
                       >
                         {/* Dropped thumbnails - horizontal scroll */}
                         {frames.length > 0 && (
-                          <div className="mb-2 flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "thin" }}>
+                          <div className="mb-2 flex gap-2 overflow-x-auto pb-2 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-black/20 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/50" style={{ scrollbarWidth: "thin", scrollbarColor: "hsl(var(--border)) hsl(0 0% 0% / 0.2)" }}>
                             {frames.map((frame) => (
                               <div key={frame.id} className="group/thumb relative shrink-0">
                                 <div
                                   className={cn(
-                                    "size-16 rounded-md bg-gradient-to-br",
+                                    "h-28 rounded-md bg-gradient-to-br object-cover",
                                     frame.gradient,
                                   )}
+                                  style={{ aspectRatio: "9/16" }}
                                   title={`${frame.sourceCard} - ${frame.label}`}
                                 />
                                 <button
@@ -262,7 +263,7 @@ export function CreationCard() {
                                 >
                                   <X className="size-2.5" />
                                 </button>
-                                <p className="mt-0.5 max-w-16 truncate text-center text-[8px] text-muted-foreground">
+                                <p className="mt-1 w-full truncate text-center text-[8px] text-muted-foreground" style={{ maxWidth: "calc(28 * 9 / 16 * 0.25rem)" }}>
                                   {frame.label}
                                 </p>
                               </div>
