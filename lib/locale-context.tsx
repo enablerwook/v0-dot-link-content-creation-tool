@@ -11,6 +11,7 @@ export interface TranslationStrings {
   analysis: string
   library: string
   synapse: string
+  interview: string
   explorer: string
   featureRequest: string
   subscribe: string
@@ -250,6 +251,7 @@ const ko: TranslationStrings = {
   analysis: "분석",
   library: "저장 공간",
   synapse: "융합",
+  interview: "인터뷰 모드",
   explorer: "탐색",
   featureRequest: "기능 요청",
   subscribe: "구독",
@@ -757,7 +759,7 @@ const jaBase: Partial<TranslationStrings> = {
   creationStep5Title: "エンゲージメント誘導", creationStep5Desc: "フォロー、保存、共有、コメントを促す言葉や状況はありますか？",
   creationStep6Title: "キャプション作成", creationStep6Desc: "キャプションの最初の文は視聴中に表示されます。フックの意図を込めましょう。",
   creationStep7Title: "セールスポイント", creationStep7Desc: "スクリプトに商品をどう���り込むかア���デアを考えてみましょう。",
-  creationStep8Title: "演出要素", creationStep8Desc: "視聴者が離脱しないよう、没入できる要素を入れましょう。画面遷移、BGM、効果音など。",
+  creationStep8Title: "演出��素", creationStep8Desc: "視聴者が離脱しないよう、没入できる要素を入れましょう。画面遷移、BGM、効果音など。",
   creationStep9Title: "スクリプト（最終版）", creationStep9Desc: "下書きから演出要素まで全てを考慮した最終スクリプトを作成しましょう。",
   creationDropHint: "ここにリファレンスフレームをドラッグ＆ドロップ",
   creationSave: "保存", creationLoad: "読み込む", creationSaveSuccess: "正常に保存されました", creationLoadSuccess: "保存された企画書を読み込���ました", creationLoadEmpty: "保存されたデータがありません",
@@ -1131,7 +1133,7 @@ const zhCNBase: Partial<TranslationStrings> = {
   featureRequestFormCategory: "类别", featureRequestFormCategoryPlaceholder: "选择类别",
   featureRequestFormPriority: "优先级", featureRequestPriorityLow: "低", featureRequestPriorityMedium: "中", featureRequestPriorityHigh: "高",
   featureRequestSubmit: "提交", featureRequestListTitle: "已建议的功能",
-  featureRequestCategoryAI: "AI功能", featureRequestCategoryAnalysis: "分析", featureRequestCategoryCollab: "协作",
+  featureRequestCategoryAI: "AI功能", featureRequestCategoryAnalysis: "���析", featureRequestCategoryCollab: "协作",
   featureRequestCategoryUtility: "工具", featureRequestCategoryUIUX: "UI/UX", featureRequestCategoryOther: "其他",
   subscribeTitle: "订阅", subscribeDesc: "选择适合您的计划，开始内容分析。",
   subscribeRecommended: "推荐", subscribeFree: "免费", subscribeFreeBtn: "免费开始", subscribeBtn: "订阅", subscribeMonth: "月",
@@ -1182,7 +1184,7 @@ const zhTWBase: Partial<TranslationStrings> = {
   analysisPlaceholder: "貼上短影音URL...", analysisButton: "開始分析",
   analysisLoading: "分析中...", analysisPlatform: "平台：", analysisSaved: "已儲存",
   analysisSaveToLibrary: "儲存到資料庫", analysisAnalyzing: "正在分析內容DNA...",
-  landingBetaBadge: "Beta - 立即免費���始", landingHero1: "短影音內容的DNA", landingHero2: "分析與重組",
+  landingBetaBadge: "Beta - 立即免費���始", landingHero1: "短影音內容的DNA", landingHero2: "分析與重���",
   landingSubtitle1: "好的藝術家模仿，偉大的藝術家竊取。", landingSubtitle2: "解碼成功內容的秘密，重塑為你自己的創作。",
   landingCta: "立即開始分析", landingLibrary: "瀏覽資料庫",
   landingHowTitle: "如何運作？", landingHowDesc: "三步解碼內容的成功DNA。",
@@ -1203,7 +1205,7 @@ const zhTWBase: Partial<TranslationStrings> = {
   explorerExploreBtn: "探索", explorerRecommended: "推薦內容分析", explorerCount: "個", explorerRefresh: "重新探索", explorerViewVideo: "觀看影片",
   synapseTitle: "突觸", synapseDesc: "比較分析兩個內容，設計新內容。",
   synapseNeedContent: "需要已分析的內容", synapseNeedContentDesc: "請先從資料庫選擇卡���或分析內容。",
-  synapseSelectCard: "從資料庫選擇卡片", synapseEmptySlot: "請選擇卡片", synapsePickFromLibrary: "從資料庫選擇", synapseLibraryEmpty: "資料庫中沒有卡片。請先分析內容。", synapseChangeCard: "更換卡片",
+  synapseSelectCard: "從資料庫選擇卡��", synapseEmptySlot: "請選擇卡片", synapsePickFromLibrary: "從資料庫選擇", synapseLibraryEmpty: "資料庫中沒有卡片。請先分析內容。", synapseChangeCard: "更換卡片",
   creationExport: "匯出",
   creationPlaceholder: "請輸入...",
   creationStep1Title: "腳本撰寫（草稿）", creationStep1Desc: "��考�������由撰寫腳本，後續逐步完善。",
@@ -1272,7 +1274,7 @@ const ptBase: Partial<TranslationStrings> = {
   langModalRecommended: "Idiomas e regiões sugeridos", langModalChoose: "Escolha um idioma e região",
   libraryTitle: "Biblioteca", libraryDesc: "Salve e gerencie conteúdo analisado. Clique em um cartão para ver a análise detalhada.",
   explorerTitle: "Explorador", explorerDesc: "Descubra análises de conteúdo que você n��o viu antes",
-  explorerEmptyTitle: "Descubra novo conteúdo", explorerEmptyDesc: "Receba recomendações de conteúdo diversificado",
+  explorerEmptyTitle: "Descubra novo conte��do", explorerEmptyDesc: "Receba recomendações de conteúdo diversificado",
   explorerExploreBtn: "Explorar", explorerRecommended: "Análises de conteúdo recomendadas", explorerCount: "", explorerRefresh: "Explorar novamente", explorerViewVideo: "Assistir vídeo",
   synapseTitle: "Sinapse", synapseDesc: "Compare e analise dois conteúdos para projetar um novo.",
   synapseNeedContent: "Conteúdo analisado necessário", synapseNeedContentDesc: "Selecione um cartão da biblioteca ou analise conteúdo primeiro.",

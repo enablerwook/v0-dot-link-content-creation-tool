@@ -9,6 +9,7 @@ import {
   FolderOpen,
   Home,
   Lightbulb,
+  MessageSquare,
   Settings,
   Zap,
 } from "lucide-react"
@@ -27,13 +28,14 @@ import {
 import { useLocale } from "@/lib/locale-context"
 import type { TranslationStrings } from "@/lib/locale-context"
 
-type NavKey = "home" | "analysis" | "library" | "synapse" | "explorer" | "featureRequest" | "subscribe" | "settings"
+type NavKey = "home" | "analysis" | "library" | "synapse" | "interview" | "explorer" | "featureRequest" | "subscribe" | "settings"
 
 const navItems: { key: NavKey; href: string; icon: typeof Home }[] = [
   { key: "home", href: "/", icon: Home },
   { key: "analysis", href: "/analysis", icon: FlaskConical },
   { key: "library", href: "/library", icon: FolderOpen },
   { key: "synapse", href: "/synapse", icon: Zap },
+  { key: "interview", href: "/interview", icon: MessageSquare },
   { key: "explorer", href: "/explorer", icon: Compass },
   { key: "featureRequest", href: "/feature-request", icon: Lightbulb },
   { key: "subscribe", href: "/subscribe", icon: CreditCard },
@@ -59,6 +61,7 @@ export function AppSidebar() {
         analysis: "분석",
         library: "저장 공간",
         synapse: "융합",
+        interview: "인터뷰 모드",
         explorer: "탐색",
         featureRequest: "기능 요청",
         subscribe: "구독",
