@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
-import { ScrollArea } from "@/components/ui/scroll-area"
+
 import { Sparkles, Plus, ChevronLeft, ChevronRight, RefreshCw } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAppContext } from "@/lib/app-context"
@@ -164,7 +164,28 @@ export default function InterviewModePage() {
 
         {/* Right: Interactive Q&A Form (60%) */}
         <div className="relative flex min-h-0 flex-col overflow-hidden lg:col-span-3">
-          <ScrollArea className="flex-1 pr-2">
+          <div 
+            className="flex-1 overflow-y-auto pr-2"
+            style={{
+              scrollbarWidth: 'thin',
+              scrollbarColor: 'rgba(255,255,255,0.1) transparent',
+            }}
+          >
+            <style jsx>{`
+              div::-webkit-scrollbar {
+                width: 6px;
+              }
+              div::-webkit-scrollbar-track {
+                background: transparent;
+              }
+              div::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 9999px;
+              }
+              div::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.2);
+              }
+            `}</style>
             <div className="flex flex-col gap-6 pb-24">
               {/* Step 1: Hook & Pain Point */}
               <Card className="border-border/60 bg-card/50 backdrop-blur-sm">
@@ -286,7 +307,7 @@ export default function InterviewModePage() {
                 </CardContent>
               </Card>
             </div>
-          </ScrollArea>
+          </div>
 
           {/* Sticky CTA Button */}
           <div className="absolute inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-background via-background to-transparent pb-4 pt-8">
