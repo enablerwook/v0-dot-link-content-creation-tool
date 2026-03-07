@@ -128,7 +128,7 @@ export function ContentCardComponent({
             onSynapseClick(card)
           }}
           className="absolute top-2 right-2 rounded-full bg-primary/80 p-1.5 text-primary-foreground opacity-0 transition-opacity hover:bg-primary group-hover:opacity-100"
-          aria-label="시냅스로 보내기"
+          aria-label="융합으로 보내기"
         >
           <Zap className="size-3.5" />
         </button>

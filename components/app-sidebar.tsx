@@ -57,9 +57,9 @@ export function AppSidebar() {
       const fallback: Record<NavKey, string> = {
         home: "홈",
         analysis: "분석",
-        library: "라이브러리",
-        synapse: "시냅스",
-        explorer: "익스플로러",
+        library: "저장 공간",
+        synapse: "융합",
+        explorer: "탐색",
         featureRequest: "기능 요청",
         subscribe: "구독",
         settings: "설정",
