@@ -12,6 +12,7 @@ export interface TranslationStrings {
   library: string
   synapse: string
   interview: string
+  copywrite: string
   explorer: string
   featureRequest: string
   subscribe: string
@@ -252,6 +253,7 @@ const ko: TranslationStrings = {
   library: "저장 공간",
   synapse: "융합",
   interview: "인터뷰 모드",
+  copywrite: "따라쓰기 모드",
   explorer: "탐색",
   featureRequest: "기능 요청",
   subscribe: "구독",
@@ -378,7 +380,7 @@ const ko: TranslationStrings = {
   subscribeDesc: "나에게 맞는 플랜을 선택하고 콘텐츠 분석을 시작하세요.",
   subscribeRecommended: "추천",
   subscribeFree: "무료",
-  subscribeFreeBtn: "무료로 시작하기",
+  subscribeFreeBtn: "���료로 시작하기",
   subscribeBtn: "구독하기",
   subscribeMonth: "월",
   subscribeBackToPlans: "플랜 선택으로 돌아가기",
@@ -488,6 +490,8 @@ const en: TranslationStrings = {
   analysis: "Analysis",
   library: "Library",
   synapse: "Synapse",
+  interview: "Interview Mode",
+  copywrite: "Copywrite Mode",
   explorer: "Explorer",
   featureRequest: "Feature Request",
   subscribe: "Subscribe",
@@ -1204,11 +1208,11 @@ const zhTWBase: Partial<TranslationStrings> = {
   explorerEmptyTitle: "發現新內容", explorerEmptyDesc: "取得您未曾探索的多樣內容和分析推薦",
   explorerExploreBtn: "探索", explorerRecommended: "推薦內容分析", explorerCount: "個", explorerRefresh: "重新探索", explorerViewVideo: "觀看影片",
   synapseTitle: "突觸", synapseDesc: "比較分析兩個內容，設計新內容。",
-  synapseNeedContent: "需要已分析的內容", synapseNeedContentDesc: "請先從資料庫選擇卡���或分析內容。",
+  synapseNeedContent: "需要已分析的內容", synapseNeedContentDesc: "請先從資料庫選擇卡���或��析內容。",
   synapseSelectCard: "從資料庫選擇卡��", synapseEmptySlot: "請選擇卡片", synapsePickFromLibrary: "從資料庫選擇", synapseLibraryEmpty: "資料庫中沒有卡片。請先分析內容。", synapseChangeCard: "更換卡片",
   creationExport: "匯出",
   creationPlaceholder: "請輸入...",
-  creationStep1Title: "腳本撰寫（草稿）", creationStep1Desc: "��考�������由撰寫腳本，後續逐步完善。",
+  creationStep1Title: "腳本撰寫（草稿）", creationStep1Desc: "���考�������由撰寫腳本，後續逐步完善。",
   creationStep2Title: "內容類型定義", creationStep2Desc: "如何定義你的腳本類型？定義類型有助於激發更多靈感。",
   creationStep3Title: "鉤子要素（台詞）", creationStep3Desc: "前3秒最重要！從參考中找到合適的鉤子台詞。",
   creationStep4Title: "鉤子要素（畫面）", creationStep4Desc: "利用參考中的吸睛畫面，可從左側卡片拖放場景。",
@@ -1344,7 +1348,7 @@ const ruBase: Partial<TranslationStrings> = {
   menu: "Меню", home: "Главная", analysis: "Анализ", library: "Библиотека", synapse: "Синапс",
   explorer: "Обзор", featureRequest: "Запрос", subscribe: "Подписка", settings: "Настройки",
   gnbTitle: "DotLink", langModalTranslation: "Перевод",
-  langModalTranslationDesc: "Автоматический пе��евод конт��нта на ваш язык.",
+  langModalTranslationDesc: "Автоматически�� пе��евод конт��нта на ваш язык.",
   langModalRecommended: "Рекомендуемые языки и регионы", langModalChoose: "Выберите язык и регион",
   libraryTitle: "Библиотека", libraryDesc: "Сохраняйте и управляйте проанализированным контентом. Нажмите на карточку для подробного анализа.",
   explorerTitle: "Обзор", explorerDesc: "Откройте для себя анализ контента, который вы ещё не видели",
