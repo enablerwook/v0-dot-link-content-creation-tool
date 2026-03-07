@@ -207,7 +207,7 @@ export default function CopywritePage() {
                     카드를 선택해주세요
                   </span>
                   <span className="text-xs text-muted-foreground/60">
-                    저장 공간에서 따라 쓸 레퍼런스 선택
+                    보관함에서 따라 쓸 레퍼런스 선택
                   </span>
                 </div>
               </button>
