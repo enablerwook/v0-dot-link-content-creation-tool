@@ -19,7 +19,6 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -31,14 +30,31 @@ import type { TranslationStrings } from "@/lib/locale-context"
 
 type NavKey = "home" | "analysis" | "library" | "synapse" | "interview" | "copywrite" | "explorer" | "featureRequest" | "subscribe" | "settings"
 
-const navItems: { key: NavKey; href: string; icon: typeof Home }[] = [
-  { key: "home", href: "/", icon: Home },
-  { key: "analysis", href: "/analysis", icon: FlaskConical },
-  { key: "library", href: "/library", icon: FolderOpen },
+type NavItem = { key: NavKey; href: string; icon: typeof Home }
+
+// Home (standalone)
+const homeItem: NavItem = { key: "home", href: "/", icon: Home }
+
+// Reference Discovery
+const referenceItems: NavItem[] = [
   { key: "explorer", href: "/explorer", icon: Compass },
+  { key: "analysis", href: "/analysis", icon: FlaskConical },
+]
+
+// Content Creation
+const creationItems: NavItem[] = [
   { key: "copywrite", href: "/copywrite", icon: PenLine },
   { key: "interview", href: "/interview", icon: MessageSquare },
   { key: "synapse", href: "/synapse", icon: Zap },
+]
+
+// My Workspace
+const workspaceItems: NavItem[] = [
+  { key: "library", href: "/library", icon: FolderOpen },
+]
+
+// Support & Settings
+const supportItems: NavItem[] = [
   { key: "featureRequest", href: "/feature-request", icon: Lightbulb },
   { key: "subscribe", href: "/subscribe", icon: CreditCard },
   { key: "settings", href: "/settings", icon: Settings },
@@ -57,7 +73,6 @@ export function AppSidebar() {
 
   const getLabel = (key: NavKey): string => {
     if (!t) {
-      // Fallback Korean labels when outside LocaleProvider
       const fallback: Record<NavKey, string> = {
         home: "홈",
         analysis: "분석",
@@ -75,6 +90,27 @@ export function AppSidebar() {
     return t[key]
   }
 
+  const renderNavItem = (item: NavItem) => (
+    <SidebarMenuItem key={item.href}>
+      <SidebarMenuButton
+        asChild
+        isActive={pathname === item.href}
+        tooltip={getLabel(item.key)}
+      >
+        <Link href={item.href}>
+          <item.icon />
+          <span>{getLabel(item.key)}</span>
+        </Link>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  )
+
+  const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+    <p className="mb-2 mt-6 px-3 text-xs font-medium text-muted-foreground/70 group-data-[collapsible=icon]:hidden">
+      {children}
+    </p>
+  )
+
   return (
     <Sidebar variant="sidebar" collapsible="icon">
       <SidebarHeader className="px-4 py-4">
@@ -89,23 +125,26 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>{t?.menu ?? "메뉴"}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={pathname === item.href}
-                    tooltip={getLabel(item.key)}
-                  >
-                    <Link href={item.href}>
-                      <item.icon />
-                      <span>{getLabel(item.key)}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {/* Home - standalone */}
+              {renderNavItem(homeItem)}
+
+              {/* Reference Discovery */}
+              <SectionLabel>레퍼런스 발굴</SectionLabel>
+              {referenceItems.map(renderNavItem)}
+
+              {/* Content Creation */}
+              <SectionLabel>콘텐츠 제작</SectionLabel>
+              {creationItems.map(renderNavItem)}
+
+              {/* My Workspace */}
+              <SectionLabel>내 작업실</SectionLabel>
+              {workspaceItems.map(renderNavItem)}
+
+              {/* Support & Settings */}
+              <SectionLabel>지원 및 설정</SectionLabel>
+              {supportItems.map(renderNavItem)}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
