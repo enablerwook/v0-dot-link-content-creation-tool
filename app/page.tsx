@@ -1,15 +1,20 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import {
   Zap,
-  ArrowRight,
-  Link2,
   FlaskConical,
+  FolderOpen,
+  Layers,
+  ArrowRight,
+  Check,
+  Play,
+  Search,
   Sparkles,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { LandingNav } from "@/components/landing-nav"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useLocale } from "@/lib/locale-context"
 
@@ -17,151 +22,210 @@ export default function HomePage() {
   const { t } = useLocale()
 
   const steps = [
-    { 
-      icon: Link2, 
-      step: "Step 1", 
-      title: "URL 입력", 
-      description: "분석하고 싶은 숏폼 콘텐츠 URL을 붙여넣기 하세요." 
+    { icon: Search, title: t.landingStep1Title, description: t.landingStep1Desc },
+    { icon: FlaskConical, title: t.landingStep2Title, description: t.landingStep2Desc },
+    { icon: Sparkles, title: t.landingStep3Title, description: t.landingStep3Desc },
+  ]
+
+  const features = [
+    { icon: FlaskConical, title: t.landingFeature1Title, description: t.landingFeature1Desc },
+    { icon: Layers, title: t.landingFeature2Title, description: t.landingFeature2Desc },
+    { icon: FolderOpen, title: t.landingFeature3Title, description: t.landingFeature3Desc },
+    { icon: Play, title: t.landingFeature4Title, description: t.landingFeature4Desc },
+  ]
+
+  const plans = [
+    {
+      name: "Starter",
+      nameLocal: t.planStarterName,
+      price: t.subscribeFree,
+      period: "",
+      description: t.planStarterDesc,
+      features: [t.planFeatureAnalysis3, t.planFeatureDNA9, t.planFeatureLibrary10, t.planFeatureSynapse],
+      cta: t.planStarterCta,
+      highlighted: false,
     },
-    { 
-      icon: FlaskConical, 
-      step: "Step 2", 
-      title: "DNA 분석", 
-      description: "AI가 콘텐츠를 9가지 지표로로 분석하여 성공 DNA를 추출합니다." 
+    {
+      name: "Creator",
+      nameLocal: t.planCreatorName,
+      price: "20$",
+      period: t.subscribeMonth,
+      description: t.planCreatorDesc,
+      features: [t.planFeatureAnalysis30, t.planFeatureDNAAI, t.planFeatureLibrary1y, t.planFeatureSynapseAI, t.planFeatureTrendWeekly, t.planFeatureExport],
+      cta: t.planCreatorCta,
+      highlighted: true,
     },
-    { 
-      icon: Sparkles, 
-      step: "Step 3", 
-      title: "재조합 & 창작", 
-      description: "분석된 요소를 조합하여 나만의 새로운 콘텐츠를 창작하세요." 
+    {
+      name: "Pro",
+      nameLocal: t.planProName,
+      price: "60$",
+      period: t.subscribeMonth,
+      description: t.planProDesc,
+      features: [t.planFeatureAnalysis200, t.planFeatureDNAMultiAI, t.planFeatureLibrary2y, t.planFeatureSynapseUnlimited, t.planFeatureTrendRealtime, t.planFeatureTeam5, t.planFeatureAPI, t.planFeaturePrioritySupport],
+      cta: t.planProCta,
+      highlighted: false,
     },
   ]
 
   return (
-    <div className="min-h-screen bg-[#1a1625] text-white">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Navigation */}
-      <nav className="relative z-20 flex items-center justify-between px-6 py-4 md:px-12">
-        <div className="flex items-center gap-2">
-          <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Zap className="size-4" />
-          </div>
-          <span className="text-lg font-bold">DotLink</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" className="text-white/80 hover:text-white hover:bg-white/10" asChild>
-            <Link href="/analysis">Login</Link>
-          </Button>
-          <Button size="sm" className="bg-primary hover:bg-primary/90" asChild>
-            <Link href="/analysis">Free Trial</Link>
-          </Button>
-        </div>
-      </nav>
+      <LandingNav />
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="relative overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/landing-hero-bg.jpg"
-            alt="Artistic background"
-            fill
-            className="object-cover object-center"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#1a1625]/60 via-[#1a1625]/40 to-[#1a1625]" />
-        </div>
-
-        {/* Hero Content */}
-        <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-4 pb-32 pt-16 text-center md:pt-24">
-          <Badge 
-            variant="secondary" 
-            className="mb-6 border-purple-500/30 bg-purple-500/20 text-purple-200 backdrop-blur-sm"
-          >
-            Beta - 지금 무료로 시작하세요
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+        <div className="relative mx-auto flex max-w-4xl flex-col items-center px-4 py-24 text-center md:py-32">
+          <Badge variant="secondary" className="mb-6">
+            {t.landingBetaBadge}
           </Badge>
-          
-          <h1 className="text-balance text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-            숏폼 콘텐츠의 DNA를
+          <h1 className="text-balance text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+            {t.landingHero1}
             <br />
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-              분석하고 재조합하세요
-            </span>
+            <span className="text-primary">{t.landingHero2}</span>
           </h1>
-          
-          <p className="mt-6 max-w-2xl text-pretty text-base text-white/70 md:text-lg">
-            좋은 예술가는 베끼고, 위대한 예술가는 훔친다.
+          <p className="mt-6 max-w-2xl text-pretty text-lg text-muted-foreground md:text-xl">
+            {t.landingSubtitle1}
             <br className="hidden sm:block" />
-            성공한 콘텐츠의 비밀을 해독하고, 나만의 창작물로 재탄생시키세요.
+            {t.landingSubtitle2}
           </p>
-          
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Button 
-              size="lg" 
-              className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg shadow-purple-500/25"
-              asChild
-            >
+            <Button size="lg" asChild>
               <Link href="/analysis">
-                처음 분석 시작하기
-                <ArrowRight className="size-4" />
+                {t.landingCta}
+                <ArrowRight className="ml-2 size-4" />
               </Link>
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="border-white/20 bg-white/5 text-white backdrop-blur-sm hover:bg-white/10 hover:text-white"
-              asChild
-            >
-              <Link href="/library">피쳐리스트 둘러보기</Link>
+            <Button variant="outline" size="lg" asChild>
+              <Link href="/library">{t.landingLibrary}</Link>
             </Button>
           </div>
         </div>
       </section>
 
       {/* How it works */}
-      <section className="relative z-10 -mt-8 px-4 pb-20">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-10 text-center">
-            <h2 className="text-2xl font-bold tracking-tight md:text-3xl">어떻게 작동하나요?</h2>
-            <p className="mt-2 text-white/60">세 단계로 콘텐츠의 성공 DNA를 해독합니다.</p>
+      <section className="border-t bg-secondary/30 py-20">
+        <div className="mx-auto max-w-5xl px-4">
+          <div className="mb-14 text-center">
+            <h2 className="text-3xl font-bold tracking-tight">{t.landingHowTitle}</h2>
+            <p className="mt-3 text-muted-foreground">{t.landingHowDesc}</p>
           </div>
-          
-          <div className="grid gap-4 md:grid-cols-3">
-            {steps.map((step) => (
-              <div 
-                key={step.title} 
-                className="group relative overflow-hidden rounded-2xl border border-purple-500/20 bg-gradient-to-br from-purple-900/40 to-purple-950/60 p-6 backdrop-blur-sm transition-all hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/10"
-              >
-                {/* Glow effect */}
-                <div className="absolute -right-8 -top-8 size-24 rounded-full bg-purple-500/10 blur-2xl transition-all group-hover:bg-purple-500/20" />
-                
-                <div className="relative">
-                  <span className="mb-3 inline-block text-xs font-medium text-purple-400">
-                    {step.step}
-                  </span>
-                  <div className="mb-3 flex size-12 items-center justify-center rounded-xl bg-purple-500/20 text-purple-300">
-                    <step.icon className="size-6" />
-                  </div>
-                  <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
-                  <p className="text-sm leading-relaxed text-white/60">
-                    {step.description}
-                  </p>
+          <div className="grid gap-8 md:grid-cols-3">
+            {steps.map((step, i) => (
+              <div key={step.title} className="flex flex-col items-center text-center">
+                <div className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                  <step.icon className="size-6" />
                 </div>
+                <span className="mb-1 text-xs font-medium text-muted-foreground">
+                  Step {i + 1}
+                </span>
+                <h3 className="text-lg font-semibold">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {step.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Features */}
+      <section className="py-20">
+        <div className="mx-auto max-w-5xl px-4">
+          <div className="mb-14 text-center">
+            <h2 className="text-3xl font-bold tracking-tight">{t.landingFeaturesTitle}</h2>
+            <p className="mt-3 text-muted-foreground">{t.landingFeaturesDesc}</p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2">
+            {features.map((feature) => (
+              <Card key={feature.title} className="border-border/50 bg-card/50">
+                <CardHeader>
+                  <div className="mb-2 flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <feature.icon className="size-5" />
+                  </div>
+                  <CardTitle className="text-base">{feature.title}</CardTitle>
+                  <CardDescription>{feature.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="border-t bg-secondary/30 py-20">
+        <div className="mx-auto max-w-5xl px-4">
+          <div className="mb-14 text-center">
+            <h2 className="text-3xl font-bold tracking-tight">{t.landingPricingTitle}</h2>
+            <p className="mt-3 text-muted-foreground">{t.landingPricingDesc}</p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {plans.map((plan) => (
+              <Card
+                key={plan.name}
+                className={
+                  plan.highlighted
+                    ? "relative border-primary bg-card shadow-lg shadow-primary/5"
+                    : "border-border/50 bg-card/50"
+                }
+              >
+                {plan.highlighted && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <Badge>{t.subscribeRecommended}</Badge>
+                  </div>
+                )}
+                <CardHeader>
+                  <CardTitle className="text-base">
+                    {plan.nameLocal}{" "}
+                    <span className="text-xs font-normal text-muted-foreground">({plan.name})</span>
+                  </CardTitle>
+                  <div className="flex items-baseline gap-1">
+                    {!plan.period ? (
+                      <span className="text-3xl font-bold">{plan.price}</span>
+                    ) : (
+                      <>
+                        <span className="text-3xl font-bold">{plan.price}</span>
+                        <span className="text-sm text-muted-foreground">/{plan.period}</span>
+                      </>
+                    )}
+                  </div>
+                  <CardDescription>{plan.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="flex flex-col gap-2.5">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2 text-sm">
+                        <Check className="mt-0.5 size-4 shrink-0 text-primary" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button
+                    className="w-full"
+                    variant={plan.highlighted ? "default" : "outline"}
+                    asChild
+                  >
+                    <Link href="/analysis">{plan.cta}</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="border-t border-white/10 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 text-center">
+      <footer className="border-t py-10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center">
           <div className="flex items-center gap-2">
             <div className="flex size-6 items-center justify-center rounded bg-primary text-primary-foreground">
               <Zap className="size-3" />
             </div>
             <span className="text-sm font-semibold">DotLink</span>
           </div>
-          <p className="text-xs text-white/40">
+          <p className="text-xs text-muted-foreground">
             {t.landingFooter}
           </p>
         </div>
