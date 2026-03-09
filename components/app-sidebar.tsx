@@ -96,9 +96,10 @@ export function AppSidebar() {
         asChild
         isActive={pathname === item.href}
         tooltip={getLabel(item.key)}
+        className="text-sidebar-foreground/90 hover:bg-white/20 hover:text-sidebar-foreground data-[active=true]:bg-white/25 data-[active=true]:text-sidebar-foreground data-[active=true]:font-semibold"
       >
         <Link href={item.href}>
-          <item.icon />
+          <item.icon className="opacity-80" />
           <span>{getLabel(item.key)}</span>
         </Link>
       </SidebarMenuButton>
@@ -106,19 +107,23 @@ export function AppSidebar() {
   )
 
   const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-    <p className="mb-2 mt-6 px-3 text-xs font-medium text-muted-foreground/70 group-data-[collapsible=icon]:hidden">
+    <p className="mb-2 mt-6 px-3 text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/50 group-data-[collapsible=icon]:hidden">
       {children}
     </p>
   )
 
   return (
-    <Sidebar variant="sidebar" collapsible="icon">
-      <SidebarHeader className="px-4 py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Zap className="size-4" />
+    <Sidebar 
+      variant="sidebar" 
+      collapsible="icon"
+      className="border-r-0 [&_[data-slot=sidebar-inner]]:bg-gradient-to-b [&_[data-slot=sidebar-inner]]:from-[#E8A598] [&_[data-slot=sidebar-inner]]:via-[#D4847A] [&_[data-slot=sidebar-inner]]:to-[#C27066]"
+    >
+      <SidebarHeader className="px-4 py-5">
+        <Link href="/" className="flex items-center gap-2.5">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-white/25 text-sidebar-foreground shadow-sm backdrop-blur-sm">
+            <Zap className="size-5" />
           </div>
-          <span className="text-lg font-bold tracking-tight group-data-[collapsible=icon]:hidden">
+          <span className="text-xl font-bold tracking-tight text-sidebar-foreground group-data-[collapsible=icon]:hidden">
             DotLink
           </span>
         </Link>
@@ -150,7 +155,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="px-4 py-4 group-data-[collapsible=icon]:hidden">
-        <p className="text-xs text-muted-foreground">DotLink v0.1 Beta</p>
+        <p className="text-xs font-medium text-sidebar-foreground/50">DotLink v0.1 Beta</p>
       </SidebarFooter>
     </Sidebar>
   )
