@@ -106,7 +106,7 @@ export default function CopywritePage() {
   const parsedStep1 = parseScript(values.step1)
 
   return (
-    <div className="flex h-full flex-col px-4 py-6" style={{ height: "calc(100vh - 3.5rem)" }}>
+    <div className="flex h-full flex-col px-4 py-6 lg:h-[calc(100vh-3.5rem)]">
       {/* Title */}
       <div className="mb-6 shrink-0">
         <h1 className="text-2xl font-bold tracking-tight text-balance">따라쓰기 모드</h1>
@@ -116,9 +116,9 @@ export default function CopywritePage() {
       </div>
 
       {/* 2-column grid: 40% left, 60% right */}
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 overflow-hidden lg:grid-cols-5">
+      <div className="grid flex-1 grid-cols-1 gap-4 overflow-y-auto lg:min-h-0 lg:grid-cols-5 lg:overflow-hidden">
         {/* Left: Reference Card (40%) */}
-        <div className="min-h-0 overflow-hidden lg:col-span-2">
+        <div className="min-h-[400px] overflow-hidden lg:col-span-2 lg:min-h-0">
           {selectedCard ? (
             <div className="flex h-full flex-col overflow-hidden rounded-xl border border-border/60 bg-card/50">
               {/* Header */}
@@ -216,7 +216,7 @@ export default function CopywritePage() {
         </div>
 
         {/* Right: Creation Card with pre-filled script (60%) */}
-        <div className="relative flex min-h-0 flex-col overflow-hidden lg:col-span-3">
+        <div className="relative flex min-h-[500px] flex-col overflow-hidden lg:col-span-3 lg:min-h-0">
           <div className="flex h-full max-h-full flex-col overflow-hidden rounded-xl border border-primary/30 bg-card">
             {/* Header */}
             <div className="flex shrink-0 items-center justify-between border-b px-4 py-3">

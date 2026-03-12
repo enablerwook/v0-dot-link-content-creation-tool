@@ -32,7 +32,7 @@ export default function SynapsePage() {
   }
 
   return (
-    <div className="flex h-full flex-col px-4 py-6" style={{ height: "calc(100vh - 3.5rem)" }}>
+    <div className="flex h-full flex-col px-4 py-6 md:h-[calc(100vh-3.5rem)]">
       {/* Title */}
       <div className="mb-6 shrink-0">
         <h1 className="text-2xl font-bold tracking-tight text-balance">
@@ -42,9 +42,9 @@ export default function SynapsePage() {
       </div>
 
       {/* 3-column grid */}
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 overflow-hidden md:grid-cols-3">
+      <div className="grid flex-1 grid-cols-1 gap-4 overflow-y-auto md:min-h-0 md:grid-cols-3 md:overflow-hidden">
         {/* Card A */}
-        <div className="min-h-0 overflow-hidden">
+        <div className="min-h-[400px] overflow-hidden md:min-h-0">
           {slotA ? (
             <ComparisonCard
               card={slotA}
@@ -58,7 +58,7 @@ export default function SynapsePage() {
         </div>
 
         {/* Card B */}
-        <div className="min-h-0 overflow-hidden">
+        <div className="min-h-[400px] overflow-hidden md:min-h-0">
           {slotB ? (
             <ComparisonCard
               card={slotB}
@@ -72,7 +72,7 @@ export default function SynapsePage() {
         </div>
 
         {/* Creation Card */}
-        <div className="min-h-0 overflow-hidden">
+        <div className="min-h-[500px] overflow-hidden md:min-h-0">
           <CreationCard />
         </div>
       </div>

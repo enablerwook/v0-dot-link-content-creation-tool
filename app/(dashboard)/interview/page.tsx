@@ -44,7 +44,7 @@ export default function InterviewModePage() {
   const canSubmit = step1.trim() && step2.trim() && step3
 
   return (
-    <div className="flex h-full flex-col px-4 py-6" style={{ height: "calc(100vh - 3.5rem)" }}>
+    <div className="flex h-full flex-col px-4 py-6 lg:h-[calc(100vh-3.5rem)]">
       {/* Header */}
       <div className="mb-6 shrink-0">
         <h1 className="text-2xl font-bold tracking-tight">인터뷰 모드</h1>
@@ -54,9 +54,9 @@ export default function InterviewModePage() {
       </div>
 
       {/* Main 2-column layout */}
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-6 overflow-hidden lg:grid-cols-5">
+      <div className="grid flex-1 grid-cols-1 gap-6 overflow-y-auto lg:min-h-0 lg:grid-cols-5 lg:overflow-hidden">
         {/* Left: Reference Card Viewer (40%) */}
-        <div className="min-h-0 overflow-hidden lg:col-span-2">
+        <div className="min-h-[400px] overflow-hidden lg:col-span-2 lg:min-h-0">
           {selectedCard ? (
             <div className="flex h-full flex-col overflow-hidden rounded-xl border border-border/50 bg-card">
               {/* Header */}
@@ -163,7 +163,7 @@ export default function InterviewModePage() {
         </div>
 
         {/* Right: Interactive Q&A Form (60%) */}
-        <div className="relative flex min-h-0 flex-col overflow-hidden lg:col-span-3">
+        <div className="relative flex min-h-[500px] flex-col overflow-hidden lg:col-span-3 lg:min-h-0">
           <div 
             className="flex-1 overflow-y-auto pr-2"
             style={{
