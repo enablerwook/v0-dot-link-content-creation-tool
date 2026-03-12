@@ -99,19 +99,27 @@ export default function HomePage() {
 
       {/* Mobile Preview Modal */}
       {showMobilePreview && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4">
-          <div className="relative flex h-[90vh] w-full max-w-[390px] flex-col overflow-hidden rounded-[2.5rem] border-4 border-slate-700 bg-background shadow-2xl">
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setShowMobilePreview(false)}
+        >
+          {/* Close button - top center, always visible */}
+          <Button
+            variant="default"
+            size="sm"
+            className="absolute left-1/2 top-4 z-[110] -translate-x-1/2 gap-2 bg-primary/90 hover:bg-primary"
+            onClick={() => setShowMobilePreview(false)}
+          >
+            <X className="size-4" />
+            <span>Close Preview</span>
+          </Button>
+          
+          <div 
+            className="relative flex h-[80vh] w-full max-w-[390px] flex-col overflow-hidden rounded-[2.5rem] border-4 border-slate-700 bg-background shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Phone notch */}
             <div className="absolute left-1/2 top-2 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-slate-800" />
-            {/* Close button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute -right-12 top-0 text-white hover:bg-white/10"
-              onClick={() => setShowMobilePreview(false)}
-            >
-              <X className="size-6" />
-            </Button>
             {/* iframe content */}
             <iframe
               src={typeof window !== "undefined" ? window.location.href : "/"}
