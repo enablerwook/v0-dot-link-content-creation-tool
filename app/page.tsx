@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import {
   Zap,
@@ -11,6 +12,9 @@ import {
   Play,
   Search,
   Sparkles,
+  Smartphone,
+  Monitor,
+  X,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LandingNav } from "@/components/landing-nav"
@@ -20,6 +24,7 @@ import { useLocale } from "@/lib/locale-context"
 
 export default function HomePage() {
   const { t } = useLocale()
+  const [showMobilePreview, setShowMobilePreview] = useState(false)
 
   const steps = [
     { icon: Search, title: t.landingStep1Title, description: t.landingStep1Desc },
@@ -69,6 +74,54 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Developer Mobile Preview Button */}
+      <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          className="gap-2 border-primary/50 bg-background/80 backdrop-blur-sm"
+          onClick={() => setShowMobilePreview(!showMobilePreview)}
+        >
+          {showMobilePreview ? (
+            <>
+              <Monitor className="size-4" />
+              <span className="hidden sm:inline">PC View</span>
+            </>
+          ) : (
+            <>
+              <Smartphone className="size-4" />
+              <span className="hidden sm:inline">Mobile Preview</span>
+            </>
+          )}
+        </Button>
+        <Badge variant="secondary" className="text-xs">DEV</Badge>
+      </div>
+
+      {/* Mobile Preview Modal */}
+      {showMobilePreview && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4">
+          <div className="relative flex h-[90vh] w-full max-w-[390px] flex-col overflow-hidden rounded-[2.5rem] border-4 border-slate-700 bg-background shadow-2xl">
+            {/* Phone notch */}
+            <div className="absolute left-1/2 top-2 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-slate-800" />
+            {/* Close button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute -right-12 top-0 text-white hover:bg-white/10"
+              onClick={() => setShowMobilePreview(false)}
+            >
+              <X className="size-6" />
+            </Button>
+            {/* iframe content */}
+            <iframe
+              src={typeof window !== "undefined" ? window.location.href : "/"}
+              className="h-full w-full pt-8"
+              title="Mobile Preview"
+            />
+          </div>
+        </div>
+      )}
+
       {/* Navigation */}
       <LandingNav />
 
