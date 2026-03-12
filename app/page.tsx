@@ -280,11 +280,10 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center">
-          <div className="flex items-center gap-2">
-            <div className="flex size-6 items-center justify-center rounded bg-primary text-primary-foreground">
-              <Zap className="size-3" />
-            </div>
-            <span className="text-sm font-semibold">DotLink</span>
+          <div className="flex items-center font-[family-name:var(--font-montserrat)] text-sm font-light tracking-[0.5em]">
+            <span>MOZ</span>
+            <span className="font-medium text-[#9B4DCA]">AI</span>
+            <span>C</span>
           </div>
           <p className="text-xs text-muted-foreground">
             {t.landingFooter}

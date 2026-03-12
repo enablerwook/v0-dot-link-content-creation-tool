@@ -76,7 +76,7 @@ export function ComparisonCard({
           onDragStart={(e) => {
             const frame = card.frames[frameIndex]
             e.dataTransfer.setData(
-              "application/x-dotlink-frame",
+              "application/x-mozaic-frame",
               JSON.stringify({
                 id: `${card.id}-frame-${frame.id}`,
                 gradient: frame.gradient,

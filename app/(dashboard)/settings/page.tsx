@@ -200,13 +200,13 @@ export default function SettingsPage() {
     "리워드는 친구가 정기 결제를 유지하는 동안 매월 지속적으로 적립됩니다.",
     "정산은 누적 리워드가 50,000원 이상일 때 신청 가능합니다.",
     "어뷰징(자기 추천, 허위 계정 등)이 감지되면 리워드가 전액 회수되며 프로그램 참여가 제한됩니다.",
-    "DotLink는 사전 공지 후 리워드 비율 및 정책을 변경할 수 있습니다.",
+    "MOZAIC은 사전 공지 후 리워드 비율 및 정책을 변경할 수 있습니다.",
   ] : [
     "Rewards are generated when a friend who signed up through your referral code completes their first payment.",
     "Rewards are accumulated monthly as long as your friend maintains their subscription.",
     "Settlement is available when accumulated rewards exceed $50.",
     "If abuse (self-referral, fake accounts, etc.) is detected, all rewards will be revoked and program participation will be restricted.",
-    "DotLink may change reward rates and policies with prior notice.",
+    "MOZAIC may change reward rates and policies with prior notice.",
   ]
 
   function handleCopyCode() {

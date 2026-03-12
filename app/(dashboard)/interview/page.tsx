@@ -201,7 +201,7 @@ export default function InterviewModePage() {
                       <div className="flex size-6 items-center justify-center rounded-full bg-primary">
                         <Sparkles className="size-3 text-primary-foreground" />
                       </div>
-                      <span className="text-xs font-medium text-primary">DotLink AI</span>
+                      <span className="text-xs font-medium text-primary">MOZAIC AI</span>
                     </div>
                     <p className="text-sm leading-relaxed text-foreground">
                       이 레퍼런스 영상은 <strong className="text-primary">&apos;초등학교 때 돈 뺏긴 억울한 경험&apos;</strong>이라는 강렬한 스토리로 시선을 끌었습니다. 
@@ -233,7 +233,7 @@ export default function InterviewModePage() {
                       <div className="flex size-6 items-center justify-center rounded-full bg-primary">
                         <Sparkles className="size-3 text-primary-foreground" />
                       </div>
-                      <span className="text-xs font-medium text-primary">DotLink AI</span>
+                      <span className="text-xs font-medium text-primary">MOZAIC AI</span>
                     </div>
                     <p className="text-sm leading-relaxed text-foreground">
                       아주 좋은 포인트입니다! 레퍼런스 영상은 중간 유통 마진을 없앤 <strong className="text-primary">&apos;당근 직거래&apos;</strong>를 해결책으로 제시했습니다. 
@@ -265,7 +265,7 @@ export default function InterviewModePage() {
                       <div className="flex size-6 items-center justify-center rounded-full bg-primary">
                         <Sparkles className="size-3 text-primary-foreground" />
                       </div>
-                      <span className="text-xs font-medium text-primary">DotLink AI</span>
+                      <span className="text-xs font-medium text-primary">MOZAIC AI</span>
                     </div>
                     <p className="text-sm leading-relaxed text-foreground">
                       마지막입니다! 레퍼런스는 <strong className="text-primary">&apos;저랑 지인 하실 분 댓글 달아주세요&apos;</strong>라며 친근하게 행동을 유도했습니다. 

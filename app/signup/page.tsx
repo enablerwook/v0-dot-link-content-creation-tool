@@ -31,16 +31,17 @@ export default function SignUpPage() {
       <div className="pointer-events-none absolute -bottom-40 -right-40 size-[480px] rounded-full bg-chart-2/[0.06] blur-[120px]" />
 
       {/* Logo */}
-      <Link href="/" className="relative mb-8 flex items-center gap-2.5">
-        <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-          <Zap className="size-5" />
+      <Link href="/" className="relative mb-8 flex items-center">
+        <div className="flex items-center font-[family-name:var(--font-montserrat)] text-2xl font-light tracking-[0.6em]">
+          <span>MOZ</span>
+          <span className="font-medium text-[#9B4DCA]">AI</span>
+          <span>C</span>
         </div>
-        <span className="text-xl font-bold tracking-tight">DotLink</span>
       </Link>
 
       {/* Signup Card */}
       <div className="relative w-full max-w-md rounded-2xl border border-border/60 bg-card/80 p-8 shadow-xl backdrop-blur-sm">
-        <h1 className="text-xl font-bold">DotLink 시작하기</h1>
+        <h1 className="text-xl font-bold">MOZAIC 시작하기</h1>
         <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
           성공하는 숏폼의 DNA를 지금 바로 해독해 보세요
         </p>
@@ -180,7 +181,7 @@ export default function SignUpPage() {
 
         {/* Terms */}
         <p className="mt-4 text-center text-[11px] leading-relaxed text-muted-foreground">
-          {"가입 시 DotLink의 "}
+          {"가입 시 MOZAIC의 "}
           <Link href="#" className="underline underline-offset-2 hover:text-foreground">이용약관</Link>
           {" 및 "}
           <Link href="#" className="underline underline-offset-2 hover:text-foreground">개인정보처리방침</Link>
