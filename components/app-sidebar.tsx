@@ -114,13 +114,12 @@ export function AppSidebar() {
   return (
     <Sidebar variant="sidebar" collapsible="icon">
       <SidebarHeader className="px-4 py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Zap className="size-4" />
+        <Link href="/" className="flex items-center">
+          <div className="flex items-center font-[family-name:var(--font-montserrat)] text-lg font-light tracking-[0.5em] group-data-[collapsible=icon]:tracking-normal">
+            <span className="group-data-[collapsible=icon]:hidden">MOZ</span>
+            <span className="font-medium text-[#9B4DCA]">AI</span>
+            <span className="group-data-[collapsible=icon]:hidden">C</span>
           </div>
-          <span className="text-lg font-bold tracking-tight group-data-[collapsible=icon]:hidden">
-            DotLink
-          </span>
         </Link>
       </SidebarHeader>
       <SidebarContent>
@@ -150,7 +149,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="px-4 py-4 group-data-[collapsible=icon]:hidden">
-        <p className="text-xs text-muted-foreground">DotLink v0.1 Beta</p>
+        <p className="text-xs text-muted-foreground">MOZAIC v0.1 Beta</p>
       </SidebarFooter>
     </Sidebar>
   )

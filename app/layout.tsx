@@ -1,15 +1,16 @@
 import type { Metadata, Viewport } from 'next'
 import { cookies } from 'next/headers'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Montserrat } from 'next/font/google'
 import { LocaleProvider } from '@/lib/locale-context'
 import { getLocaleFromCookies, getAutoTranslateFromCookies } from '@/lib/locale-server'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat" });
 
 export const metadata: Metadata = {
-  title: 'DotLink - 숏폼 콘텐츠 DNA 분석 & 재조합',
+  title: 'MOZAIC - 숏폼 콘텐츠 DNA 분석 & 재조합',
   description: '숏폼 콘텐츠의 DNA를 분석하고 성공 요소를 재조합하여 새로운 콘텐츠를 설계하세요.',
   generator: 'v0.app',
   icons: {
@@ -50,7 +51,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className="dark">
-      <body className="font-sans antialiased">
+      <body className={`font-sans antialiased ${montserrat.variable}`}>
         <LocaleProvider initialLocale={locale} initialAutoTranslate={autoTranslate}>
           {children}
         </LocaleProvider>

@@ -13,9 +13,11 @@ export function GnbHeader() {
     <header className="flex h-14 items-center gap-2 border-b px-4">
       <SidebarTrigger className="-ml-1" />
       <Separator orientation="vertical" className="mr-2 h-4" />
-      <span className="text-sm font-medium text-muted-foreground">
-        {t.gnbTitle}
-      </span>
+      <div className="flex items-center font-[family-name:var(--font-montserrat)] text-sm font-light tracking-[0.4em] text-muted-foreground">
+        <span>MOZ</span>
+        <span className="font-medium text-[#9B4DCA]">AI</span>
+        <span>C</span>
+      </div>
       <div className="ml-auto flex items-center gap-2">
         <span className="text-xs text-muted-foreground">Language</span>
         <LanguageSelector />
