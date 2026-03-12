@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { cookies } from 'next/headers'
 import { Geist, Geist_Mono, Montserrat } from 'next/font/google'
 import { LocaleProvider } from '@/lib/locale-context'
+import { ThemeProvider } from '@/components/theme-provider'
 import { getLocaleFromCookies, getAutoTranslateFromCookies } from '@/lib/locale-server'
 import './globals.css'
 
@@ -50,11 +51,18 @@ export default async function RootLayout({
   const autoTranslate = getAutoTranslateFromCookies(cookieStore)
 
   return (
-    <html lang={locale} className="dark">
+    <html lang={locale} suppressHydrationWarning>
       <body className={`font-sans antialiased ${montserrat.variable}`}>
-        <LocaleProvider initialLocale={locale} initialAutoTranslate={autoTranslate}>
-          {children}
-        </LocaleProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <LocaleProvider initialLocale={locale} initialAutoTranslate={autoTranslate}>
+            {children}
+          </LocaleProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

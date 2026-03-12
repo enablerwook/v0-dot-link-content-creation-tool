@@ -2,13 +2,10 @@
 
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Separator } from "@/components/ui/separator"
-import { Button } from "@/components/ui/button"
 import { LanguageSelector } from "@/components/language-selector"
-import { useLocale } from "@/lib/locale-context"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export function GnbHeader() {
-  const { t } = useLocale()
-
   return (
     <header className="flex h-14 items-center gap-2 border-b px-4">
       <SidebarTrigger className="-ml-1" />
@@ -19,6 +16,8 @@ export function GnbHeader() {
         <span>C</span>
       </div>
       <div className="ml-auto flex items-center gap-2">
+        <ThemeToggle />
+        <Separator orientation="vertical" className="h-4" />
         <span className="text-xs text-muted-foreground">Language</span>
         <LanguageSelector />
       </div>
