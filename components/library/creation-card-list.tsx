@@ -96,7 +96,7 @@ const MOCK_CREATIONS: CreationSaveData[] = [
   },
 ]
 
-const STORAGE_KEY = "dotlink-creation-save"
+const STORAGE_KEY = "mozaic-creation-save"
 
 function formatDate(iso: string) {
   const d = new Date(iso)

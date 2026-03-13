@@ -3,8 +3,8 @@
 
 export type LocaleCode = "ko" | "en" | "ja" | "es" | "fr" | "de" | "zh-CN" | "zh-TW" | "pt" | "it" | "vi" | "th" | "ru" | "ar" | "hi" | "tr" | "nl" | "pl" | "sv" | "id"
 
-const LOCALE_COOKIE_KEY = "dotlink-locale"
-const AUTO_TRANSLATE_COOKIE_KEY = "dotlink-auto-translate"
+const LOCALE_COOKIE_KEY = "mozaic-locale"
+const AUTO_TRANSLATE_COOKIE_KEY = "mozaic-auto-translate"
 
 const VALID_LOCALES = new Set<string>([
   "ko", "en", "ja", "es", "fr", "de", "zh-CN", "zh-TW",

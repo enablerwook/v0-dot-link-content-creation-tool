@@ -20,7 +20,7 @@ type StepKey = (typeof stepKeys)[number]
 /** Steps that support frame drag-and-drop */
 const DROP_ENABLED_STEPS = new Set<StepKey>(["step4", "step8"])
 
-const STORAGE_KEY = "dotlink-creation-save"
+const STORAGE_KEY = "mozaic-creation-save"
 
 interface DroppedFrame {
   id: string
@@ -68,7 +68,7 @@ export function CreationCard() {
   }
 
   const handleDragOver = useCallback((e: React.DragEvent, key: StepKey) => {
-    if (!e.dataTransfer.types.includes("application/x-dotlink-frame")) return
+    if (!e.dataTransfer.types.includes("application/x-mozaic-frame")) return
     e.preventDefault()
     e.dataTransfer.dropEffect = "copy"
     setDragOverStep(key)
@@ -81,7 +81,7 @@ export function CreationCard() {
   const handleDrop = useCallback((e: React.DragEvent, key: StepKey) => {
     e.preventDefault()
     setDragOverStep(null)
-    const raw = e.dataTransfer.getData("application/x-dotlink-frame")
+    const raw = e.dataTransfer.getData("application/x-mozaic-frame")
     if (!raw) return
     try {
       const frame: DroppedFrame = JSON.parse(raw)

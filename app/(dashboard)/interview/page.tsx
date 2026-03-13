@@ -44,7 +44,7 @@ export default function InterviewModePage() {
   const canSubmit = step1.trim() && step2.trim() && step3
 
   return (
-    <div className="flex h-full flex-col px-4 py-6" style={{ height: "calc(100vh - 3.5rem)" }}>
+    <div className="flex h-full flex-col px-4 py-6 lg:h-[calc(100vh-3.5rem)]">
       {/* Header */}
       <div className="mb-6 shrink-0">
         <h1 className="text-2xl font-bold tracking-tight">인터뷰 모드</h1>
@@ -54,9 +54,9 @@ export default function InterviewModePage() {
       </div>
 
       {/* Main 2-column layout */}
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-6 overflow-hidden lg:grid-cols-5">
+      <div className="grid flex-1 grid-cols-1 gap-6 overflow-y-auto lg:min-h-0 lg:grid-cols-5 lg:overflow-hidden">
         {/* Left: Reference Card Viewer (40%) */}
-        <div className="min-h-0 overflow-hidden lg:col-span-2">
+        <div className="min-h-[400px] overflow-hidden lg:col-span-2 lg:min-h-0">
           {selectedCard ? (
             <div className="flex h-full flex-col overflow-hidden rounded-xl border border-border/50 bg-card">
               {/* Header */}
@@ -163,7 +163,7 @@ export default function InterviewModePage() {
         </div>
 
         {/* Right: Interactive Q&A Form (60%) */}
-        <div className="relative flex min-h-0 flex-col overflow-hidden lg:col-span-3">
+        <div className="relative flex min-h-[500px] flex-col overflow-hidden lg:col-span-3 lg:min-h-0">
           <div 
             className="flex-1 overflow-y-auto pr-2"
             style={{
@@ -201,7 +201,7 @@ export default function InterviewModePage() {
                       <div className="flex size-6 items-center justify-center rounded-full bg-primary">
                         <Sparkles className="size-3 text-primary-foreground" />
                       </div>
-                      <span className="text-xs font-medium text-primary">DotLink AI</span>
+                      <span className="text-xs font-medium text-primary">MOZAIC AI</span>
                     </div>
                     <p className="text-sm leading-relaxed text-foreground">
                       이 레퍼런스 영상은 <strong className="text-primary">&apos;초등학교 때 돈 뺏긴 억울한 경험&apos;</strong>이라는 강렬한 스토리로 시선을 끌었습니다. 
@@ -233,7 +233,7 @@ export default function InterviewModePage() {
                       <div className="flex size-6 items-center justify-center rounded-full bg-primary">
                         <Sparkles className="size-3 text-primary-foreground" />
                       </div>
-                      <span className="text-xs font-medium text-primary">DotLink AI</span>
+                      <span className="text-xs font-medium text-primary">MOZAIC AI</span>
                     </div>
                     <p className="text-sm leading-relaxed text-foreground">
                       아주 좋은 포인트입니다! 레퍼런스 영상은 중간 유통 마진을 없앤 <strong className="text-primary">&apos;당근 직거래&apos;</strong>를 해결책으로 제시했습니다. 
@@ -265,7 +265,7 @@ export default function InterviewModePage() {
                       <div className="flex size-6 items-center justify-center rounded-full bg-primary">
                         <Sparkles className="size-3 text-primary-foreground" />
                       </div>
-                      <span className="text-xs font-medium text-primary">DotLink AI</span>
+                      <span className="text-xs font-medium text-primary">MOZAIC AI</span>
                     </div>
                     <p className="text-sm leading-relaxed text-foreground">
                       마지막입니다! 레퍼런스는 <strong className="text-primary">&apos;저랑 지인 하실 분 댓글 달아주세요&apos;</strong>라며 친근하게 행동을 유도했습니다. 

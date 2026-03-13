@@ -104,7 +104,7 @@ const plans: Plan[] = [
     features: [
       { text: "전용 서버 할당" },
       { text: "브랜드 맞춤형 프롬프트 튜닝" },
-      { text: "DotLink API 연동" },
+      { text: "MOZAIC API 연동" },
     ],
     ctaText: "영업팀과 문의하기",
     ctaVariant: "ghost",
@@ -122,7 +122,7 @@ export default function SubscribePage() {
           당신에게 맞는 성공 DNA 플랜을 선택하세요
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground">
-          DotLink와 함께 숏폼 콘텐츠의 성공 DNA를 분석하고, 나만의 창작 역량을 키워보세요.
+          MOZAIC과 함께 숏폼 콘텐츠의 성공 DNA를 분석하고, 나만의 창작 역량을 키워보세요.
         </p>
 
         {/* Billing toggle */}

@@ -23,11 +23,12 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4">
       {/* Logo */}
-      <Link href="/" className="mb-10 flex items-center gap-2.5">
-        <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-          <Zap className="size-5" />
+      <Link href="/" className="mb-10 flex items-center">
+        <div className="flex items-center font-[family-name:var(--font-montserrat)] text-2xl font-light tracking-[0.6em]">
+          <span>MOZ</span>
+          <span className="font-medium text-[#9B4DCA]">AI</span>
+          <span>C</span>
         </div>
-        <span className="text-xl font-bold tracking-tight">DotLink</span>
       </Link>
 
       {/* Login Card */}
